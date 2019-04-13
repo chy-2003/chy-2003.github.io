@@ -5,11 +5,10 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="如何搭建一个这样的网站？, chy&#39;s blog">
-    <meta name="description" content="安装hexo本文略过git部分，相信大家都会。
+    <meta name="description" content="安装hexo本文略过git或openshift或……部分，相信大家都会。
 hexo 需要nodejs与npm。所以我们首先安装：
 sudo apt-get install nodejs
-sudo apt install nodejs-legacy
-sudo apt ">
+sudo apt install nodejs-leg">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -417,7 +416,7 @@ sudo apt ">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>本文略过git部分，相信大家都会。</p>
+                <h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>本文略过git或openshift或……部分，相信大家都会。</p>
 <p>hexo 需要nodejs与npm。所以我们首先安装：</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nodejs
 <span class="token function">sudo</span> apt <span class="token function">install</span> nodejs-legacy
@@ -448,7 +447,7 @@ npm install hexo-generator-sitemap --save
 npm install hexo-generator-archive --save
 npm install https://github.com/CodeFalling/hexo-asset-image --save
 </code></pre>
-<p><del>npm可能需要sudo权限</del></p>
+<p>其中hexo-deployer中只需选一个你需要的。</p>
 <p>然后在这个文件夹下试一试</p>
 <pre class=" language-shell"><code class="language-shell">hexo g
 hexo s
@@ -463,48 +462,20 @@ hexo s
 </code></pre>
 <p>即可。</p>
 <p>有关主题的更多内容请参考<code>theme/matery/README_CN.md</code>，这里不再赘述。</p>
-<h2 id="markdown支持"><a href="#markdown支持" class="headerlink" title="markdown支持"></a>markdown支持</h2><p>其实前面的已经差不多了！</p>
-<p>但是我们发现不能像<code>typora</code>中那样使用数学公式。我们需要一些包的支持。</p>
-<p>运行</p>
-<pre class=" language-shell"><code class="language-shell">npm uninstall hexo-renderer-marked --save
-npm install hexo-renderer-markdown-it-plus --save
+<h2 id="数学公式支持"><a href="#数学公式支持" class="headerlink" title="数学公式支持"></a>数学公式支持</h2><p>其实前面的已经差不多了！</p>
+<p>但是我们发现不能像<code>typora</code>中那样使用数学公式。</p>
+<p>然后我用了$\infty$的时间去尝试着使用KaTeX渲染和使用Markdown支持渲染。然后嘛，最后虽然算是成功渲染了，但是好像不是那么正确……</p>
+<p>之后就当我打算放弃使用图片时，突然发现<code>themes/matery/_config.yml</code>中有这么一段话：</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Whether to activate the mathjax, this is a global configuration, but the post still does not open the mathjax rendering.</span>
+<span class="token comment" spellcheck="true"># Considering that the mathjax loading is time consuming,</span>
+<span class="token comment" spellcheck="true"># you also need to add `mathjax: true` to the Front-matter of the post that needs to be rendered.</span>
+<span class="token comment" spellcheck="true"># 是否激活mathjax数学公式，这是全局配置，但文章仍然不会都开启mathjax渲染，</span>
+<span class="token comment" spellcheck="true"># 考虑到mathjax加载比较耗时，你还需要在需要渲染的文章的Front-matter中再加上`mathjax: true`才行.</span>
+<span class="token key atrule">mathjax</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">cdn</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.bootcss.com/mathjax/2.7.5/MathJax.js<span class="token punctuation">?</span>config=TeX<span class="token punctuation">-</span>AMS<span class="token punctuation">-</span>MML_HTMLorMML
 </code></pre>
-<p>然后在<code>_config.yml</code>中添加如下语句：</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Markdown-it config</span>
-<span class="token key atrule">markdown</span><span class="token punctuation">:</span>
-  <span class="token key atrule">render</span><span class="token punctuation">:</span>
-    <span class="token key atrule">html</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">xhtmlOut</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-    <span class="token key atrule">breaks</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">linkify</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">typographer</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">quotes</span><span class="token punctuation">:</span> <span class="token string">'“”‘’'</span>
-  <span class="token key atrule">plugins</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>abbr
-    <span class="token punctuation">-</span> markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>footnote
-    <span class="token punctuation">-</span> markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>ins
-    <span class="token punctuation">-</span> markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>sub
-    <span class="token punctuation">-</span> markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>sup
-    <span class="token punctuation">-</span> <span class="token key atrule">plugin</span><span class="token punctuation">:</span>
-        <span class="token key atrule">name</span><span class="token punctuation">:</span> markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>katex
-        <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">plugin</span><span class="token punctuation">:</span>
-        <span class="token key atrule">name</span><span class="token punctuation">:</span> markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>mark
-        <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-  <span class="token key atrule">anchors</span><span class="token punctuation">:</span>
-    <span class="token key atrule">level</span><span class="token punctuation">:</span> <span class="token number">2</span>
-    <span class="token key atrule">collisionSuffix</span><span class="token punctuation">:</span> <span class="token string">'v'</span>
-    <span class="token key atrule">permalink</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">permalinkClass</span><span class="token punctuation">:</span> header<span class="token punctuation">-</span>anchor
-    <span class="token key atrule">permalinkSymbol</span><span class="token punctuation">:</span> ¶
-</code></pre>
-<p>重点就是<code>markdown-it-katex</code>和<code>markdown-it-mark</code>两个包啦！</p>
-<p>然后在主题中加入html渲染：</p>
-<p>找到<code>themes/matery/layout/_partial/head.ejs</code>，加入</p>
-<pre class=" language-html"><code class="language-html">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-</code></pre>
-<p>即可！</p>
-<p>到现在为止，就大功告成了！<del>然而还有点问题，有大佬知道解决方案的教我一下啊（问题见测试部分）</del></p>
+<p>那不是已经说得很清楚了嘛……先前我在干什么……</p>
 <h2 id="使用技巧和hexo相关操作"><a href="#使用技巧和hexo相关操作" class="headerlink" title="使用技巧和hexo相关操作"></a>使用技巧和hexo相关操作</h2><p>hexo常用的指令有：</p>
 <pre class=" language-shell"><code class="language-shell">hexo clean     #清除db.json与public里面的内容
 hexo new file  #在source/_post下面新建一个file.md文件
@@ -595,11 +566,10 @@ int main() {
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">安装hexo本文略过git部分，相信大家都会。
+                    <div class="summary block-with-text">安装hexo本文略过git或openshift或……部分，相信大家都会。
 hexo 需要nodejs与npm。所以我们首先安装：
 sudo apt-get install nodejs
-sudo apt install nodejs-legacy
-sudo apt </div>
+sudo apt install nodejs-leg</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
@@ -645,11 +615,10 @@ sudo apt </div>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">安装hexo本文略过git部分，相信大家都会。
+                    <div class="summary block-with-text">安装hexo本文略过git或openshift或……部分，相信大家都会。
 hexo 需要nodejs与npm。所以我们首先安装：
 sudo apt-get install nodejs
-sudo apt install nodejs-legacy
-sudo apt </div>
+sudo apt install nodejs-leg</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
@@ -792,7 +761,7 @@ sudo apt </div>
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            本站由&copy;<a href="https://chy-2003.github.io/" target="_blank">chy-2003</a>基于
             <a href="https://hexo.io/" target="_blank">Hexo</a> 的
             <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
 
