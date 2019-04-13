@@ -4,11 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="如何搭建一个这样的网站？, chy&#39;s blog">
-    <meta name="description" content="安装hexo本文略过git或openshift或……部分，相信大家都会。
-hexo 需要nodejs与npm。所以我们首先安装：
-sudo apt-get install nodejs
-sudo apt install nodejs-leg">
+    <meta name="keywords" content="快速傅里叶变换FFT, chy&#39;s blog">
+    <meta name="description" content="前言听说FFT是个很有用的东西，于是本菜鸡就去背了模板尝试着看了一下。这里写下菜鸡版教程。
+卷积FFT主要用于求卷积。然而卷积是什么？
+如果$f$是一个$n$次多项式，$g$是$m$次多项式，那么它们的卷积$$h(x)=f(x)g(x)=\">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@ sudo apt install nodejs-leg">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>如何搭建一个这样的网站？ | chy&#39;s blog</title>
+    <title>快速傅里叶变换FFT | chy&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -264,13 +263,13 @@ sudo apt install nodejs-leg">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        如何搭建一个这样的网站？
+                        快速傅里叶变换FFT
                     </div>
                 </div>
             </div>
@@ -381,8 +380,8 @@ sudo apt install nodejs-leg">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/hexo/" target="_blank">
-                                <span class="chip bg-color">hexo</span>
+                            <a href="/tags/多项式/" target="_blank">
+                                <span class="chip bg-color">多项式</span>
                             </a>
                         
                     </div>
@@ -393,8 +392,8 @@ sudo apt install nodejs-leg">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/经验-教程/" class="post-category" target="_blank">
-                                经验&教程
+                            <a href="/categories/OI学习/" class="post-category" target="_blank">
+                                OI学习
                             </a>
                         
                     </div>
@@ -416,107 +415,72 @@ sudo apt install nodejs-leg">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>本文略过git或openshift或……部分，相信大家都会。</p>
-<p>hexo 需要nodejs与npm。所以我们首先安装：</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nodejs
-<span class="token function">sudo</span> apt <span class="token function">install</span> nodejs-legacy
-<span class="token function">sudo</span> apt <span class="token function">install</span> <span class="token function">npm</span>
-<span class="token function">sudo</span> <span class="token function">npm</span> config <span class="token keyword">set</span> registry https://registry.npm.taobao.org
-<span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> n -g
-<span class="token function">sudo</span> n stable
-<span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> -g hexo-cli
-</code></pre>
-<p>然后选择一个文件夹，运行</p>
-<pre class=" language-shell"><code class="language-shell">hexo init
-</code></pre>
-<p>你的网站就部署在这个文件夹下了！</p>
-<p>然后安装一些可能需要的包：</p>
-<pre class=" language-shell"><code class="language-shell">npm install hexo-generator-index --save
-npm install hexo-generator-archive --save
-npm install hexo-generator-category --save
-npm install hexo-generator-tag --save
-npm install hexo-server --save
-npm install hexo-deployer-git --save
-npm install hexo-deployer-heroku --save
-npm install hexo-deployer-rsync --save
-npm install hexo-deployer-openshift --save
-npm install hexo-renderer-marked --save
-npm install hexo-renderer-stylus --save
-npm install hexo-generator-feed --save
-npm install hexo-generator-sitemap --save
-npm install hexo-generator-archive --save
-npm install https://github.com/CodeFalling/hexo-asset-image --save
-</code></pre>
-<p>其中hexo-deployer中只需选一个你需要的。</p>
-<p>然后在这个文件夹下试一试</p>
-<pre class=" language-shell"><code class="language-shell">hexo g
-hexo s
-</code></pre>
-<p>然后打开<code>127.0.0.1:4000</code>，看看是否成功呢？</p>
-<h2 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h2><p>本博客选用<code>matery</code>主题。到<code>hexo</code>官网就可以找到&gt;_&lt;。</p>
-<p>在<code>_config.yml</code>中找到<code>theme</code>，改成</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Extensions</span>
-<span class="token comment" spellcheck="true">## Plugins: https://hexo.io/plugins/</span>
-<span class="token comment" spellcheck="true">## Themes: https://hexo.io/themes/</span>
-<span class="token key atrule">theme</span><span class="token punctuation">:</span> matery
-</code></pre>
-<p>即可。</p>
-<p>有关主题的更多内容请参考<code>theme/matery/README_CN.md</code>，这里不再赘述。</p>
-<h2 id="数学公式支持"><a href="#数学公式支持" class="headerlink" title="数学公式支持"></a>数学公式支持</h2><p>其实前面的已经差不多了！</p>
-<p>但是我们发现不能像<code>typora</code>中那样使用数学公式。</p>
-<p>然后我用了$\infty$的时间去尝试着使用KaTeX渲染和使用Markdown支持渲染。然后嘛，最后虽然算是成功渲染了，但是好像不是那么正确……</p>
-<p>之后就当我打算放弃使用图片时，突然发现<code>themes/matery/_config.yml</code>中有这么一段话：</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Whether to activate the mathjax, this is a global configuration, but the post still does not open the mathjax rendering.</span>
-<span class="token comment" spellcheck="true"># Considering that the mathjax loading is time consuming,</span>
-<span class="token comment" spellcheck="true"># you also need to add `mathjax: true` to the Front-matter of the post that needs to be rendered.</span>
-<span class="token comment" spellcheck="true"># 是否激活mathjax数学公式，这是全局配置，但文章仍然不会都开启mathjax渲染，</span>
-<span class="token comment" spellcheck="true"># 考虑到mathjax加载比较耗时，你还需要在需要渲染的文章的Front-matter中再加上`mathjax: true`才行.</span>
-<span class="token key atrule">mathjax</span><span class="token punctuation">:</span>
-  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-  <span class="token key atrule">cdn</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.bootcss.com/mathjax/2.7.5/MathJax.js<span class="token punctuation">?</span>config=TeX<span class="token punctuation">-</span>AMS<span class="token punctuation">-</span>MML_HTMLorMML
-</code></pre>
-<p>那不是已经说得很清楚了嘛……先前我在干什么……</p>
-<p>然后发现一点小小的问题，我们需要解决LaTeX与Html的冲突。</p>
-<p>找到<code>node_modules\marked\lib\marked.js</code>，将其中</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">escape</span><span class="token punctuation">:</span> /^\\(<span class="token punctuation">[</span>\\`*<span class="token punctuation">{</span><span class="token punctuation">}</span>\<span class="token punctuation">[</span>\<span class="token punctuation">]</span>()<span class="token comment" spellcheck="true"># +\-.!_>])/,</span>
-<span class="token key atrule">em</span><span class="token punctuation">:</span> /^\b_((<span class="token punctuation">?</span><span class="token punctuation">:</span><span class="token punctuation">[</span>^_<span class="token punctuation">]</span><span class="token punctuation">|</span>__)+<span class="token punctuation">?</span>)_\b<span class="token punctuation">|</span>^\*((<span class="token punctuation">?</span><span class="token punctuation">:</span>\*\*<span class="token punctuation">|</span><span class="token punctuation">[</span>\s\S<span class="token punctuation">]</span>)+<span class="token punctuation">?</span>)\*(<span class="token punctuation">?</span><span class="token tag">!\*)/,</span>
-</code></pre>
-<p>改为</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">escape</span><span class="token punctuation">:</span> /^\\(<span class="token punctuation">[</span>`*\<span class="token punctuation">[</span>\<span class="token punctuation">]</span>()<span class="token comment" spellcheck="true"># +\-.!_>])/,</span>
-<span class="token key atrule">em</span><span class="token punctuation">:</span> /^\*((<span class="token punctuation">?</span><span class="token punctuation">:</span>\*\*<span class="token punctuation">|</span><span class="token punctuation">[</span>\s\S<span class="token punctuation">]</span>)+<span class="token punctuation">?</span>)\*(<span class="token punctuation">?</span><span class="token tag">!\*)/,</span>
-</code></pre>
-<p>即可。</p>
-<h2 id="使用技巧和hexo相关操作"><a href="#使用技巧和hexo相关操作" class="headerlink" title="使用技巧和hexo相关操作"></a>使用技巧和hexo相关操作</h2><p>hexo常用的指令有：</p>
-<pre class=" language-shell"><code class="language-shell">hexo clean     #清除db.json与public里面的内容
-hexo new file  #在source/_post下面新建一个file.md文件
-hexo g         #由md文件生成html静态文件
-hexo s         #在本地启动http服务以提供本地预览功能
-hexo d         #发布到GitHub
-</code></pre>
-<p>建议将<code>_config.yml</code>中的<code>post_asset_folder: false</code>改为<code>true</code>。这样新建文章的时候就会同时新建一个同名文件夹，就可以把需要的东西都放进文件夹里，方便管理。</p>
-<hr>
-<p>以下是相关测试：</p>
-<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><p><strong>粗体</strong> <del>划线</del> _斜体_</p>
-<h3 id="多级标题"><a href="#多级标题" class="headerlink" title="多级标题"></a>多级标题</h3><h4 id="多级标题-1"><a href="#多级标题-1" class="headerlink" title="多级标题"></a>多级标题</h4><blockquote>
-<p>引用</p>
-</blockquote>
-<p><img src="/2019/04/13/1/1.jpg" alt="1"></p>
-<p><img src="/2019/04/13/1/1.gif" alt="2"></p>
-<pre class=" language-C++"><code class="language-C++">//代码块
-#include <bits stdc++.h>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>听说FFT是个很有用的东西，于是本菜鸡就<del>去背了模板</del>尝试着看了一下。这里写下菜鸡版教程。</p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p>FFT主要用于求卷积。然而卷积是什么？</p>
+<p>如果$f$是一个$n$次多项式，$g$是$m$次多项式，那么它们的卷积<br>$$<br>h(x)=f(x)g(x)=\sum_{i=0}^n\sum_{j=0}^mf_ig_jx^{i+j}=\sum_{i=0}^{n+m}\sum_{j=0}^if_{i-j}g_jx^i<br>$$<br>我们冷静分析一波，发现这就是个多项式乘法……</p>
+<p>一般情况下，求卷积的时间复杂度是$O(n^2)$的。我们尝试加速这一过程。</p>
+<h2 id="点值表达与离散傅里叶变换"><a href="#点值表达与离散傅里叶变换" class="headerlink" title="点值表达与离散傅里叶变换"></a>点值表达与离散傅里叶变换</h2><p>一般的，一个多项式可以表示为<br>$$<br>A(x)=a_0+a_1x+a_2x^2+…+a_nx^n<br>$$<br>这叫系数表示。</p>
+<p>而一个$n$次多项式可以由$n+1$个互不相同的$(x,A(x))$唯一确定，其中<br>$$<br>A(x)=\{(x_0,A(x_0)),(x_1,A(x_1)),…,(x_n,A(x_n))\}<br>$$<br>叫做点值表示。</p>
+<p>然后我们发现，点值表达有一个非常厉害的地方（$A$是$n$次多项式，$B$是$m$次多项式）：<br>$$<br>A(x)=\{(x_0,A(x_0)),(x_1,A(x_1)),…,(x_{n+m},A(x_{n+m}))\}\\<br>B(x)=\{(x_0,B(x_0)),(x_1,B(x_1)),…,(x_{n+m},B(x_{n+m}))\}\\<br>A(x)B(x)=\{(x_0,A(x_0)B(x_0)),(x_1,A(x_1)B(x_1)),…,(x_{n+m},A(x_{n+m})B(x_{n+m}))\}\\<br>$$<br>也就是说，我们可以在$O(n)$的时间内求出两个点值表达式相乘的结果！这可比先前的$O(n^2)$快了不少。</p>
+<p>于是我们就想利用点值表达的这一特性来加速卷积过程。思路也很明显了：先将系数表示通过离散傅里叶变换（DFT）变成点值表示，求出乘积后，通过逆离散傅里叶变换（IDFT）转回系数表示。但是怎么进行DFT和IDFT呢？现在看来都是$O(n^2)$的……（IDFT通过拉格朗日插值实现，高斯消元是$O(n^3)$的）</p>
+<h2 id="单位复根"><a href="#单位复根" class="headerlink" title="单位复根"></a>单位复根</h2><p>DFT的过程能降到$O(n\log n)$全靠单位复根。</p>
+<p>$n$次单位复根是$n$个互不相同的$\omega^n=1$的复数。它们在复平面中的位置恰好将单位圆$n$等分。它们分别是$\omega_n^t=\cos \frac{2\pi t}{n}+i\sin\frac{2\pi t}{n}$，$t=0,1,…,n-1$。</p>
+<p>$n=8$时差不多长这样：</p>
+<p><img src="/2019/04/13/2/20190211102158.png" alt="图1"></p>
+<p>结合图像，我们能得到一些显而易见的性质：<br>$$<br>\omega_{kn}^{ki}=\omega_n^i\\<br>\omega_n^i=-\omega_n^{i+\frac{n}{2}}<br>$$<br>然后我们就可以尝试DFT了。</p>
+<h2 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h2><p>接下来，我们令$A$是一个$n$次多项式，$\deg A=n+1$。不妨将$\deg A$扩充到$2$的幂次。</p>
+<p>要将$A$转成点值表示，我们需要取$\deg A$个值。</p>
+<p>现在，我们要求$\overrightarrow{y}=(A(\omega_n^0),A(\omega_n^1),…,A(\omega_n^{n-1}))^T$。</p>
+<p>令$A(x)=A^{[0]}(x^2)+xA^{[1]}(x^2)$（奇偶次项分开），我们可以得到：<br>$$<br>A(\omega_n^i)=A^{[0]}(\omega_n^{2i})+\omega_n^iA^{[1]}(\omega_n^{2i})=A^{[0]}(\omega_{\frac{n}{2}}^i)+\omega_n^iA^{[1]}(\omega_{\frac{n}{2}}^i)\\<br>A(\omega_n^{i+\frac{n}{2}})=A(-\omega_n^i)=A^{[0]}(\omega_{\frac{n}{2}}^i)-\omega_n^iA^{[1]}(\omega_{\frac{n}{2}}^i)<br>$$<br>所以求出<br>$$<br>\overrightarrow{y^{[0]}}=(A^{[0]}(\omega_{\frac{n}{2}}^0),A^{[0]}(\omega_{\frac{n}{2}}^1),…,A^{[0]}(\omega_{\frac{n}{2}}^{\frac{n}{2} - 1}))\\<br>\overrightarrow{y^{[1]}}=(A^{[1]}(\omega_{\frac{n}{2}}^0),A^{[1]}(\omega_{\frac{n}{2}}^1),…,A^{[1]}(\omega_{\frac{n}{2}}^{\frac{n}{2} - 1}))\\<br>\omega_n^i<br>$$<br>后就可以在$O(n)$时间内求出$\overrightarrow{y}$。这样的时间复杂度是$O(n\log n)$的。</p>
+<h2 id="IDFT"><a href="#IDFT" class="headerlink" title="IDFT"></a>IDFT</h2><p>有了$\overrightarrow{y}$，求$A$的过程叫IDFT。我们现在令$A$的系数组成向量$\overrightarrow a$。</p>
+<p>该过程即解方程<br>$$<br>\begin{aligned}<br>\begin{pmatrix}<br>1 &amp; \omega_n^0 &amp;… &amp; (\omega_n^0)^{n-1} \\<br>1 &amp; \omega_n^1 &amp;… &amp; (\omega_n^1)^{n-1} \\<br> &amp; &amp; … &amp; \\<br>1 &amp; \omega_n^{n-1} &amp; … &amp; (\omega_n^{n-1})^{n-1}<br>\end{pmatrix} \times \overrightarrow{a}=\overrightarrow{y}<br>\end{aligned}<br>$$<br>左边的系数矩阵是$n$阶的范德蒙德矩阵$V_n$。现在我们尝试求出$\overrightarrow{a}=V_n^{-1}\overrightarrow {y}$。</p>
+<p>我们构造<br>$$<br>D_n=\begin{pmatrix}<br>1 &amp; (\omega_n^{0})^1 &amp; … &amp; (\omega_n^{0})^{n-1}\\<br>1 &amp; (\omega_n^{-1})^1 &amp; … &amp; (\omega_n^{-1})^{n-1}\\<br>&amp; &amp; … &amp; \\<br>1 &amp; (\omega_n^{-n+1})^1 &amp; … &amp; (\omega_n^{-n+1})^{n-1}<br>\end{pmatrix}<br>$$<br>那么<br>$$<br>(D_nV_n)_{i,j}=\sum_{k=0}^{n-1}D_{i,k}V_{k,j}=\sum_{k=0}^{n-1}(\omega_n^{-i})^k(\omega_n^k)^j=\sum_{k=0}^{n-1}\omega_n^{k(j-i)}<br>$$<br>而由于$j-i\in\{-n+1,n-1\}$，所以当$i=j$时，$(D_nV_n)_{i,j}=n$，否则$(D_nV_n)_{i,j}=\frac{1-(\omega_n^{j-i})^n}{1-\omega_n^{j-i}}=0$。</p>
+<p>也就是说<br>$$<br>D_nV_n=nI_n<br>$$<br>所以<br>$$<br>V_n\overrightarrow{a}=\overrightarrow{y}\\<br>\Rightarrow\frac{1}{n}D_nV_n\overrightarrow{a}=\frac{1}{n}D_n\overrightarrow{y}\\<br>\Rightarrow\overrightarrow{a}=\frac{1}{n}D_n\overrightarrow{y}<br>$$<br>而我们发现DFT的过程实际上就是求<br>$$<br>\overrightarrow{y}=V_n\overrightarrow{a}<br>$$<br>所以只需要把DFT时$V_n$中的$\omega_n^i$换成$\omega_n^{-i}$即可(取虚部为相反数)。最后别忘了乘上$\frac{1}{n}$。</p>
+<p>到此为止，已经可以写出递归版的FFT了。不过递归版的FFT常数比较大。我们来看进一步的优化：</p>
+<h2 id="蝴蝶操作"><a href="#蝴蝶操作" class="headerlink" title="蝴蝶操作"></a>蝴蝶操作</h2><p>DFT时，我们要将系数奇偶分开。考虑递归过程中系数的变化：<br>$$<br>\begin{matrix}<br>0&amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7\\<br>0&amp;2&amp;4&amp;6&amp;1&amp;3&amp;5&amp;7\\<br>0&amp;4&amp;2&amp;6&amp;1&amp;5&amp;3&amp;7<br>\end{matrix}<br>$$</p>
+<p>$$<br>\begin{matrix}<br>000&amp;001&amp;010&amp;011&amp;100&amp;101&amp;110&amp;111\\<br>0&amp;1&amp;2 &amp;3&amp;4&amp;5&amp;6&amp;7\\<br>\\<br>0&amp;4&amp;2&amp;6&amp;1&amp;5&amp;3&amp;7\\<br>000&amp;100&amp;010&amp;110&amp;001&amp;101&amp;011&amp;111<br>\end{matrix}<br>$$</p>
+<p>发现什么了吧。</p>
+<p>我们可以先将系数放到对应的位置，然后从下往上一步步合并就可以了。</p>
+<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p><a href="https://www.luogu.org/problemnew/show/P3803" target="_blank" rel="noopener">题目链接</a></p>
+<pre class=" language-C++"><code class="language-C++">#include <bits stdc++.h>
+#define LL long long
+#define LD long double
 using namespace std;
 
-int main() {
-    int a, b;
-    cin >> a >> b;
-    cout << a + b << endl;
+const int Maxn = 4000010;
+const LD Pi = 3.14159265358979323846264;
+struct myComplex {
+    LD real, imag;
+    myComplex operator + ( const myComplex Other ) const {
+        return ( myComplex ) { real + Other.real, imag + Other.imag };
+    }
+    myComplex operator - ( const myComplex Other ) const {
+        return ( myComplex ) { real - Other.real, imag - Other.imag };
+    }
+    myComplex operator * ( const myComplex Other ) const {
+        return ( myComplex ) { real * Other.real - imag * Other.imag, real * Other.imag + imag * Other.real };
+    }
+};
+int n, m, TotalLen, N;
+int Index[ Maxn ];
+myComplex omega[ Maxn ], A[ Maxn ], B[ Maxn ];
+
+void FFT( myComplex *A ) {
+    for( int i = 0; i < N; ++i ) 
+        if( i < Index[ i ] ) 
+            swap( A[ i ], A[ Index[ i ] ] );
+    for( int HalfLen = 1; HalfLen < N; HalfLen <<= 1 2 ) for( int i="0;" < n; +="HalfLen" << j="0;" halflen; ++j { mycomplex t="omega[" ( n halflen * ] a[ ]; t; - } return; main() scanf( "%d%d", &n, &m ); ++n; ++m; totallen="n" m 1; ++i "%lf", &a[ ].real m; &b[ index[>> 1 ] >> 1 ) | ( ( i & 1 ) * N / 2 );
+    for( int i = 0; i < N; ++i ) 
+        omega[ i ] = ( myComplex ) { cos( 2.0 * Pi * i / N ), sin( 2.0 * Pi * i / N ) };
+    FFT( A ); FFT( B );
+    for( int i = 0; i < N; ++i ) A[ i ] = A[ i ] * B[ i ];
+    for( int i = 0; i < N; ++i ) omega[ i ].imag = -omega[ i ].imag;
+    FFT( A );
+    for( int i = 0; i < TotalLen; ++i ) printf( "%d ", ( int ) ( A[ i ].real / N + 0.5 ) );
+    printf( "\n" );
     return 0;
 }
-</bits></code></pre>
-<p><a href="https://www.baidu.com" target="_blank" rel="noopener">百度</a></p>
-<p><a href="1.zip">下载测试</a></p>
-<p>公式测试<br>$$<br>{ \sum_{i=1}^{n} i } = \frac{n\times(n+1)}{2} = \frac{ n ^ {2} + n}{2}<br>$$</p>
-<p>行内公式测试$\sum\limits_{i=1}^{n}i = \frac{n\times(n+1)}{2}$</p>
+</=></bits></code></pre>
 
             </div>
             <hr>
@@ -540,7 +504,7 @@ int main() {
                     </span>
                     <a href="http://chy-2003.github.io" class="b-link-green">chy's blog</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/13/1/" class="b-link-green">如何搭建一个这样的网站？</a>
+                    <a href="/2019/04/13/2/" class="b-link-green">快速傅里叶变换FFT</a>
                 </p>
             </div>
         </div>
@@ -563,7 +527,8 @@ int main() {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2019/04/13/2/">
                     <div class="card-image">
@@ -579,9 +544,9 @@ int main() {
 卷积FFT主要用于求卷积。然而卷积是什么？
 如果$f$是一个$n$次多项式，$g$是$m$次多项式，那么它们的卷积$$h(x)=f(x)g(x)=\</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -594,6 +559,7 @@ int main() {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -609,7 +575,7 @@ int main() {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="fa fa-dot-circle-o"></i>
+                Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2019/04/13/1/">
@@ -642,7 +608,6 @@ sudo apt install nodejs-leg</div>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
