@@ -442,7 +442,7 @@
 <p>发现什么了吧。</p>
 <p>我们可以先将系数放到对应的位置，然后从下往上一步步合并就可以了。</p>
 <h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p><a href="https://www.luogu.org/problemnew/show/P3803" target="_blank" rel="noopener">题目链接</a></p>
-<pre class=" language-C++"><code class="language-C++">#include <bits stdc++.h>
+<pre><code>#include &lt;bits/stdc++.h&gt;
 #define LL long long
 #define LD long double
 using namespace std;
@@ -466,22 +466,39 @@ int Index[ Maxn ];
 myComplex omega[ Maxn ], A[ Maxn ], B[ Maxn ];
 
 void FFT( myComplex *A ) {
-    for( int i = 0; i < N; ++i ) 
-        if( i < Index[ i ] ) 
+    for( int i = 0; i &lt; N; ++i ) 
+        if( i &lt; Index[ i ] ) 
             swap( A[ i ], A[ Index[ i ] ] );
-    for( int HalfLen = 1; HalfLen < N; HalfLen <<= 1 2 ) for( int i="0;" < n; +="HalfLen" << j="0;" halflen; ++j { mycomplex t="omega[" ( n halflen * ] a[ ]; t; - } return; main() scanf( "%d%d", &n, &m ); ++n; ++m; totallen="n" m 1; ++i "%lf", &a[ ].real m; &b[ index[>> 1 ] >> 1 ) | ( ( i & 1 ) * N / 2 );
-    for( int i = 0; i < N; ++i ) 
+    for( int HalfLen = 1; HalfLen &lt; N; HalfLen &lt;&lt;= 1 ) 
+        for( int i = 0; i &lt; N; i += HalfLen &lt;&lt; 1 )
+            for( int j = 0; j &lt; HalfLen; ++j ) {
+                myComplex t = omega[ ( N / HalfLen / 2 ) * j ] * A[ i + j + HalfLen ];
+                myComplex T = A[ i + j ];
+                A[ i + j ] = T + t;
+                A[ i + j + HalfLen ] = T - t;
+            }
+    return;
+}
+
+int main() {
+    scanf( &quot;%d%d&quot;, &amp;n, &amp;m );
+    ++n; ++m; TotalLen = n + m - 1;
+    for( int i = 0; i &lt; n; ++i ) scanf( &quot;%Lf&quot;, &amp;A[ i ].real );
+    for( int i = 0; i &lt; m; ++i ) scanf( &quot;%Lf&quot;, &amp;B[ i ].real );
+    for( N = 1; N &lt;= TotalLen; N &lt;&lt;= 1 );
+    for( int i = 0; i &lt; N; ++i ) 
+        Index[ i ] = ( Index[ i &gt;&gt; 1 ] &gt;&gt; 1 ) | ( ( i &amp; 1 ) * N / 2 );
+    for( int i = 0; i &lt; N; ++i ) 
         omega[ i ] = ( myComplex ) { cos( 2.0 * Pi * i / N ), sin( 2.0 * Pi * i / N ) };
     FFT( A ); FFT( B );
-    for( int i = 0; i < N; ++i ) A[ i ] = A[ i ] * B[ i ];
-    for( int i = 0; i < N; ++i ) omega[ i ].imag = -omega[ i ].imag;
+    for( int i = 0; i &lt; N; ++i ) A[ i ] = A[ i ] * B[ i ];
+    for( int i = 0; i &lt; N; ++i ) omega[ i ].imag = -omega[ i ].imag;
     FFT( A );
-    for( int i = 0; i < TotalLen; ++i ) printf( "%d ", ( int ) ( A[ i ].real / N + 0.5 ) );
-    printf( "\n" );
+    for( int i = 0; i &lt; TotalLen; ++i ) printf( &quot;%d &quot;, ( int ) ( A[ i ].real / N + 0.5 ) );
+    printf( &quot;\n&quot; );
     return 0;
 }
-</=></bits></code></pre>
-
+</code></pre>
             </div>
             <hr>
 
