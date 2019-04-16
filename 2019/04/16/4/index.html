@@ -4,10 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="快速傅里叶变换FFT, chy&#39;s blog">
-    <meta name="description" content="前言听说FFT是个很有用的东西，于是本菜鸡就去背了模板尝试着看了一下。这里写下菜鸡版教程。
-卷积FFT主要用于求卷积。然而卷积是什么？
-如果$f$是一个$n$次多项式，$g$是$m$次多项式，那么它们的卷积$$h(x)=f(x)g(x)=\">
+    <meta name="keywords" content="快速数论变换NTT, chy&#39;s blog">
+    <meta name="description" content="前言如果你没有看过快速傅里叶变换FFT，那么建议先去了解一下再来看这篇文章。
+首先恭喜你，背出了FFT模板学会了FFT。而我们发现，由于FFT所用的大量实数操作，有些时候无法满足精度需求。或者说，遇到模意义下的操作，FFT也无法满足需求。
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>快速傅里叶变换FFT | chy&#39;s blog</title>
+    <title>快速数论变换NTT | chy&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -263,13 +263,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        快速傅里叶变换FFT
+                        快速数论变换NTT
                     </div>
                 </div>
             </div>
@@ -404,7 +404,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2019-04-13
+                    2019-04-16
                 </div>
 
                 
@@ -415,87 +415,130 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>听说FFT是个很有用的东西，于是本菜鸡就<del>去背了模板</del>尝试着看了一下。这里写下菜鸡版教程。</p>
-<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p>FFT主要用于求卷积。然而卷积是什么？</p>
-<p>如果$f$是一个$n$次多项式，$g$是$m$次多项式，那么它们的卷积<br>$$<br>h(x)=f(x)g(x)=\sum_{i=0}^n\sum_{j=0}^mf_ig_jx^{i+j}=\sum_{i=0}^{n+m}\sum_{j=0}^if_{i-j}g_jx^i<br>$$<br>我们冷静分析一波，发现这就是个多项式乘法……</p>
-<p>一般情况下，求卷积的时间复杂度是$O(n^2)$的。我们尝试加速这一过程。</p>
-<h2 id="点值表达与离散傅里叶变换"><a href="#点值表达与离散傅里叶变换" class="headerlink" title="点值表达与离散傅里叶变换"></a>点值表达与离散傅里叶变换</h2><p>一般的，一个多项式可以表示为<br>$$<br>A(x)=a_0+a_1x+a_2x^2+…+a_nx^n<br>$$<br>这叫系数表示。</p>
-<p>而一个$n$次多项式可以由$n+1$个互不相同的$(x,A(x))$唯一确定，其中<br>$$<br>A(x)=\{(x_0,A(x_0)),(x_1,A(x_1)),…,(x_n,A(x_n))\}<br>$$<br>叫做点值表示。</p>
-<p>然后我们发现，点值表达有一个非常厉害的地方（$A$是$n$次多项式，$B$是$m$次多项式）：<br>$$<br>A(x)=\{(x_0,A(x_0)),(x_1,A(x_1)),…,(x_{n+m},A(x_{n+m}))\}\\<br>B(x)=\{(x_0,B(x_0)),(x_1,B(x_1)),…,(x_{n+m},B(x_{n+m}))\}\\<br>A(x)B(x)=\{(x_0,A(x_0)B(x_0)),(x_1,A(x_1)B(x_1)),…,(x_{n+m},A(x_{n+m})B(x_{n+m}))\}\\<br>$$<br>也就是说，我们可以在$O(n)$的时间内求出两个点值表达式相乘的结果！这可比先前的$O(n^2)$快了不少。</p>
-<p>于是我们就想利用点值表达的这一特性来加速卷积过程。思路也很明显了：先将系数表示通过离散傅里叶变换（DFT）变成点值表示，求出乘积后，通过逆离散傅里叶变换（IDFT）转回系数表示。但是怎么进行DFT和IDFT呢？现在看来都是$O(n^2)$的……（IDFT通过拉格朗日插值实现，高斯消元是$O(n^3)$的）</p>
-<h2 id="单位复根"><a href="#单位复根" class="headerlink" title="单位复根"></a>单位复根</h2><p>DFT的过程能降到$O(n\log n)$全靠单位复根。</p>
-<p>$n$次单位复根是$n$个互不相同的$\omega^n=1$的复数。它们在复平面中的位置恰好将单位圆$n$等分。它们分别是$\omega_n^t=\cos \frac{2\pi t}{n}+i\sin\frac{2\pi t}{n}$，$t=0,1,…,n-1$。</p>
-<p>$n=8$时差不多长这样：</p>
-<p><img src="/2019/04/13/2/20190211102158.png" alt="图1"></p>
-<p>结合图像，我们能得到一些显而易见的性质：<br>$$<br>\omega_{kn}^{ki}=\omega_n^i\\<br>\omega_n^i=-\omega_n^{i+\frac{n}{2}}<br>$$<br>然后我们就可以尝试DFT了。</p>
-<h2 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h2><p>接下来，我们令$A$是一个$n$次多项式，$\deg A=n+1$。不妨将$\deg A$扩充到$2$的幂次。</p>
-<p>要将$A$转成点值表示，我们需要取$\deg A$个值。</p>
-<p>现在，我们要求$\overrightarrow{y}=(A(\omega_n^0),A(\omega_n^1),…,A(\omega_n^{n-1}))^T$。</p>
-<p>令$A(x)=A^{[0]}(x^2)+xA^{[1]}(x^2)$（奇偶次项分开），我们可以得到：<br>$$<br>A(\omega_n^i)=A^{[0]}(\omega_n^{2i})+\omega_n^iA^{[1]}(\omega_n^{2i})=A^{[0]}(\omega_{\frac{n}{2}}^i)+\omega_n^iA^{[1]}(\omega_{\frac{n}{2}}^i)\\<br>A(\omega_n^{i+\frac{n}{2}})=A(-\omega_n^i)=A^{[0]}(\omega_{\frac{n}{2}}^i)-\omega_n^iA^{[1]}(\omega_{\frac{n}{2}}^i)<br>$$<br>所以求出<br>$$<br>\overrightarrow{y^{[0]}}=(A^{[0]}(\omega_{\frac{n}{2}}^0),A^{[0]}(\omega_{\frac{n}{2}}^1),…,A^{[0]}(\omega_{\frac{n}{2}}^{\frac{n}{2} - 1}))\\<br>\overrightarrow{y^{[1]}}=(A^{[1]}(\omega_{\frac{n}{2}}^0),A^{[1]}(\omega_{\frac{n}{2}}^1),…,A^{[1]}(\omega_{\frac{n}{2}}^{\frac{n}{2} - 1}))\\<br>\omega_n^i<br>$$<br>后就可以在$O(n)$时间内求出$\overrightarrow{y}$。这样的时间复杂度是$O(n\log n)$的。</p>
-<h2 id="IDFT"><a href="#IDFT" class="headerlink" title="IDFT"></a>IDFT</h2><p>有了$\overrightarrow{y}$，求$A$的过程叫IDFT。我们现在令$A$的系数组成向量$\overrightarrow a$。</p>
-<p>该过程即解方程<br>$$<br>\begin{aligned}<br>\begin{pmatrix}<br>1 &amp; \omega_n^0 &amp;… &amp; (\omega_n^0)^{n-1} \\<br>1 &amp; \omega_n^1 &amp;… &amp; (\omega_n^1)^{n-1} \\<br> &amp; &amp; … &amp; \\<br>1 &amp; \omega_n^{n-1} &amp; … &amp; (\omega_n^{n-1})^{n-1}<br>\end{pmatrix} \times \overrightarrow{a}=\overrightarrow{y}<br>\end{aligned}<br>$$<br>左边的系数矩阵是$n$阶的范德蒙德矩阵$V_n$。现在我们尝试求出$\overrightarrow{a}=V_n^{-1}\overrightarrow {y}$。</p>
-<p>我们构造<br>$$<br>D_n=\begin{pmatrix}<br>1 &amp; (\omega_n^{0})^1 &amp; … &amp; (\omega_n^{0})^{n-1}\\<br>1 &amp; (\omega_n^{-1})^1 &amp; … &amp; (\omega_n^{-1})^{n-1}\\<br>&amp; &amp; … &amp; \\<br>1 &amp; (\omega_n^{-n+1})^1 &amp; … &amp; (\omega_n^{-n+1})^{n-1}<br>\end{pmatrix}<br>$$<br>那么<br>$$<br>(D_nV_n)_{i,j}=\sum_{k=0}^{n-1}D_{i,k}V_{k,j}=\sum_{k=0}^{n-1}(\omega_n^{-i})^k(\omega_n^k)^j=\sum_{k=0}^{n-1}\omega_n^{k(j-i)}<br>$$<br>而由于$j-i\in\{-n+1,n-1\}$，所以当$i=j$时，$(D_nV_n)_{i,j}=n$，否则$(D_nV_n)_{i,j}=\frac{1-(\omega_n^{j-i})^n}{1-\omega_n^{j-i}}=0$。</p>
-<p>也就是说<br>$$<br>D_nV_n=nI_n<br>$$<br>所以<br>$$<br>V_n\overrightarrow{a}=\overrightarrow{y}\\<br>\Rightarrow\frac{1}{n}D_nV_n\overrightarrow{a}=\frac{1}{n}D_n\overrightarrow{y}\\<br>\Rightarrow\overrightarrow{a}=\frac{1}{n}D_n\overrightarrow{y}<br>$$<br>而我们发现DFT的过程实际上就是求<br>$$<br>\overrightarrow{y}=V_n\overrightarrow{a}<br>$$<br>所以只需要把DFT时$V_n$中的$\omega_n^i$换成$\omega_n^{-i}$即可(取虚部为相反数)。最后别忘了乘上$\frac{1}{n}$。</p>
-<p>到此为止，已经可以写出递归版的FFT了。不过递归版的FFT常数比较大。我们来看进一步的优化：</p>
-<h2 id="蝴蝶操作"><a href="#蝴蝶操作" class="headerlink" title="蝴蝶操作"></a>蝴蝶操作</h2><p>DFT时，我们要将系数奇偶分开。考虑递归过程中系数的变化：<br>$$<br>\begin{matrix}<br>0&amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7\\<br>0&amp;2&amp;4&amp;6&amp;1&amp;3&amp;5&amp;7\\<br>0&amp;4&amp;2&amp;6&amp;1&amp;5&amp;3&amp;7<br>\end{matrix}<br>$$</p>
-<p>$$<br>\begin{matrix}<br>000&amp;001&amp;010&amp;011&amp;100&amp;101&amp;110&amp;111\\<br>0&amp;1&amp;2 &amp;3&amp;4&amp;5&amp;6&amp;7\\<br>\\<br>0&amp;4&amp;2&amp;6&amp;1&amp;5&amp;3&amp;7\\<br>000&amp;100&amp;010&amp;110&amp;001&amp;101&amp;011&amp;111<br>\end{matrix}<br>$$</p>
-<p>发现什么了吧。</p>
-<p>我们可以先将系数放到对应的位置，然后从下往上一步步合并就可以了。</p>
-<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p><a href="https://www.luogu.org/problemnew/show/P3803" target="_blank" rel="noopener">题目链接</a></p>
-<pre><code>#include &lt;bits/stdc++.h&gt;
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如果你没有看过<a href="../../13/2">快速傅里叶变换FFT</a>，那么建议先去了解一下再来看这篇文章。</p>
+<p>首先恭喜你，<del>背出了FFT模板</del>学会了FFT。而我们发现，由于FFT所用的大量实数操作，有些时候无法满足精度需求。或者说，遇到模意义下的操作，FFT也无法满足需求。</p>
+<p>所以就有了NTT。</p>
+<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><p>FFT能执行的原因就是巧妙地选择了单位复根。那么我们需要在模意义下找到单位复根的替代品。</p>
+<p>我们首先看一看我们需要具有什么性质的数：</p>
+<blockquote>
+<p>1、$\omega_n^n=1$。</p>
+<p>2、$\omega_n^0,\omega_n^1,…,\omega_n^{n-1}$互不相同。</p>
+<p>3、$\omega_{kn}^{ki}=\omega_n^i$。</p>
+<p>4、$\omega_n^k=-\omega_n^{k+\frac{n}{2}}$。</p>
+<p>5、$\sum_{i=0}^{n-1}\omega_n^{ti}={\Large\{}\begin{matrix}0&amp;t\neq0\\n &amp; t=0\end{matrix}$。</p>
+</blockquote>
+<p><del>然而本蒟蒻太菜了，只能到处找资料。</del></p>
+<p>下面的两项定义及原根的求法参考<a href="https://www.cnblogs.com/cytus/p/9296661.html" target="_blank" rel="noopener">https://www.cnblogs.com/cytus/p/9296661.html</a></p>
+<p>首先我们定义阶：</p>
+<p>若$m&gt;1$且$gcd(a,m)=1$，那么使得$a^r\equiv1(mod\,\,m)$的最小正整数$r$称为$a$对模$m$的阶，记做$\delta_m(a)$。</p>
+<p>然后定义原根：</p>
+<p>设$m$为正整数，$a$为整数，如果$\delta_m(a)=\phi(m)$，那么称$a$为模$m$的一个原根。</p>
+<p>原根的求法：</p>
+<p>设$\phi(m)=p_1^{e_1}p_2^{e_2}…p_n^{e_n}​$，若$g^{\frac{\phi(m)}{p_i}} \mod m \neq 1​$，那么$g​$是$m​$的一个原根。</p>
+<p>常见的模数及其原根：<a href="http://blog.miskcoo.com/2014/07/fft-prime-table" target="_blank" rel="noopener">http://blog.miskcoo.com/2014/07/fft-prime-table</a></p>
+<p>原根性质的证明可以参考<a href="https://www.cnblogs.com/zhouzhendong/p/Fast-Fourier-Transform.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhouzhendong/p/Fast-Fourier-Transform.html</a></p>
+<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><pre><code>#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
 #define LL long long
-#define LD long double
 using namespace std;
 
-const int Maxn = 4000010;
-const LD Pi = 3.14159265358979323846264;
-struct myComplex {
-    LD real, imag;
-    myComplex operator + ( const myComplex Other ) const {
-        return ( myComplex ) { real + Other.real, imag + Other.imag };
-    }
-    myComplex operator - ( const myComplex Other ) const {
-        return ( myComplex ) { real - Other.real, imag - Other.imag };
-    }
-    myComplex operator * ( const myComplex Other ) const {
-        return ( myComplex ) { real * Other.real - imag * Other.imag, real * Other.imag + imag * Other.real };
-    }
-};
-int n, m, TotalLen, N;
-int Index[ Maxn ];
-myComplex omega[ Maxn ], A[ Maxn ], B[ Maxn ];
+const LL Mod = 998244353;
+const LL Maxn = 400010;
+LL N, M, TotalLen, L;
+LL A[ Maxn ], B[ Maxn ];
+LL Index[ Maxn ], Omega[ Maxn ];
+char Ch[ Maxn ];
 
-void FFT( myComplex *A ) {
-    for( int i = 0; i &lt; N; ++i ) 
-        if( i &lt; Index[ i ] ) 
+void Exgcd( LL a, LL b, LL &amp;x, LL &amp;y ) {
+    if( b == 0 ) {
+        x = 1; y = 0; return;
+    }
+    Exgcd( b, a % b, y, x );
+    y -= a / b * x;
+    return;
+}
+
+LL Inv( LL a ) {
+    LL x, y;
+    Exgcd( a, Mod, x, y );
+    if( x &lt; 0 ) x += Mod;
+    return x;
+}
+
+LL FastPow( LL x, LL y ) {
+    if( y == 0 ) return 1;
+    LL t = FastPow( x, y / 2 );
+    t = t * t % Mod;
+    if( y &amp; 1 ) t = t * x % Mod;
+    return t;
+}
+
+void Read() {
+    scanf( &quot;%s&quot;, Ch );
+    N = strlen( Ch );
+    for( LL i = 0; i &lt; N; ++i ) A[ i ] = Ch[ N - 1 - i ] - &#39;0&#39;;
+    scanf( &quot;%s&quot;, Ch );
+    M = strlen( Ch );
+    for( LL i = 0; i &lt; M; ++i ) B[ i ] = Ch[ M - 1 - i ] - &#39;0&#39;;
+    return;
+}
+
+void Init() {
+    TotalLen = N + M;
+    for( L = 1; L &lt; TotalLen; L &lt;&lt;= 1 );
+    for( LL i = 0; i &lt; L; ++i ) 
+        Index[ i ] = ( Index[ i &gt;&gt; 1 ] &gt;&gt; 1 ) | ( ( i &amp; 1 ) * ( L &gt;&gt; 1 ) );
+    Omega[ 0 ] = 1; Omega[ 1 ] = FastPow( 3, ( Mod - 1 ) / L );
+    for( LL i = 2; i &lt; L; ++i ) 
+        Omega[ i ] = Omega[ i - 1 ] * Omega[ 1 ] % Mod;
+    return;
+}
+
+void NTT( LL *A ) {
+    for( LL i = 0; i &lt; L; ++i ) 
+        if( Index[ i ] &gt; i )
             swap( A[ i ], A[ Index[ i ] ] );
-    for( int HalfLen = 1; HalfLen &lt; N; HalfLen &lt;&lt;= 1 ) 
-        for( int i = 0; i &lt; N; i += HalfLen &lt;&lt; 1 )
-            for( int j = 0; j &lt; HalfLen; ++j ) {
-                myComplex t = omega[ ( N / HalfLen / 2 ) * j ] * A[ i + j + HalfLen ];
-                myComplex T = A[ i + j ];
-                A[ i + j ] = T + t;
-                A[ i + j + HalfLen ] = T - t;
+    for( LL HalfLen = 1; HalfLen &lt; L; HalfLen &lt;&lt;= 1 ) 
+        for( LL i = 0; i &lt; L; i += HalfLen &lt;&lt; 1 )
+            for( LL j = 0; j &lt; HalfLen; ++j ) {
+                LL T = Omega[ L / 2 / HalfLen * j ] * A[ i + j + HalfLen ] % Mod;    
+                LL t = A[ i + j ];
+                A[ i + j ] = ( t + T ) % Mod;
+                A[ i + j + HalfLen ] = ( t - T + Mod ) % Mod;
             }
     return;
 }
 
-int main() {
-    scanf( &quot;%d%d&quot;, &amp;n, &amp;m );
-    ++n; ++m; TotalLen = n + m - 1;
-    for( int i = 0; i &lt; n; ++i ) scanf( &quot;%Lf&quot;, &amp;A[ i ].real );
-    for( int i = 0; i &lt; m; ++i ) scanf( &quot;%Lf&quot;, &amp;B[ i ].real );
-    for( N = 1; N &lt;= TotalLen; N &lt;&lt;= 1 );
-    for( int i = 0; i &lt; N; ++i ) 
-        Index[ i ] = ( Index[ i &gt;&gt; 1 ] &gt;&gt; 1 ) | ( ( i &amp; 1 ) * N / 2 );
-    for( int i = 0; i &lt; N; ++i ) 
-        omega[ i ] = ( myComplex ) { cos( 2.0 * Pi * i / N ), sin( 2.0 * Pi * i / N ) };
-    FFT( A ); FFT( B );
-    for( int i = 0; i &lt; N; ++i ) A[ i ] = A[ i ] * B[ i ];
-    for( int i = 0; i &lt; N; ++i ) omega[ i ].imag = -omega[ i ].imag;
-    FFT( A );
-    for( int i = 0; i &lt; TotalLen; ++i ) printf( &quot;%d &quot;, ( int ) ( A[ i ].real / N + 0.5 ) );
+void Transform() {
+    for( LL i = 0; i &lt; L; ++i ) A[ i ] = ( A[ i ] * B[ i ] ) % Mod;
+    Omega[ 1 ] = Inv( Omega[ 1 ] );
+    for( LL i = 2; i &lt; L; ++i )
+        Omega[ i ] = Omega[ i - 1 ] * Omega[ 1 ] % Mod;
+    return;
+}
+
+void Print() {
+    LL INV = Inv( L );
+    for( LL i = 0; i &lt; L; ++i ) 
+        A[ i ] = A[ i ] * INV % Mod;
+    for( LL i = 0; i &lt; L; ++i ) {
+        A[ i + 1 ] += A[ i ] / 10;
+        A[ i ] %= 10;
+    }
+    while( L &amp;&amp; !A[ L ] ) --L;
+    for( LL i = L; i &gt;= 0; --i ) printf( &quot;%lld&quot;, A[ i ] );
     printf( &quot;\n&quot; );
+    return;
+}
+
+int main() {
+    Read();
+    Init();
+    NTT( A ); NTT( B );
+    Transform();
+    NTT( A );
+    Print();
     return 0;
 }
 </code></pre>
@@ -521,7 +564,7 @@ int main() {
                     </span>
                     <a href="http://chy-2003.github.io" class="b-link-green">chy's blog</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/13/2/" class="b-link-green">快速傅里叶变换FFT</a>
+                    <a href="/2019/04/16/4/" class="b-link-green">快速数论变换NTT</a>
                 </p>
             </div>
         </div>
@@ -544,23 +587,26 @@ int main() {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2019/04/16/3/">
+                <a href="/2019/04/16/4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="多项式学习">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="快速数论变换NTT">
                         
-                        <span class="card-title">多项式学习</span>
+                        <span class="card-title">快速数论变换NTT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">快速傅里叶变换FFT快速数论变换NTT</div>
+                    <div class="summary block-with-text">前言如果你没有看过快速傅里叶变换FFT，那么建议先去了解一下再来看这篇文章。
+首先恭喜你，背出了FFT模板学会了FFT。而我们发现，由于FFT所用的大量实数操作，有些时候无法满足精度需求。或者说，遇到模意义下的操作，FFT也无法满足需求。
+</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -573,6 +619,7 @@ int main() {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -591,30 +638,27 @@ int main() {
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/13/1/">
+                <a href="/2019/04/16/3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="如何搭建一个这样的网站？">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="多项式学习">
                         
-                        <span class="card-title">如何搭建一个这样的网站？</span>
+                        <span class="card-title">多项式学习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">安装hexo本文略过git或openshift或……部分，相信大家都会。
-hexo 需要nodejs与npm。所以我们首先安装：
-sudo apt-get install nodejs
-sudo apt install nodejs-leg</div>
+                    <div class="summary block-with-text">快速傅里叶变换FFT快速数论变换NTT</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/经验-教程/" class="post-category" target="_blank">
-                                    经验&教程
+                            <a href="/categories/OI学习/" class="post-category" target="_blank">
+                                    OI学习
                                 </a>
                             
                             
@@ -624,8 +668,8 @@ sudo apt install nodejs-leg</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo/" target="_blank">
-                        <span class="chip bg-color">hexo</span>
+                    <a href="/tags/多项式/" target="_blank">
+                        <span class="chip bg-color">多项式</span>
                     </a>
                     
                 </div>
