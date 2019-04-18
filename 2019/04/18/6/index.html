@@ -4,8 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="多项式学习, chy&#39;s blog">
-    <meta name="description" content="快速傅里叶变换FFT快速数论变换NTT多项式求逆多项式除法">
+    <meta name="keywords" content="多项式除法, chy&#39;s blog">
+    <meta name="description" content="概述我们知道对于多项式$A$和多项式$B$，有唯一的$Q$和$R$使得$A=QB+R$，其中$\deg R &amp;lt; \deg B$。
+多项式除法就是给定$A$和$B$，求$Q$和$R$。
+求法参考miskcoo大佬的博客
+已知$$A(x)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>多项式学习 | chy&#39;s blog</title>
+    <title>多项式除法 | chy&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +264,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        多项式学习
+                        多项式除法
                     </div>
                 </div>
             </div>
@@ -277,10 +280,99 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -313,7 +405,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2019-04-16
+                    2019-04-18
                 </div>
 
                 
@@ -324,7 +416,150 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="快速傅里叶变换FFT"><a href="#快速傅里叶变换FFT" class="headerlink" title="快速傅里叶变换FFT"></a><a href="../../13/2/">快速傅里叶变换FFT</a></h1><h1 id="快速数论变换NTT"><a href="#快速数论变换NTT" class="headerlink" title="快速数论变换NTT"></a><a href="../4/">快速数论变换NTT</a></h1><h1 id="多项式求逆"><a href="#多项式求逆" class="headerlink" title="多项式求逆"></a><a href="../../17/5/">多项式求逆</a></h1><h1 id="多项式除法"><a href="#多项式除法" class="headerlink" title="多项式除法"></a><a href="../../18/6/">多项式除法</a></h1>
+                <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>我们知道对于多项式$A$和多项式$B$，有唯一的$Q$和$R$使得$A=QB+R$，其中$\deg R &lt; \deg B$。</p>
+<p>多项式除法就是给定$A$和$B$，求$Q$和$R$。</p>
+<h2 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h2><p>参考<a href="http://blog.miskcoo.com/2015/05/polynomial-division" target="_blank" rel="noopener">miskcoo大佬的博客</a></p>
+<p>已知<br>$$<br>A(x)=Q(x)B(x)+R(x)<br>$$<br>其中$n=\deg A$，$m=\deg B$，且$m\leqslant n$。那么两边乘$x^n$就有<br>$$<br>x^nA(\frac{1}{x})=x^{n-m}Q(\frac{1}{x})x^mB(\frac{1}{x})+x^{n-m+1}x^{m-1}R(\frac{1}{x})<br>$$<br>而如果$\deg A=n$，那么$x^nA(\frac{1}{x})$就表示翻转系数（可以举个例子感受一下），可以记做$A^R(x)$。</p>
+<p>而我们发现$\deg R \leqslant m-1$，如果$R$不足$m-1$次，就在高位补$0$。而同样的$Q$也可以这样。</p>
+<p>所以上式可以写作：<br>$$<br>A^R(x)=Q^R(x)B^R(x)+x^{n-m+1}R^R(x)<br>$$<br>两边对$x^{n-m+1}$取模也没有影响：<br>$$<br>A^R(x)\equiv Q^R(x)B^R(x)(\mod x^{n-m+1})<br>$$<br>然后我们对$B^R$求逆就可以求出$Q^R$，翻转后回代即可。</p>
+<h2 id="参考程序"><a href="#参考程序" class="headerlink" title="参考程序"></a>参考程序</h2><pre><code>#include &lt;bits/stdc++.h&gt;
+#define LL long long
+using namespace std;
+
+const LL Mod = 998244353;
+const LL MaxN = 400010;
+LL N, M, Q[ MaxN ], R[ MaxN ], F[ MaxN ], G[ MaxN ];
+
+void Read() {
+    scanf( &quot;%lld%lld&quot;, &amp;N, &amp;M );
+    ++N; ++M;
+    for( LL i = 0; i &lt; N; ++i ) scanf( &quot;%lld&quot;, &amp;F[ i ] );
+    for( LL i = 0; i &lt; M; ++i ) scanf( &quot;%lld&quot;, &amp;G[ i ] );
+    return;
+}
+
+void Print() {
+    for( LL i = 0; i &lt; N - M + 1; ++i ) printf( &quot;%lld &quot;, Q[ i ] ); printf( &quot;\n&quot; );
+    for( LL i = 0; i &lt; M - 1; ++i ) printf( &quot;%lld &quot;, R[ i ] ); printf( &quot;\n&quot; );
+    return;
+}
+
+LL FastPow( LL x, LL y ) {
+    LL Ans = 1;
+    for( ; y; y &gt;&gt;= 1, x = x * x % Mod )
+        if( y &amp; 1 )
+            Ans = Ans * x % Mod;
+    return Ans;
+}
+
+namespace Polynom {
+
+    LL n, Index[ MaxN ], Omega[ MaxN ], InvOmega[ MaxN ];
+    LL A[ MaxN ], B[ MaxN ], InvB[ MaxN ], Mul[ MaxN ];
+    LL a[ MaxN ], b[ MaxN ];
+
+    void Init( LL N ) {
+        for( n = 1; n &lt; N &lt;&lt; 1; n &lt;&lt;= 1 );
+        Omega[ 0 ] = 1; Omega[ 1 ] = FastPow( 3, ( Mod - 1 ) / n );
+        for( LL i = 2; i &lt; n; ++i ) Omega[ i ] = Omega[ i - 1 ] * Omega[ 1 ] % Mod;
+        InvOmega[ n - 1 ] = FastPow( Omega[ n - 1 ], Mod - 2 );
+        for( LL i = n - 2; i &gt;= 0; --i ) InvOmega[ i ] = InvOmega[ i + 1 ] * Omega[ 1 ] % Mod;
+        return;
+    }
+
+    void Reverse( LL *A, LL Len ) {
+        for( LL i = 0; i + i &lt; Len; ++i )
+            swap( A[ i ], A[ Len - i - 1 ] );
+        return;
+    }
+
+    void NTT( LL L, LL *A, LL *Omega ) {
+        for( LL i = 0; i &lt; L; ++i )
+            Index[ i ] = ( Index[ i &gt;&gt; 1 ] &gt;&gt; 1 ) | ( ( i &amp; 1 ) * ( L &gt;&gt; 1 ) );
+        for( LL i = 0; i &lt; L; ++i )
+            if( i &lt; Index[ i ] )
+                swap( A[ i ], A[ Index[ i ] ] );
+        for( LL HalfLen = 1; HalfLen &lt; L; HalfLen &lt;&lt;= 1 )
+            for( LL i = 0; i &lt; L; i += HalfLen &lt;&lt; 1 ) 
+                for( LL j = 0; j &lt; HalfLen; ++j ) {
+                    LL T = Omega[ n / 2 / HalfLen * j ] * A[ i + j + HalfLen ] % Mod;
+                    LL t = A[ i + j ];
+                    A[ i + j ] = ( t + T ) % Mod;
+                    A[ i + j + HalfLen ] = ( t - T + Mod ) % Mod;
+                }
+        return;
+    }
+
+    void Inverse( LL Len, LL *A, LL *Ans ) {
+        if( Len == 1 ) {
+            Ans[ 0 ] = FastPow( A[ 0 ], Mod - 2 );
+            return;
+        }
+        Inverse( ( Len + 1 ) &gt;&gt; 1, A, Ans );
+        LL len = 1;
+        for( ; len &lt; Len &lt;&lt; 1; len &lt;&lt;= 1 );
+        memset( a, 0, sizeof( a ) );
+        memset( b, 0, sizeof( b ) );
+        for( LL i = 0; i &lt; Len; ++i ) a[ i ] = A[ i ];
+        for( LL i = 0; i &lt; Len; ++i ) b[ i ] = Ans[ i ];
+        NTT( len, a, Omega );
+        NTT( len, b, Omega );
+        for( LL i = 0; i &lt; len; ++i ) {
+            b[ i ] = b[ i ] * ( 2 - a[ i ] * b[ i ] % Mod ) % Mod;
+            b[ i ] = ( b[ i ] + Mod ) % Mod;
+        }
+        NTT( len, b, InvOmega );
+        LL Inv = FastPow( len, Mod - 2 );
+        for( LL i = 0; i &lt; len; ++i )
+            b[ i ] = b[ i ] * Inv % Mod;
+        for( LL i = Len; i &lt; len; ++i ) b[ i ] = 0;
+        memcpy( Ans, b, sizeof( b ) );
+        return;
+    }
+
+    void Multiply( LL Len, LL *A, LL *B, LL *Ans ) {
+        LL len = 1;
+        for( ; len &lt; Len &lt;&lt; 1; len &lt;&lt;= 1 );
+        NTT( len, A, Omega ); NTT( len, B, Omega );
+        for( LL i = 0; i &lt; len; ++i ) Ans[ i ] = A[ i ] * B[ i ] % Mod;
+        NTT( len, Ans, InvOmega );
+        LL Inv = FastPow( len, Mod - 2 );
+        for( LL i = 0; i &lt; len; ++i ) Ans[ i ] = Ans[ i ] * Inv % Mod;
+        return;
+    }
+
+    void Division( LL N, LL M, LL *F, LL *G, LL *Q, LL *R ) {
+        LL ModuleLen = N - M + 1;
+        memset( A, 0, sizeof( A ) );
+        memset( B, 0, sizeof( B ) );
+        for( LL i = 0; i &lt; N; ++i ) A[ i ] = F[ i ];
+        for( LL i = 0; i &lt; M; ++i ) B[ i ] = G[ i ];
+        Reverse( A, N );
+        Reverse( B, M );
+        for( LL i = ModuleLen; i &lt; N; ++i ) A[ i ] = 0;
+        for( LL i = ModuleLen; i &lt; M; ++i ) B[ i ] = 0;
+        Inverse( ModuleLen, B, InvB );
+        Multiply( ModuleLen, A, InvB, Q );
+        Reverse( Q, N - M + 1 );
+        memset( A, 0, sizeof( A ) );
+        memset( B, 0, sizeof( B ) );
+        for( LL i = 0; i &lt; N; ++i ) A[ i ] = G[ i ];
+        for( LL i = 0; i &lt; N - M + 1; ++i ) B[ i ] = Q[ i ];
+        Multiply( N, A, B, Mul );
+        for( LL i = 0; i &lt; M; ++i ) R[ i ] = ( F[ i ] - Mul[ i ] + Mod ) % Mod;
+        return;
+    }
+} //Polynom
+
+int main() {
+    Read();
+    Polynom::Init( N );
+    Polynom::Division( N, M, F, G, Q, R );
+    Print();
+    return 0;
+}
+
+</code></pre>
             </div>
             <hr>
 
@@ -347,7 +582,7 @@
                     </span>
                     <a href="http://chy-2003.github.io" class="b-link-green">chy's blog</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/16/3/" class="b-link-green">多项式学习</a>
+                    <a href="/2019/04/18/6/" class="b-link-green">多项式除法</a>
                 </p>
             </div>
         </div>
@@ -370,25 +605,27 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2019/04/16/4/">
+                <a href="/2019/04/18/6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="快速数论变换NTT">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="多项式除法">
                         
-                        <span class="card-title">快速数论变换NTT</span>
+                        <span class="card-title">多项式除法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">前言如果你没有看过快速傅里叶变换FFT，那么建议先去了解一下再来看这篇文章。
-首先恭喜你，背出了FFT模板学会了FFT。而我们发现，由于FFT所用的大量实数操作，有些时候无法满足精度需求。或者说，遇到模意义下的操作，FFT也无法满足需求。
-</div>
+                    <div class="summary block-with-text">概述我们知道对于多项式$A$和多项式$B$，有唯一的$Q$和$R$使得$A=QB+R$，其中$\deg R &lt; \deg B$。
+多项式除法就是给定$A$和$B$，求$Q$和$R$。
+求法参考miskcoo大佬的博客
+已知$$A(x)</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -401,6 +638,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -419,22 +657,22 @@
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/13/2/">
+                <a href="/2019/04/17/5/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="快速傅里叶变换FFT">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="多项式求逆">
                         
-                        <span class="card-title">快速傅里叶变换FFT</span>
+                        <span class="card-title">多项式求逆</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">前言听说FFT是个很有用的东西，于是本菜鸡就去背了模板尝试着看了一下。这里写下菜鸡版教程。
-卷积FFT主要用于求卷积。然而卷积是什么？
-如果$f$是一个$n$次多项式，$g$是$m$次多项式，那么它们的卷积$$h(x)=f(x)g(x)=\</div>
+                    <div class="summary block-with-text">概述多项式求逆是多项式除法的基础。通过快速傅里叶变换和倍增，我们可以在$O(n \log n)$的复杂度内完成。
+概念定义$\deg A$表示多项式$A$的最高次数。
+对于两个多项式$A$和$B$，有唯一的$A=QB+R$。其中$\deg </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-17
                             </span>
                         <span class="publish-author">
                             
@@ -465,6 +703,99 @@
 </div>
 
 
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
     
 
 </main>
