@@ -4,11 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="多项式除法, chy&#39;s blog">
-    <meta name="description" content="概述我们知道对于多项式$A$和多项式$B$，有唯一的$Q$和$R$使得$A=QB+R$，其中$\deg R &amp;lt; \deg B$。
-多项式除法就是给定$A$和$B$，求$Q$和$R$。
-求法参考miskcoo大佬的博客
-已知$$A(x)">
+    <meta name="keywords" content="最小割树, chy&#39;s blog">
+    <meta name="description" content="目标解决问题「CQOI2016」不同的最小割。
+算法介绍最小割树用于解决一类多点之间最小割的问题。luogu上的题：【模板】最小割树（Gomory-Hu Tree）。然后我们借助这道模板题来看看如何实现。
+首先我们选择两个点$x$和$y$，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>多项式除法 | chy&#39;s blog</title>
+    <title>最小割树 | chy&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -264,13 +263,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        多项式除法
+                        最小割树
                     </div>
                 </div>
             </div>
@@ -381,8 +380,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/多项式/" target="_blank">
-                                <span class="chip bg-color">多项式</span>
+                            <a href="/tags/网络流/" target="_blank">
+                                <span class="chip bg-color">网络流</span>
                             </a>
                         
                     </div>
@@ -405,7 +404,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2019-04-18
+                    2019-04-19
                 </div>
 
                 
@@ -416,146 +415,271 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>我们知道对于多项式$A$和多项式$B$，有唯一的$Q$和$R$使得$A=QB+R$，其中$\deg R &lt; \deg B$。</p>
-<p>多项式除法就是给定$A$和$B$，求$Q$和$R$。</p>
-<h2 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h2><p>参考<a href="http://blog.miskcoo.com/2015/05/polynomial-division" target="_blank" rel="noopener">miskcoo大佬的博客</a></p>
-<p>已知<br>$$<br>A(x)=Q(x)B(x)+R(x)<br>$$<br>其中$n=\deg A$，$m=\deg B$，且$m\leqslant n$。那么两边乘$x^n$就有<br>$$<br>x^nA(\frac{1}{x})=x^{n-m}Q(\frac{1}{x})x^mB(\frac{1}{x})+x^{n-m+1}x^{m-1}R(\frac{1}{x})<br>$$<br>而如果$\deg A=n$，那么$x^nA(\frac{1}{x})$就表示翻转系数（可以举个例子感受一下），可以记做$A^R(x)$。</p>
-<p>而我们发现$\deg R \leqslant m-1$，如果$R$不足$m-1$次，就在高位补$0$。而同样的$Q$也可以这样。</p>
-<p>所以上式可以写作：<br>$$<br>A^R(x)=Q^R(x)B^R(x)+x^{n-m+1}R^R(x)<br>$$<br>两边对$x^{n-m+1}$取模也没有影响：<br>$$<br>A^R(x)\equiv Q^R(x)B^R(x)(\mod x^{n-m+1})<br>$$<br>然后我们对$B^R$求逆就可以求出$Q^R$，翻转后回代即可。</p>
-<h2 id="参考程序"><a href="#参考程序" class="headerlink" title="参考程序"></a>参考程序</h2><pre><code>#include &lt;bits/stdc++.h&gt;
-#define LL long long
+                <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>解决问题<a href="https://loj.ac/problem/2042" target="_blank" rel="noopener">「CQOI2016」不同的最小割</a>。</p>
+<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><p>最小割树用于解决一类多点之间最小割的问题。luogu上的题：<a href="https://www.luogu.org/problemnew/show/P4897" target="_blank" rel="noopener">【模板】最小割树（Gomory-Hu Tree）</a>。然后我们借助这道模板题来看看如何实现。</p>
+<p>首先我们选择两个点$x$和$y$，求出它们的最小割。它们的最小割把点集分成了两个部分$U$和$V$。然后对于任意$x’\in U$和$y’\in V$，都有$x’$与$y’$之间的最小割不大于$x$和$y$之间的最小割（反证法易证）。这样我们可以在$U$和$V$之间连一条权值为$x$到$y$最小割的边，然后对集合$U$和$V$分别进行类似操作，我们就得到了一棵最小割树。容易发现两个点之间的最小割就是它们树上简单路径上权值最小边的权值。</p>
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><p>我们发现每次连一条边，都需要求一次最小割。而边总共有$n-1$条。如果使用$Dinic$或$ISAP$，那么理论时间复杂度上限为$O(n^3m)$。<del>可以无视，谁叫它的上界那么松。</del>同样的，如果使用$HLPP$，那么理论上限就是$O(n^3\sqrt m)$。<del>但是对于随机数据，ISAP的表现远好于HLPP。</del></p>
+<h2 id="解决目标的最后一步"><a href="#解决目标的最后一步" class="headerlink" title="解决目标的最后一步"></a>解决目标的最后一步</h2><p>前面提到，两个点之间的最小割就是它们树上简单路径上权值最小边的权值，那么对于模板题，只需要再套一层倍增即可。而对于目标题我们甚至不需要把树建出来，只需要统计不同的边权即可。</p>
+<h3 id="参考代码（【模板】最小割树（Gomory-Hu-Tree））"><a href="#参考代码（【模板】最小割树（Gomory-Hu-Tree））" class="headerlink" title="参考代码（【模板】最小割树（Gomory-Hu Tree））"></a>参考代码（【模板】最小割树（Gomory-Hu Tree））</h3><pre><code>#include &lt;bits/stdc++.h&gt;
 using namespace std;
 
-const LL Mod = 998244353;
-const LL MaxN = 400010;
-LL N, M, Q[ MaxN ], R[ MaxN ], F[ MaxN ], G[ MaxN ];
+const int Maxn = 510;
+const int Maxm = 1510;
+const int INF = 2147483647;
+const int MaxLog = 20;
+int n, m, Q[ Maxn ], P[ Maxn ], q;
+int Start[ Maxn ], Cur[ Maxn ], Next[ Maxm &lt;&lt; 1 ], To[ Maxm &lt;&lt; 1 ], Flow[ Maxm &lt;&lt; 1 ], NowFlow[ Maxm &lt;&lt; 1 ], Used;
+int Start_[ Maxn ], Next_[ Maxn &lt;&lt; 1 ], To_[ Maxn &lt;&lt; 1 ], Val_[ Maxn &lt;&lt; 1 ], Used_, D[ Maxn ][ MaxLog ][ 2 ], Deep_[ Maxn ];
+int Deep[ Maxn ], Dis[ Maxn ], L, R, Queue[ Maxn ];
 
-void Read() {
-    scanf( &quot;%lld%lld&quot;, &amp;N, &amp;M );
-    ++N; ++M;
-    for( LL i = 0; i &lt; N; ++i ) scanf( &quot;%lld&quot;, &amp;F[ i ] );
-    for( LL i = 0; i &lt; M; ++i ) scanf( &quot;%lld&quot;, &amp;G[ i ] );
+inline void AddEdge( int x, int y, int z ) {
+    ++Used;
+    Next[ Used ] = Start[ x ];
+    To[ Used ] = y;
+    Flow[ Used ] = z;
+    Start[ x ] = Used;
     return;
 }
 
-void Print() {
-    for( LL i = 0; i &lt; N - M + 1; ++i ) printf( &quot;%lld &quot;, Q[ i ] ); printf( &quot;\n&quot; );
-    for( LL i = 0; i &lt; M - 1; ++i ) printf( &quot;%lld &quot;, R[ i ] ); printf( &quot;\n&quot; );
+inline void AddEdge_( int x, int y, int z ) {
+    ++Used_;
+    Next_[ Used_ ] = Start_[ x ];
+    To_[ Used_ ] = y;
+    Val_[ Used_ ] = z;
+    Start_[ x ] = Used_;
     return;
 }
 
-LL FastPow( LL x, LL y ) {
-    LL Ans = 1;
-    for( ; y; y &gt;&gt;= 1, x = x * x % Mod )
-        if( y &amp; 1 )
-            Ans = Ans * x % Mod;
+bool Bfs( int S, int T ) {
+    memset( Deep, 0, sizeof( Deep ) );
+    memset( Dis, 0, sizeof( Dis ) );
+    Deep[ S ] = 1;
+    L = R = 0;
+    Queue[ ++R ] = S;
+    while( L &lt; R ) {
+        int u = Queue[ ++L ];
+        for( int t = Start[ u ]; t != -1; t = Next[ t ] ) {
+            int v = To[ t ];
+            if( Deep[ v ] ) continue;
+            if( NowFlow[ t ] &lt;= 0 ) continue;
+            Deep[ v ] = Deep[ u ] + 1;
+            Queue[ ++R ] = v;
+        }
+    }
+    return Deep[ T ];
+}
+
+int Dfs( int u, int Rest, int T ) {
+    if( u == T || Rest &lt;= 0 ) return Rest;
+    int Ans = 0;
+    for( int &amp;t = Cur[ u ]; t != -1; t = Next[ t ] ) {
+        int v = To[ t ];
+        if( Deep[ v ] != Deep[ u ] + 1 ) continue;
+        if( NowFlow[ t ] &lt;= 0 ) continue;
+        int d = Dfs( v, min( Rest, NowFlow[ t ] ), T );
+        NowFlow[ t ] -= d; NowFlow[ t ^ 1 ] += d;
+        Ans += d; Rest -= d;
+        if( !Rest ) break;
+    }
     return Ans;
 }
 
-namespace Polynom {
-
-    LL n, Index[ MaxN ], Omega[ MaxN ], InvOmega[ MaxN ];
-    LL A[ MaxN ], B[ MaxN ], InvB[ MaxN ], Mul[ MaxN ];
-    LL a[ MaxN ], b[ MaxN ];
-
-    void Init( LL N ) {
-        for( n = 1; n &lt; N &lt;&lt; 1; n &lt;&lt;= 1 );
-        Omega[ 0 ] = 1; Omega[ 1 ] = FastPow( 3, ( Mod - 1 ) / n );
-        for( LL i = 2; i &lt; n; ++i ) Omega[ i ] = Omega[ i - 1 ] * Omega[ 1 ] % Mod;
-        InvOmega[ n - 1 ] = FastPow( Omega[ n - 1 ], Mod - 2 );
-        for( LL i = n - 2; i &gt;= 0; --i ) InvOmega[ i ] = InvOmega[ i + 1 ] * Omega[ 1 ] % Mod;
-        return;
-    }
-
-    void Reverse( LL *A, LL Len ) {
-        for( LL i = 0; i + i &lt; Len; ++i )
-            swap( A[ i ], A[ Len - i - 1 ] );
-        return;
-    }
-
-    void NTT( LL L, LL *A, LL *Omega ) {
-        for( LL i = 0; i &lt; L; ++i )
-            Index[ i ] = ( Index[ i &gt;&gt; 1 ] &gt;&gt; 1 ) | ( ( i &amp; 1 ) * ( L &gt;&gt; 1 ) );
-        for( LL i = 0; i &lt; L; ++i )
-            if( i &lt; Index[ i ] )
-                swap( A[ i ], A[ Index[ i ] ] );
-        for( LL HalfLen = 1; HalfLen &lt; L; HalfLen &lt;&lt;= 1 )
-            for( LL i = 0; i &lt; L; i += HalfLen &lt;&lt; 1 ) 
-                for( LL j = 0; j &lt; HalfLen; ++j ) {
-                    LL T = Omega[ n / 2 / HalfLen * j ] * A[ i + j + HalfLen ] % Mod;
-                    LL t = A[ i + j ];
-                    A[ i + j ] = ( t + T ) % Mod;
-                    A[ i + j + HalfLen ] = ( t - T + Mod ) % Mod;
-                }
-        return;
-    }
-
-    void Inverse( LL Len, LL *A, LL *Ans ) {
-        if( Len == 1 ) {
-            Ans[ 0 ] = FastPow( A[ 0 ], Mod - 2 );
-            return;
+int Dinic( int S, int T ) {
+    int Ans = 0;
+    memcpy( NowFlow, Flow, sizeof( Flow ) );
+    while( Bfs( S, T ) ) {
+        memcpy( Cur, Start, sizeof( Start ) );
+        int d = Dfs( S, INF, T );
+        while( d ) {
+            Ans += d;
+            d = Dfs( S, INF, T );
         }
-        Inverse( ( Len + 1 ) &gt;&gt; 1, A, Ans );
-        LL len = 1;
-        for( ; len &lt; Len &lt;&lt; 1; len &lt;&lt;= 1 );
-        memset( a, 0, sizeof( a ) );
-        memset( b, 0, sizeof( b ) );
-        for( LL i = 0; i &lt; Len; ++i ) a[ i ] = A[ i ];
-        for( LL i = 0; i &lt; Len; ++i ) b[ i ] = Ans[ i ];
-        NTT( len, a, Omega );
-        NTT( len, b, Omega );
-        for( LL i = 0; i &lt; len; ++i ) {
-            b[ i ] = b[ i ] * ( 2 - a[ i ] * b[ i ] % Mod ) % Mod;
-            b[ i ] = ( b[ i ] + Mod ) % Mod;
+    }
+    return Ans;
+}
+
+void Build( int Left, int Right ) {
+    if( Left &gt;= Right ) return;
+    int t = Dinic( Q[ Left ], Q[ Left + 1 ] );
+    AddEdge_( Q[ Left ], Q[ Left + 1 ], t );
+    Bfs( Q[ Left ], n + 1 );
+    t =  Left - 1;
+    for( int i = Left; i &lt;= Right; ++i ) 
+        if( Deep[ Q[ i ] ] )
+            P[ ++t ] = Q[ i ];
+    int Cut = t;
+    for( int i = Left; i &lt;= Right; ++i ) 
+        if( !Deep[ Q[ i ] ] )
+            P[ ++t ] = Q[ i ];
+    for( int i = Left; i &lt;= Right; ++i ) 
+        Q[ i ] = P[ i ];
+    Build( Left, Cut );
+    Build( Cut + 1, Right );
+    return;
+}
+
+void Build_( int u, int Fa, int c ) {
+    D[ u ][ 0 ][ 0 ] = Fa;
+    for( int i = 1; i &lt; MaxLog; ++i ) D[ u ][ i ][ 0 ] = D[ D[ u ][ i - 1 ][ 0 ] ][ i - 1 ][ 0 ];
+    D[ u ][ 0 ][ 1 ] = c;
+    for( int i = 1; i &lt; MaxLog; ++i ) D[ u ][ i ][ 1 ] = min( D[ u ][ i - 1 ][ 1 ], D[ D[ u ][ i - 1 ][ 0 ] ][ i - 1 ][ 1 ] );
+    Deep_[ u ] = Deep_[ Fa ] + 1;
+    for( int t = Start_[ u ]; t; t = Next_[ t ] ) {
+        int v = To_[ t ];
+        if( v == Fa ) continue;
+        Build_( v, u, Val_[ t ] );
+    }
+    return;
+}
+
+int Query( int x, int y ) {
+    int Ans = INF;
+    if( Deep_[ x ] &lt; Deep_[ y ] ) swap( x, y );
+    for( int i = MaxLog - 1; i &gt;= 0; --i )
+        if( Deep_[ D[ x ][ i ][ 0 ] ] &gt;= Deep_[ y ] ) {
+            Ans = min( Ans, D[ x ][ i ][ 1 ] );
+            x = D[ x ][ i ][ 0 ];
         }
-        NTT( len, b, InvOmega );
-        LL Inv = FastPow( len, Mod - 2 );
-        for( LL i = 0; i &lt; len; ++i )
-            b[ i ] = b[ i ] * Inv % Mod;
-        for( LL i = Len; i &lt; len; ++i ) b[ i ] = 0;
-        memcpy( Ans, b, sizeof( b ) );
-        return;
-    }
-
-    void Multiply( LL Len, LL *A, LL *B, LL *Ans ) {
-        LL len = 1;
-        for( ; len &lt; Len &lt;&lt; 1; len &lt;&lt;= 1 );
-        NTT( len, A, Omega ); NTT( len, B, Omega );
-        for( LL i = 0; i &lt; len; ++i ) Ans[ i ] = A[ i ] * B[ i ] % Mod;
-        NTT( len, Ans, InvOmega );
-        LL Inv = FastPow( len, Mod - 2 );
-        for( LL i = 0; i &lt; len; ++i ) Ans[ i ] = Ans[ i ] * Inv % Mod;
-        return;
-    }
-
-    void Division( LL N, LL M, LL *F, LL *G, LL *Q, LL *R ) {
-        LL ModuleLen = N - M + 1;
-        memset( A, 0, sizeof( A ) );
-        memset( B, 0, sizeof( B ) );
-        for( LL i = 0; i &lt; N; ++i ) A[ i ] = F[ i ];
-        for( LL i = 0; i &lt; M; ++i ) B[ i ] = G[ i ];
-        Reverse( A, N );
-        Reverse( B, M );
-        for( LL i = ModuleLen; i &lt; N; ++i ) A[ i ] = 0;
-        for( LL i = ModuleLen; i &lt; M; ++i ) B[ i ] = 0;
-        Inverse( ModuleLen, B, InvB );
-        Multiply( ModuleLen, A, InvB, Q );
-        Reverse( Q, N - M + 1 );
-        memset( A, 0, sizeof( A ) );
-        memset( B, 0, sizeof( B ) );
-        for( LL i = 0; i &lt; N; ++i ) A[ i ] = G[ i ];
-        for( LL i = 0; i &lt; N - M + 1; ++i ) B[ i ] = Q[ i ];
-        Multiply( N, A, B, Mul );
-        for( LL i = 0; i &lt; M; ++i ) R[ i ] = ( F[ i ] - Mul[ i ] + Mod ) % Mod;
-        return;
-    }
-} //Polynom
+    if( x == y ) return Ans;
+    for( int i = MaxLog - 1; i &gt;= 0; --i ) 
+        if( D[ x ][ i ][ 0 ] != D[ y ][ i ][ 0 ] ) {
+            Ans = min( Ans, D[ x ][ i ][ 1 ] );
+            Ans = min( Ans, D[ y ][ i ][ 1 ] );
+            x = D[ x ][ i ][ 0 ];
+            y = D[ y ][ i ][ 0 ];
+        }
+    Ans = min( Ans, D[ x ][ 0 ][ 1 ] );
+    Ans = min( Ans, D[ y ][ 0 ][ 1 ] );
+    return Ans;
+}
 
 int main() {
-    Read();
-    Polynom::Init( N );
-    Polynom::Division( N, M, F, G, Q, R );
-    Print();
+    Used = -1;
+    memset( Start, 255, sizeof( Start ) );
+    scanf( &quot;%d%d&quot;, &amp;n, &amp;m );
+    for( int i = 1; i &lt;= m; ++i ) {
+        int x, y, z;
+        scanf( &quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z );
+        AddEdge( x, y, z );
+        AddEdge( y, x, z );
+    }
+    for( int i = 0; i &lt;= n; ++i ) Q[ i ] = i;
+    Build( 0, n );
+    Build_( 0, 0, INF );
+    scanf( &quot;%d&quot;, &amp;q );
+    for( int i = 1; i &lt;= q; ++i ) {
+        int x, y;
+        scanf( &quot;%d%d&quot;, &amp;x, &amp;y );
+        printf( &quot;%d\n&quot;, Query( x, y ) );
+    }
+    return 0;
+}
+</code></pre><h3 id="参考代码（「CQOI2016」不同的最小割）"><a href="#参考代码（「CQOI2016」不同的最小割）" class="headerlink" title="参考代码（「CQOI2016」不同的最小割）"></a>参考代码（「CQOI2016」不同的最小割）</h3><pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int Maxn = 860;
+const int Maxm = 8510;
+const int INF = 2147483647;
+const int MaxLog = 20;
+int n, m, Q[ Maxn ], P[ Maxn ], q;
+int Start[ Maxn ], Cur[ Maxn ], Next[ Maxm &lt;&lt; 1 ], To[ Maxm &lt;&lt; 1 ], Flow[ Maxm &lt;&lt; 1 ], NowFlow[ Maxm &lt;&lt; 1 ], Used;
+int Deep[ Maxn ], Dis[ Maxn ], L, R, Queue[ Maxn ];
+map&lt; int, int &gt; Map;
+int Ans;
+
+inline void AddEdge( int x, int y, int z ) {
+    ++Used;
+    Next[ Used ] = Start[ x ];
+    To[ Used ] = y;
+    Flow[ Used ] = z;
+    Start[ x ] = Used;
+    return;
+}
+
+bool Bfs( int S, int T ) {
+    memset( Deep, 0, sizeof( Deep ) );
+    memset( Dis, 0, sizeof( Dis ) );
+    Deep[ S ] = 1;
+    L = R = 0;
+    Queue[ ++R ] = S;
+    while( L &lt; R ) {
+        int u = Queue[ ++L ];
+        for( int t = Start[ u ]; t != -1; t = Next[ t ] ) {
+            int v = To[ t ];
+            if( Deep[ v ] ) continue;
+            if( NowFlow[ t ] &lt;= 0 ) continue;
+            Deep[ v ] = Deep[ u ] + 1;
+            Queue[ ++R ] = v;
+        }
+    }
+    return Deep[ T ];
+}
+
+int Dfs( int u, int Rest, int T ) {
+    if( u == T || Rest &lt;= 0 ) return Rest;
+    int Ans = 0;
+    for( int &amp;t = Cur[ u ]; t != -1; t = Next[ t ] ) {
+        int v = To[ t ];
+        if( Deep[ v ] != Deep[ u ] + 1 ) continue;
+        if( NowFlow[ t ] &lt;= 0 ) continue;
+        int d = Dfs( v, min( Rest, NowFlow[ t ] ), T );
+        NowFlow[ t ] -= d; NowFlow[ t ^ 1 ] += d;
+        Ans += d; Rest -= d;
+        if( !Rest ) break;
+    }
+    return Ans;
+}
+
+int Dinic( int S, int T ) {
+    int Ans = 0;
+    memcpy( NowFlow, Flow, sizeof( Flow ) );
+    while( Bfs( S, T ) ) {
+        memcpy( Cur, Start, sizeof( Start ) );
+        int d = Dfs( S, INF, T );
+        while( d ) {
+            Ans += d;
+            d = Dfs( S, INF, T );
+        }
+    }
+    return Ans;
+}
+
+void Build( int Left, int Right ) {
+    if( Left &gt;= Right ) return;
+    int t = Dinic( Q[ Left ], Q[ Left + 1 ] );
+    if( Map.find( t ) == Map.end() ) {
+        ++Ans;
+        Map[ t ] = 1;
+    }
+    Bfs( Q[ Left ], n + 1 );
+    t =  Left - 1;
+    for( int i = Left; i &lt;= Right; ++i ) 
+        if( Deep[ Q[ i ] ] )
+            P[ ++t ] = Q[ i ];
+    int Cut = t;
+    for( int i = Left; i &lt;= Right; ++i ) 
+        if( !Deep[ Q[ i ] ] )
+            P[ ++t ] = Q[ i ];
+    for( int i = Left; i &lt;= Right; ++i ) 
+        Q[ i ] = P[ i ];
+    Build( Left, Cut );
+    Build( Cut + 1, Right );
+    return;
+}
+
+int main() {
+    Used = -1;
+    memset( Start, 255, sizeof( Start ) );
+    scanf( &quot;%d%d&quot;, &amp;n, &amp;m );
+    for( int i = 1; i &lt;= m; ++i ) {
+        int x, y, z;
+        scanf( &quot;%d%d%d&quot;, &amp;x, &amp;y, &amp;z );
+        AddEdge( x, y, z );
+        AddEdge( y, x, z );
+    }
+    for( int i = 1; i &lt;= n; ++i ) Q[ i ] = i;
+    Build( 1, n );
+    printf( &quot;%d\n&quot;, Ans );
     return 0;
 }
 
@@ -582,7 +706,7 @@ int main() {
                     </span>
                     <a href="http://chy-2003.github.io" class="b-link-green">chy's blog</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/18/6/" class="b-link-green">多项式除法</a>
+                    <a href="/2019/04/19/7/" class="b-link-green">最小割树</a>
                 </p>
             </div>
         </div>
@@ -605,7 +729,8 @@ int main() {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2019/04/19/7/">
                     <div class="card-image">
@@ -621,9 +746,9 @@ int main() {
 算法介绍最小割树用于解决一类多点之间最小割的问题。luogu上的题：【模板】最小割树（Gomory-Hu Tree）。然后我们借助这道模板题来看看如何实现。
 首先我们选择两个点$x$和$y$，</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -636,6 +761,7 @@ int main() {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -654,22 +780,23 @@ int main() {
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/17/5/">
+                <a href="/2019/04/18/6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="多项式求逆">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="多项式除法">
                         
-                        <span class="card-title">多项式求逆</span>
+                        <span class="card-title">多项式除法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">概述多项式求逆是多项式除法的基础。通过快速傅里叶变换和倍增，我们可以在$O(n \log n)$的复杂度内完成。
-概念定义$\deg A$表示多项式$A$的最高次数。
-对于两个多项式$A$和$B$，有唯一的$A=QB+R$。其中$\deg </div>
+                    <div class="summary block-with-text">概述我们知道对于多项式$A$和多项式$B$，有唯一的$Q$和$R$使得$A=QB+R$，其中$\deg R &lt; \deg B$。
+多项式除法就是给定$A$和$B$，求$Q$和$R$。
+求法参考miskcoo大佬的博客
+已知$$A(x)</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-17
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
                             </span>
                         <span class="publish-author">
                             
