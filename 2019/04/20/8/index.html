@@ -422,50 +422,51 @@
 <p>我们可以把$n-1$写成$m*2^p$，其中$m$是正奇数，$p$是正整数。</p>
 <p>然后选定多个底$a\in (1,p)$，进行费马小定理测试和对$(a^m)^2,(a^{2m})^2,(a^{2^2m})^2,\cdots,(a^{2^{p-1}m})^2$进行二次探测测试。</p>
 <p>如果选定不同$a$的个数为$T$，那么Miller_Rabin出错的概率是$(\frac{1}{4})^T$。当$T$较大时就可以承受了。</p>
-<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><pre><code>#include &lt;bits/stdc++.h&gt;
-#define LL long long
-using namespace std;
+<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">define</span> LL long long</span>
+using namespace std<span class="token punctuation">;</span>
 
-LL FastPow( LL x, LL y, LL Mod ) {
-    LL Ans = 1;
-    for( ; y; y &gt;&gt;= 1, x = ( __int128 ) x * x % Mod )
-        if( y &amp; 1 )
-            Ans = ( __int128 ) Ans * x % Mod;
-    return Ans;
-}
+LL <span class="token function">FastPow</span><span class="token punctuation">(</span> LL x<span class="token punctuation">,</span> LL y<span class="token punctuation">,</span> LL Mod <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    LL Ans <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token punctuation">;</span> y<span class="token punctuation">;</span> y <span class="token operator">>>=</span> <span class="token number">1</span><span class="token punctuation">,</span> x <span class="token operator">=</span> <span class="token punctuation">(</span> __int128 <span class="token punctuation">)</span> x <span class="token operator">*</span> x <span class="token operator">%</span> Mod <span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span> y <span class="token operator">&amp;</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+            Ans <span class="token operator">=</span> <span class="token punctuation">(</span> __int128 <span class="token punctuation">)</span> Ans <span class="token operator">*</span> x <span class="token operator">%</span> Mod<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> Ans<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-bool Miller_Rabin( LL n, LL Times ) {
-    if( n == 2 || n == 3 ) return true;
-    if( n &lt; 2 || n % 2 == 0 ) return false;
-    LL m = n - 1, p = 0;
-    while( !( m &amp; 1 ) ) {
-        m &gt;&gt;= 1;
-        ++p;
-    }
-    if( n == 2 || n == 3 ) return true;
-    if( n &lt; 2 || n % 2 == 0 ) return false;
-    for( LL i = 0; i &lt; Times; ++i ) {
-        LL a = rand() % ( n - 2 ) + 2;
-        a = FastPow( a, m, n );
-        for( LL i = 1; i &lt;= p; ++i ) {
-            LL b = a;
-            a = ( __int128 ) a * a % n;
-            if( a == 1 &amp;&amp; b != 1 &amp;&amp; b != n - 1 ) return false;
-        }
-        if( a != 1 ) return false;
-    }
-    return true;
-}
+bool <span class="token function">Miller_Rabin</span><span class="token punctuation">(</span> LL n<span class="token punctuation">,</span> LL Times <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span> n <span class="token operator">==</span> <span class="token number">2</span> <span class="token operator">||</span> n <span class="token operator">==</span> <span class="token number">3</span> <span class="token punctuation">)</span> <span class="token keyword">return</span> true<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span> n <span class="token operator">&lt;</span> <span class="token number">2</span> <span class="token operator">||</span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">)</span> <span class="token keyword">return</span> false<span class="token punctuation">;</span>
+    LL m <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token operator">!</span><span class="token punctuation">(</span> m <span class="token operator">&amp;</span> <span class="token number">1</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        m <span class="token operator">>>=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token operator">++</span>p<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span> n <span class="token operator">==</span> <span class="token number">2</span> <span class="token operator">||</span> n <span class="token operator">==</span> <span class="token number">3</span> <span class="token punctuation">)</span> <span class="token keyword">return</span> true<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span> n <span class="token operator">&lt;</span> <span class="token number">2</span> <span class="token operator">||</span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">)</span> <span class="token keyword">return</span> false<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> LL i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> Times<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        LL a <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token punctuation">(</span> n <span class="token operator">-</span> <span class="token number">2</span> <span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        a <span class="token operator">=</span> <span class="token function">FastPow</span><span class="token punctuation">(</span> a<span class="token punctuation">,</span> m<span class="token punctuation">,</span> n <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span> LL i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> p<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            LL b <span class="token operator">=</span> a<span class="token punctuation">;</span>
+            a <span class="token operator">=</span> <span class="token punctuation">(</span> __int128 <span class="token punctuation">)</span> a <span class="token operator">*</span> a <span class="token operator">%</span> n<span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span> a <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> b <span class="token operator">!=</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> b <span class="token operator">!=</span> n <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">)</span> <span class="token keyword">return</span> false<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span> a <span class="token operator">!=</span> <span class="token number">1</span> <span class="token punctuation">)</span> <span class="token keyword">return</span> false<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> true<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-int main() {
-    srand( ( unsigned LL ) &quot;应该不会卡19260817&quot; );
-    LL n;
-    while( scanf( &quot;%lld&quot;, &amp;n ) == 1 )    
-        if( Miller_Rabin( n, 8 ) ) printf( &quot;Y\n&quot; ); else printf( &quot;N\n&quot; );
-    return 0;
-}
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">srand</span><span class="token punctuation">(</span> <span class="token punctuation">(</span> <span class="token keyword">unsigned</span> LL <span class="token punctuation">)</span> <span class="token string">"应该不会卡19260817"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LL n<span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token function">scanf</span><span class="token punctuation">(</span> <span class="token string">"%lld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n <span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">)</span>    
+        <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token function">Miller_Rabin</span><span class="token punctuation">(</span> n<span class="token punctuation">,</span> <span class="token number">8</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span> <span class="token string">"Y\n"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token function">printf</span><span class="token punctuation">(</span> <span class="token string">"N\n"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
 </code></pre>
+
             </div>
             <hr>
 
@@ -511,25 +512,24 @@ int main() {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2019/04/20/8/">
+                <a href="/2019/04/20/9/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Miller_Rabin素数测试">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Pollard_Rho">
                         
-                        <span class="card-title">Miller_Rabin素数测试</span>
+                        <span class="card-title">Pollard_Rho</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">介绍当我们需要判断一个大数是否为素数，而$O(\sqrt n)$的时间复杂度又不可接受时，就需要用到Miller_Raibin素数测试了。Miller_Rabin素数测试是一种随机算法，但是正确率可以接受。
-算法流程费马小定理测试由费马小定</div>
+                    <div class="summary block-with-text">注：有参考于LinearODE的博客
+引入现有一个问题：如何求一个大数的一个因子（最大、最小、任意一个），而数据范围是64位带符号整形，并且有100次询问。那么枚举显然是不现实的，我们就需要一个更加高效的算法。在学习Pollard_Rho之</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-20
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-20
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -542,7 +542,6 @@ int main() {
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

@@ -442,63 +442,64 @@
 <p>发现什么了吧。</p>
 <p>我们可以先将系数放到对应的位置，然后从下往上一步步合并就可以了。</p>
 <h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p><a href="https://www.luogu.org/problemnew/show/P3803" target="_blank" rel="noopener">题目链接</a></p>
-<pre><code>#include &lt;bits/stdc++.h&gt;
-#define LL long long
-#define LD long double
-using namespace std;
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">define</span> LL long long</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> LD long double</span>
+using namespace std<span class="token punctuation">;</span>
 
-const int Maxn = 4000010;
-const LD Pi = 3.14159265358979323846264;
-struct myComplex {
-    LD real, imag;
-    myComplex operator + ( const myComplex Other ) const {
-        return ( myComplex ) { real + Other.real, imag + Other.imag };
-    }
-    myComplex operator - ( const myComplex Other ) const {
-        return ( myComplex ) { real - Other.real, imag - Other.imag };
-    }
-    myComplex operator * ( const myComplex Other ) const {
-        return ( myComplex ) { real * Other.real - imag * Other.imag, real * Other.imag + imag * Other.real };
-    }
-};
-int n, m, TotalLen, N;
-int Index[ Maxn ];
-myComplex omega[ Maxn ], A[ Maxn ], B[ Maxn ];
+<span class="token keyword">const</span> <span class="token keyword">int</span> Maxn <span class="token operator">=</span> <span class="token number">4000010</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> LD Pi <span class="token operator">=</span> <span class="token number">3.14159265358979323846264</span><span class="token punctuation">;</span>
+<span class="token keyword">struct</span> myComplex <span class="token punctuation">{</span>
+    LD real<span class="token punctuation">,</span> imag<span class="token punctuation">;</span>
+    myComplex operator <span class="token operator">+</span> <span class="token punctuation">(</span> <span class="token keyword">const</span> myComplex Other <span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span> myComplex <span class="token punctuation">)</span> <span class="token punctuation">{</span> real <span class="token operator">+</span> Other<span class="token punctuation">.</span>real<span class="token punctuation">,</span> imag <span class="token operator">+</span> Other<span class="token punctuation">.</span>imag <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    myComplex operator <span class="token operator">-</span> <span class="token punctuation">(</span> <span class="token keyword">const</span> myComplex Other <span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span> myComplex <span class="token punctuation">)</span> <span class="token punctuation">{</span> real <span class="token operator">-</span> Other<span class="token punctuation">.</span>real<span class="token punctuation">,</span> imag <span class="token operator">-</span> Other<span class="token punctuation">.</span>imag <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    myComplex operator <span class="token operator">*</span> <span class="token punctuation">(</span> <span class="token keyword">const</span> myComplex Other <span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span> myComplex <span class="token punctuation">)</span> <span class="token punctuation">{</span> real <span class="token operator">*</span> Other<span class="token punctuation">.</span>real <span class="token operator">-</span> imag <span class="token operator">*</span> Other<span class="token punctuation">.</span>imag<span class="token punctuation">,</span> real <span class="token operator">*</span> Other<span class="token punctuation">.</span>imag <span class="token operator">+</span> imag <span class="token operator">*</span> Other<span class="token punctuation">.</span>real <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> n<span class="token punctuation">,</span> m<span class="token punctuation">,</span> TotalLen<span class="token punctuation">,</span> N<span class="token punctuation">;</span>
+<span class="token keyword">int</span> Index<span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">;</span>
+myComplex omega<span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">,</span> A<span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">,</span> B<span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-void FFT( myComplex *A ) {
-    for( int i = 0; i &lt; N; ++i ) 
-        if( i &lt; Index[ i ] ) 
-            swap( A[ i ], A[ Index[ i ] ] );
-    for( int HalfLen = 1; HalfLen &lt; N; HalfLen &lt;&lt;= 1 ) 
-        for( int i = 0; i &lt; N; i += HalfLen &lt;&lt; 1 )
-            for( int j = 0; j &lt; HalfLen; ++j ) {
-                myComplex t = omega[ ( N / HalfLen / 2 ) * j ] * A[ i + j + HalfLen ];
-                myComplex T = A[ i + j ];
-                A[ i + j ] = T + t;
-                A[ i + j + HalfLen ] = T - t;
-            }
-    return;
-}
+<span class="token keyword">void</span> <span class="token function">FFT</span><span class="token punctuation">(</span> myComplex <span class="token operator">*</span>A <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> 
+        <span class="token keyword">if</span><span class="token punctuation">(</span> i <span class="token operator">&lt;</span> Index<span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token punctuation">)</span> 
+            <span class="token function">swap</span><span class="token punctuation">(</span> A<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">,</span> A<span class="token punctuation">[</span> Index<span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token punctuation">]</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> HalfLen <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> HalfLen <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> HalfLen <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span> <span class="token punctuation">)</span> 
+        <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i <span class="token operator">+</span><span class="token operator">=</span> HalfLen <span class="token operator">&lt;&lt;</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> HalfLen<span class="token punctuation">;</span> <span class="token operator">++</span>j <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                myComplex t <span class="token operator">=</span> omega<span class="token punctuation">[</span> <span class="token punctuation">(</span> N <span class="token operator">/</span> HalfLen <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">)</span> <span class="token operator">*</span> j <span class="token punctuation">]</span> <span class="token operator">*</span> A<span class="token punctuation">[</span> i <span class="token operator">+</span> j <span class="token operator">+</span> HalfLen <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                myComplex T <span class="token operator">=</span> A<span class="token punctuation">[</span> i <span class="token operator">+</span> j <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                A<span class="token punctuation">[</span> i <span class="token operator">+</span> j <span class="token punctuation">]</span> <span class="token operator">=</span> T <span class="token operator">+</span> t<span class="token punctuation">;</span>
+                A<span class="token punctuation">[</span> i <span class="token operator">+</span> j <span class="token operator">+</span> HalfLen <span class="token punctuation">]</span> <span class="token operator">=</span> T <span class="token operator">-</span> t<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-int main() {
-    scanf( &quot;%d%d&quot;, &amp;n, &amp;m );
-    ++n; ++m; TotalLen = n + m - 1;
-    for( int i = 0; i &lt; n; ++i ) scanf( &quot;%Lf&quot;, &amp;A[ i ].real );
-    for( int i = 0; i &lt; m; ++i ) scanf( &quot;%Lf&quot;, &amp;B[ i ].real );
-    for( N = 1; N &lt;= TotalLen; N &lt;&lt;= 1 );
-    for( int i = 0; i &lt; N; ++i ) 
-        Index[ i ] = ( Index[ i &gt;&gt; 1 ] &gt;&gt; 1 ) | ( ( i &amp; 1 ) * N / 2 );
-    for( int i = 0; i &lt; N; ++i ) 
-        omega[ i ] = ( myComplex ) { cos( 2.0 * Pi * i / N ), sin( 2.0 * Pi * i / N ) };
-    FFT( A ); FFT( B );
-    for( int i = 0; i &lt; N; ++i ) A[ i ] = A[ i ] * B[ i ];
-    for( int i = 0; i &lt; N; ++i ) omega[ i ].imag = -omega[ i ].imag;
-    FFT( A );
-    for( int i = 0; i &lt; TotalLen; ++i ) printf( &quot;%d &quot;, ( int ) ( A[ i ].real / N + 0.5 ) );
-    printf( &quot;\n&quot; );
-    return 0;
-}
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span> <span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">,</span> <span class="token operator">&amp;</span>m <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">++</span>n<span class="token punctuation">;</span> <span class="token operator">++</span>m<span class="token punctuation">;</span> TotalLen <span class="token operator">=</span> n <span class="token operator">+</span> m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token function">scanf</span><span class="token punctuation">(</span> <span class="token string">"%Lf"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>A<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">.</span>real <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token function">scanf</span><span class="token punctuation">(</span> <span class="token string">"%Lf"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>B<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">.</span>real <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> N <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> N <span class="token operator">&lt;=</span> TotalLen<span class="token punctuation">;</span> N <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> 
+        Index<span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span> Index<span class="token punctuation">[</span> i <span class="token operator">>></span> <span class="token number">1</span> <span class="token punctuation">]</span> <span class="token operator">>></span> <span class="token number">1</span> <span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span> i <span class="token operator">&amp;</span> <span class="token number">1</span> <span class="token punctuation">)</span> <span class="token operator">*</span> N <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> 
+        omega<span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span> myComplex <span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">cos</span><span class="token punctuation">(</span> <span class="token number">2.0</span> <span class="token operator">*</span> Pi <span class="token operator">*</span> i <span class="token operator">/</span> N <span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">sin</span><span class="token punctuation">(</span> <span class="token number">2.0</span> <span class="token operator">*</span> Pi <span class="token operator">*</span> i <span class="token operator">/</span> N <span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">FFT</span><span class="token punctuation">(</span> A <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">FFT</span><span class="token punctuation">(</span> B <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> A<span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">*</span> B<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> omega<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">.</span>imag <span class="token operator">=</span> <span class="token operator">-</span>omega<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">.</span>imag<span class="token punctuation">;</span>
+    <span class="token function">FFT</span><span class="token punctuation">(</span> A <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> TotalLen<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span> <span class="token string">"%d "</span><span class="token punctuation">,</span> <span class="token punctuation">(</span> <span class="token keyword">int</span> <span class="token punctuation">)</span> <span class="token punctuation">(</span> A<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">.</span>real <span class="token operator">/</span> N <span class="token operator">+</span> <span class="token number">0.5</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span> <span class="token string">"\n"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
+
             </div>
             <hr>
 
