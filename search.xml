@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Miller_Rabin素数测试</title>
+      <link href="/2019/04/20/8/"/>
+      <url>/2019/04/20/8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>当我们需要判断一个大数是否为素数，而$O(\sqrt n)$的时间复杂度又不可接受时，就需要用到Miller_Raibin素数测试了。Miller_Rabin素数测试是一种随机算法，但是正确率可以接受。</p><h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><h3 id="费马小定理测试"><a href="#费马小定理测试" class="headerlink" title="费马小定理测试"></a>费马小定理测试</h3><p>由费马小定理，我们知道若$p$是素数，那么对于$\forall a\in(0,p)$有$a^{p-1}\equiv 1(\mod p)$。它的逆否命题同样成立。</p><h3 id="二次探测测试"><a href="#二次探测测试" class="headerlink" title="二次探测测试"></a>二次探测测试</h3><p>如果$p$是素数，那么对于方程$a^2\equiv1 (\mod p)$在$a\in(0,p)$中的解只有$a=1$或$a=p-1$。它的逆否命题成立。</p><h3 id="Miller-Rabin"><a href="#Miller-Rabin" class="headerlink" title="Miller_Rabin"></a>Miller_Rabin</h3><p>假设我们现在判定$n$是否为素数。</p><p>首先排除$n&lt;2$和$n\equiv0(\mod 2)$的情况。现在$n$是一个正奇数，那么$n-1$一定是一个正偶数。</p><p>我们可以把$n-1$写成$m*2^p$，其中$m$是正奇数，$p$是正整数。</p><p>然后选定多个底$a\in (1,p)$，进行费马小定理测试和对$(a^m)^2,(a^{2m})^2,(a^{2^2m})^2,\cdots,(a^{2^{p-1}m})^2$进行二次探测测试。</p><p>如果选定不同$a$的个数为$T$，那么Miller_Rabin出错的概率是$(\frac{1}{4})^T$。当$T$较大时就可以承受了。</p><h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><pre><code>#include &lt;bits/stdc++.h&gt;#define LL long longusing namespace std;LL FastPow( LL x, LL y, LL Mod ) {    LL Ans = 1;    for( ; y; y &gt;&gt;= 1, x = ( __int128 ) x * x % Mod )        if( y &amp; 1 )            Ans = ( __int128 ) Ans * x % Mod;    return Ans;}bool Miller_Rabin( LL n, LL Times ) {    if( n == 2 || n == 3 ) return true;    if( n &lt; 2 || n % 2 == 0 ) return false;    LL m = n - 1, p = 0;    while( !( m &amp; 1 ) ) {        m &gt;&gt;= 1;        ++p;    }    if( n == 2 || n == 3 ) return true;    if( n &lt; 2 || n % 2 == 0 ) return false;    for( LL i = 0; i &lt; Times; ++i ) {        LL a = rand() % ( n - 2 ) + 2;        a = FastPow( a, m, n );        for( LL i = 1; i &lt;= p; ++i ) {            LL b = a;            a = ( __int128 ) a * a % n;            if( a == 1 &amp;&amp; b != 1 &amp;&amp; b != n - 1 ) return false;        }        if( a != 1 ) return false;    }    return true;}int main() {    srand( ( unsigned LL ) &quot;应该不会卡19260817&quot; );    LL n;    while( scanf( &quot;%lld&quot;, &amp;n ) == 1 )            if( Miller_Rabin( n, 8 ) ) printf( &quot;Y\n&quot; ); else printf( &quot;N\n&quot; );    return 0;}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> OI学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数论 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>最小割树</title>
       <link href="/2019/04/19/7/"/>
       <url>/2019/04/19/7/</url>
