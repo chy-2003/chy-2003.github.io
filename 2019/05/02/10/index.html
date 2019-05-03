@@ -522,26 +522,25 @@ using namespace std<span class="token punctuation">;</span>
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2019/05/02/10/">
+                <a href="/2019/05/03/11/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="「THUSC 2016」成绩单">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="「THUSC 2016」补退选">
                         
-                        <span class="card-title">「THUSC 2016」成绩单</span>
+                        <span class="card-title">「THUSC 2016」补退选</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">题目链接
-题目大意题面还是比较好理解的。值得注意的是，如果取了中间一段，两边的会连成一段。
-解题思路两维的DP看起来是不行的。看到$n$只有$50$，我们 考虑升维。令$F[l][r][A][B]$表示在区间$[l,r]$中，取走一部分，剩</div>
+题目大意题意应该算是比较明了。只是有一个坑点在于$(a\times |ANS|+b)\mod c$会爆$int$。
+解题思路既然只是简单地查询前缀，我们就建一颗Trie。然后考虑如何解决询问。询问问最早什么时候姓名前缀为S的学生超</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-02
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-03
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -554,12 +553,11 @@ using namespace std<span class="token punctuation">;</span>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DP/" target="_blank">
-                        <span class="chip bg-color">DP</span>
+                    <a href="/tags/Trie/" target="_blank">
+                        <span class="chip bg-color">Trie</span>
                     </a>
                     
                 </div>
