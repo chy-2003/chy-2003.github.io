@@ -1,0 +1,829 @@
+<!DOCTYPE HTML>
+<html lang="">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="「NOI2007」 社交网络, chy&#39;s blog">
+    <meta name="description" content="题目连接
+题目分析不知道为什么，很自然地就想到了Floyed。然后冷静分析一波，发现就是个简单的DP。
+令$Count[i][j][k]$表示从$i$到$j$经过$k$的最短路条数，同时令$C[i][j]$表示从$i$到$j$的最短路条数。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>「NOI2007」 社交网络 | chy&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">chy's blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>Index</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>Tags</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>Categories</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>Archives</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>About</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>Friends</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="Search"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">chy's blog</div>
+        <div class="logo-desc">
+            
+            Stay simple, stay naive.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                Index
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                Tags
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                Categories
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                Archives
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                About
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                Friends
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/chy-2003" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/chy-2003" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        「NOI2007」 社交网络
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/DP/" target="_blank">
+                                <span class="chip bg-color">DP</span>
+                            </a>
+                        
+                            <a href="/tags/最短路/" target="_blank">
+                                <span class="chip bg-color">最短路</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/OI学习/" class="post-category" target="_blank">
+                                OI学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2019-05-09
+                </div>
+
+                
+				
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a href="https://loj.ac/problem/2352" target="_blank" rel="noopener">题目连接</a></p>
+<h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><p>不知道为什么，很自然地就想到了Floyed。然后冷静分析一波，发现就是个简单的DP。</p>
+<p>令$Count[i][j][k]$表示从$i$到$j$经过$k$的最短路条数，同时令$C[i][j]$表示从$i$到$j$的最短路条数。Floyed的过程实际上就是DP的过程。我们走从$i$到$k$再到$j$的时候，要同时维护最短路数。而维护的时候需要枚举每一个点，同时注意点$k$的单独计算即可。</p>
+<h2 id="参考程序"><a href="#参考程序" class="headerlink" title="参考程序"></a>参考程序</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">define</span> LL long long</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> LD long double</span>
+using namespace std<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> LL Maxn <span class="token operator">=</span> <span class="token number">110</span><span class="token punctuation">;</span>
+LL N<span class="token punctuation">,</span> M<span class="token punctuation">,</span> Map<span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">,</span> C<span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">,</span> Count<span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">[</span> Maxn <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">memset</span><span class="token punctuation">(</span> Map<span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span> Map <span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span> <span class="token string">"%lld%lld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>N<span class="token punctuation">,</span> <span class="token operator">&amp;</span>M <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> LL i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> M<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        LL a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span> <span class="token string">"%lld%lld%lld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">,</span> <span class="token operator">&amp;</span>c <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Map<span class="token punctuation">[</span> a <span class="token punctuation">]</span><span class="token punctuation">[</span> b <span class="token punctuation">]</span> <span class="token operator">=</span> Map<span class="token punctuation">[</span> b <span class="token punctuation">]</span><span class="token punctuation">[</span> a <span class="token punctuation">]</span> <span class="token operator">=</span> c<span class="token punctuation">;</span>
+        C<span class="token punctuation">[</span> a <span class="token punctuation">]</span><span class="token punctuation">[</span> b <span class="token punctuation">]</span> <span class="token operator">=</span> Count<span class="token punctuation">[</span> a <span class="token punctuation">]</span><span class="token punctuation">[</span> b <span class="token punctuation">]</span><span class="token punctuation">[</span> a <span class="token punctuation">]</span> <span class="token operator">=</span> Count<span class="token punctuation">[</span> a <span class="token punctuation">]</span><span class="token punctuation">[</span> b <span class="token punctuation">]</span><span class="token punctuation">[</span> b <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        C<span class="token punctuation">[</span> b <span class="token punctuation">]</span><span class="token punctuation">[</span> a <span class="token punctuation">]</span> <span class="token operator">=</span> Count<span class="token punctuation">[</span> b <span class="token punctuation">]</span><span class="token punctuation">[</span> a <span class="token punctuation">]</span><span class="token punctuation">[</span> a <span class="token punctuation">]</span> <span class="token operator">=</span> Count<span class="token punctuation">[</span> b <span class="token punctuation">]</span><span class="token punctuation">[</span> a <span class="token punctuation">]</span><span class="token punctuation">[</span> b <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> LL i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">=</span> Count<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> LL k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>k <span class="token punctuation">)</span> 
+        <span class="token keyword">for</span><span class="token punctuation">(</span> LL i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span> LL j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>j <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span> i <span class="token operator">==</span> j <span class="token operator">||</span> i <span class="token operator">==</span> k <span class="token operator">||</span> j <span class="token operator">==</span> k <span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span> Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> Map<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span> Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">==</span> Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">+</span> Map<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">for</span><span class="token punctuation">(</span> LL p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> p <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>p <span class="token punctuation">)</span> 
+                        <span class="token keyword">if</span><span class="token punctuation">(</span> p <span class="token operator">!=</span> k <span class="token punctuation">)</span>
+                            Count<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span> <span class="token operator">+</span><span class="token operator">=</span> Count<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span> <span class="token operator">*</span> C<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">+</span> C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">*</span> Count<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        <span class="token keyword">else</span> 
+                            Count<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span> <span class="token operator">+</span><span class="token operator">=</span> C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">*</span> C<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">+</span><span class="token operator">=</span> C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">*</span> C<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span> Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">></span> Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">+</span> Map<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">=</span> Map<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">+</span> Map<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    <span class="token keyword">for</span><span class="token punctuation">(</span> LL p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> p <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>p <span class="token punctuation">)</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span> p <span class="token operator">!=</span> k <span class="token punctuation">)</span>
+                            Count<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span> <span class="token operator">=</span> Count<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span> <span class="token operator">*</span> C<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">+</span> C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">*</span> Count<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        <span class="token keyword">else</span> 
+                            Count<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> p <span class="token punctuation">]</span> <span class="token operator">=</span> C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">*</span> C<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span> <span class="token operator">=</span> C<span class="token punctuation">[</span> i <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span> <span class="token operator">*</span> C<span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//    for( LL i = 1; i &lt;= N; ++i ) {</span>
+<span class="token comment" spellcheck="true">//        for( LL j = 1; j &lt;= N; ++j ) { </span>
+<span class="token comment" spellcheck="true">//            printf( "%lld", Map[ i ][ j ] );</span>
+<span class="token comment" spellcheck="true">//            printf( "(%lld, ", C[ i ][ j ] );</span>
+<span class="token comment" spellcheck="true">//            for( LL k = 1; k &lt; N; ++k ) printf( "%lld ", Count[ i ][ j ][ k ] ); </span>
+<span class="token comment" spellcheck="true">//            printf( "%lld) ", Count[ i ][ j ][ N ] );</span>
+<span class="token comment" spellcheck="true">//        }</span>
+<span class="token comment" spellcheck="true">//        printf( "\n" );</span>
+<span class="token comment" spellcheck="true">//    }</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> LL i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        LD Ans <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span> LL j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>j <span class="token punctuation">)</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span> LL k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>k <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span> i <span class="token operator">==</span> j <span class="token operator">||</span> i <span class="token operator">==</span> k <span class="token operator">||</span> j <span class="token operator">==</span> k <span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                Ans <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1.0</span> <span class="token operator">*</span> Count<span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">[</span> i <span class="token punctuation">]</span> <span class="token operator">/</span> C<span class="token punctuation">[</span> j <span class="token punctuation">]</span><span class="token punctuation">[</span> k <span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span> <span class="token string">"%.3Lf\n"</span><span class="token punctuation">,</span> Ans <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone, qq, weibo, douban"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;Reprint please specify:
+                    </span>
+                    <a href="http://chy-2003.github.io" class="b-link-green">chy's blog</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/05/09/13/" class="b-link-green">「NOI2007」 社交网络</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2019/05/13/14/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="ACG002D - Stamp Rally">
+                        
+                        <span class="card-title">ACG002D - Stamp Rally</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">题目链接
+题目分析如果对于单个询问，显然我们可以二分答案来做。然后我们就可以整体二分了。
+整体二分的思想是这样的：
+
+首先二分一个答案，对于所有询问都判断一遍，然后按照需求分成两部分。之后对于每个部分都进行同样的操作。
+
+对于这道题目，我们</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-13
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/OI学习/" class="post-category" target="_blank">
+                                    OI学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/整体二分/" target="_blank">
+                        <span class="chip bg-color">整体二分</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/05/07/12/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="「THUWC 2017」在美妙的数学王国中畅游">
+                        
+                        <span class="card-title">「THUWC 2017」在美妙的数学王国中畅游</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">题目链接
+问题分析首先，有连边删边操作，那么LCT逃不了了。那么如何维护函数信息？注意到题目末尾的提示，结合题目所给的精度要求，我们取前十几项就可以了。那么我们就只需要维护多项式就行。
+对于第一种函数$$f(x)=\sin(ax+b)\\\</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/OI学习/" class="post-category" target="_blank">
+                                    OI学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LCT/" target="_blank">
+                        <span class="chip bg-color">LCT</span>
+                    </a>
+                    
+                    <a href="/tags/代数/" target="_blank">
+                        <span class="chip bg-color">代数</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://chy-2003.github.io/" target="_blank">chy-2003</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+
+            
+			
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/chy-2003" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:chy-2003@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=528574785" class="tooltipped" data-tooltip="QQ联系我: 528574785" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+
+</body>
+</html>
