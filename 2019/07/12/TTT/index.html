@@ -1,0 +1,1439 @@
+<!DOCTYPE HTML>
+<html lang="">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Coursera离散数学学习笔记, chy&#39;s blog">
+    <meta name="description" content="前言本笔记由chy-2003整理于上海交通大学发布于coursera的离散数学课程。讲师龙环。
+不保证内容十分全面，但至少与课程内容保持一致，同时添加或删减了某些样例和引入。个人博客上如此长的文章会带来较大的内存压力，同时由于Markdow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Coursera离散数学学习笔记 | chy&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">chy's blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>Index</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>Tags</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>Categories</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>Archives</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>About</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>Friends</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="Search"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">chy's blog</div>
+        <div class="logo-desc">
+            
+            Stay simple, stay naive.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                Index
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                Tags
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                Categories
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                Archives
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                About
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                Friends
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/chy-2003" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/chy-2003" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Coursera离散数学学习笔记
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/数学学习/" target="_blank">
+                                <span class="chip bg-color">数学学习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/学习笔记/" class="post-category" target="_blank">
+                                学习笔记
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2019-07-12
+                </div>
+
+                
+				
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本笔记由<a href="https://github.com/chy-2003" target="_blank" rel="noopener">chy-2003</a>整理于<a href="https://www.coursera.org/learn/discrete-mathematics-ch" target="_blank" rel="noopener">上海交通大学发布于coursera的离散数学课程</a>。讲师龙环。</p>
+<p>不保证内容十分全面，但至少与课程内容保持一致，同时添加或删减了某些样例和引入。个人博客上如此长的文章会带来较大的内存压力，同时由于Markdown的支持尚不全面，如果内容中有格式崩坏或者加载失败的，尽请谅解。</p>
+<p>定理或命题下方的块没有特殊标注即为证明。</p>
+<p>如果需要PDF版文件，或发现文章内容错误，请联系 <a href="mailto:chy_2003@foxmail.com" target="_blank" rel="noopener">chy_2003@foxmail.com</a>。</p>
+<p>本笔记由<a href="https://github.com/chy-2003" target="_blank" rel="noopener">chy-2003</a>免费共享，不得用作商业用途。</p>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="推荐书目"><a href="#推荐书目" class="headerlink" title="推荐书目"></a>推荐书目</h4><p>Invitation to Discrete Mathematics（Oxford University Press）</p>
+<p>Discrete Mathematics:Elementary and Beyond</p>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><p>函数$f:X\rightarrow Y$为集合$X$到集合$Y$的一个映射。对于任意$x\in X$，都有唯一一个$y\in Y$与之对应。</p>
+<p><em>单射：</em>对于$\forall y\in Y$最多只有一个$x\in X$与之对应。</p>
+<p><em>满射：</em>对于$\forall y\in Y$都有至少一个$x\in X$与之对应。</p>
+<p><em>双射：</em>同时满足单射与满射的映射。</p>
+<h4 id="集合运算"><a href="#集合运算" class="headerlink" title="集合运算"></a>集合运算</h4><p>对于集合$A=\{1,2,3\}$，$B=\{2,4\}$，$U=\{1,2,3.4\}$:</p>
+<p>$2^A=\{\emptyset, \{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\},\{1,2,3\}\}$ （幂集$P(A)$）</p>
+<p>$A\diagdown B=\{1,3\}$ （$A-B$）</p>
+<p>$A\times B=\{(1,2),(1,4),(2,2),(2,4),(3,2),(3,4)\}$</p>
+<p>$A\oplus B=\{1,3,4\}$。</p>
+<p>$\overline A =\{4\}$。</p>
+<h4 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h4><p>对于集合$A$，关系$R\subseteq A\times A$，如果$(x,y)\in R$，就可以记做$xRy$。关系可能有以下性质：</p>
+<blockquote>
+<ul>
+<li>自反性： 对于$\forall x\in A$，都有$xRyxRx$。</li>
+<li>对称性： 对于$\forall x,y \in A$，如果$xRy$，就有$yRx$。</li>
+<li>反对称性： 对于$\forall x,y\in A$，如果有$xRy$且$yRx$，那么$x=y$。</li>
+<li>传递性： 对于$\forall x,y,z\in A$，如果$xRy$且$yRz$，那么$xRz$。</li>
+</ul>
+</blockquote>
+<p>一些特殊关系：</p>
+<blockquote>
+<ul>
+<li>等价关系： 关系$R$具有自反性、对称性、传递性。例如$\equiv _6\subseteq N\times N$。</li>
+<li>偏序关系： 关系$R$具有自反性、反对称性、传递性。例如$\leqslant \subseteq N\times N$。</li>
+</ul>
+</blockquote>
+<h4 id="关系的运算"><a href="#关系的运算" class="headerlink" title="关系的运算"></a>关系的运算</h4><p>关系是一个集合，所以支持集合有关的运算。而关系还支持合成运算。我们定义$R\subseteq A\times B$，$S\subseteq B\times C$，那么合成运算$R\circ S=\{(x,z):x\in A \wedge z\in C \wedge \exists y\in B((x,y)\in R \wedge (y,z)\in S)\}$。</p>
+<p>$R^{-1}=\{(x,y):(y,x)\in R\}$表示$R$的逆关系。</p>
+<p>$R^n=R^{n-1}\circ R$。</p>
+<h4 id="等价类"><a href="#等价类" class="headerlink" title="等价类"></a>等价类</h4><p>有等价关系$R\subseteq A\times A$，定义$R[x]=\{y\in A:xRy\}$。$R[x]$被称为元素$x$在关系$R$下的等价类。例如对于关系$\equiv_6\subseteq N\times N$，$\equiv_6[0]=\{0,1,2,3,\dots\}$。</p>
+<p>性质：</p>
+<p>如果$R\subseteq A\times A$是等价关系，那么有</p>
+<p>$\bullet$ 对于$\forall x\in A$，$R[x]$非空。</p>
+<blockquote>
+<p>对于$\forall x\in A$，$x\in R[x]$。所以对于$\forall x\in A$，$R[x]$非空。</p>
+</blockquote>
+<p>$\bullet$ 对于$\forall x,y\in A$，$R[x]=R[y]$或$R[x]\cap R[y]=\emptyset$。</p>
+<blockquote>
+<p> 若$R[x]\cap R[y]=\emptyset$，那么结论成立。</p>
+<p>若$z\in R[x]\cap R[y]\neq \emptyset$，即$xRz$且$yRz$。那么根据对称性有$zRx$。对于$\forall x’\in R[x]$，即$xRx’$，根据传递性有$zRx’$。又根据对称性有$yRx’$。即$x’\in R[y]$。$\therefore R[x]\subseteq R[y]$。</p>
+<p>同理$R[y]\subseteq R[x]$。$\therefore R[x]=R[y]$。</p>
+<p>综上所述，结论成立。</p>
+</blockquote>
+<h4 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h4><p>对于集合$A$，如果$\pi=\{B_1,B_2,\dots,B_n\}$满足</p>
+<blockquote>
+<ul>
+<li>对于$\forall 1\leqslant i \leqslant n$，有$\emptyset \neq B_i \subseteq A$。</li>
+<li>对于$\forall 1\leqslant i &lt; j \leqslant n$，$B_i\cap B_j=\emptyset$。（不相交性）</li>
+<li>$B_1\cup B_2\cup \dots \cup B_n=A$。（覆盖性）</li>
+</ul>
+</blockquote>
+<p>则称$\pi$是$A$的一个划分。</p>
+<p>如果$R\subseteq A\times A$是一个等价关系，则等价类集合$\Pi=\{R[x]:x\in A\}$是集合$A$在$R$关系下的划分。</p>
+<h4 id="练习题1-1"><a href="#练习题1-1" class="headerlink" title="练习题1.1"></a><strong>练习题1.1</strong></h4><h3 id="序的关系"><a href="#序的关系" class="headerlink" title="序的关系"></a>序的关系</h3><h4 id="偏序集"><a href="#偏序集" class="headerlink" title="偏序集"></a>偏序集</h4><p>定义偏序集$(S,R)$，$R$是集合$S$上的偏序关系。</p>
+<p><strong>常用符号</strong></p>
+<p>偏序$\preccurlyeq, \leqslant$</p>
+<p>严偏序$\prec, &lt;$</p>
+<p>逆序$\succcurlyeq, &gt;$</p>
+<h4 id="线性序"><a href="#线性序" class="headerlink" title="线性序"></a>线性序</h4><p>如果偏序集$(S,R)$，$\forall x,y\in S, \Rightarrow xRy \vee yRx$，那么称$(S,R)$为线性序。</p>
+<p>如$(N,\leqslant),(Z,\leqslant)$是线性序，$(2^A, \subseteq),(N,|)$不是。</p>
+<h4 id="字典序"><a href="#字典序" class="headerlink" title="字典序"></a>字典序</h4><p>若$(S_1,\leqslant_1),(S_2,\leqslant_2),…,(S_n,\leqslant_n)$是$n$个线性序，$(a_1,a_2,…,a_n),(b_1,b_2,…,b_n)\in S_1\times S_2\times \dots \times S_n$。</p>
+<p>$n$元字典序$(a_1,a_2,\dots,a_n)\leqslant_{lex}(b_1,b_2,\dots,b_n)$成立</p>
+<p>$\Longleftrightarrow(a_1,a_2,\cdots,a_n)=(b_1,b_2,\dots,b_n)\vee \exists i\in\{1,2,\dots,n\}(\forall j&lt;i)a_j=b_j\wedge a_i &lt;_i b_i$。</p>
+<p><strong>$n$元字典序是线性序的证明</strong></p>
+<blockquote>
+<p>部分证明，其余类似：</p>
+<p>传递性：有$n$元组<br>$$<br>x=(a_1,a_2,\dots,a_i,\dots,a_j,\dots,a_n)\\<br>y=(b_1,b_2,\dots,b_i,\dots,b_j,\dots,b_n)\\<br>z=(c_1,c_2,\dots,c_i,\dots,c_j,\dots,c_n)<br>$$<br>设$x\leqslant_{lex} y\leqslant_{lex} z$，且$x,y$的前$i-1$项相同，$y,z$的前$j-1$项相同。对$i,j$的大小分为$3$类讨论：</p>
+<p>如果$i&lt;j$，那么$a_i&lt;_i b_i=c_i$；如果$i=j$，那么$a_i&lt;_i b_i &lt;_i c_i$；如果$i&gt;j$，那么$a_j=b_j&lt;_j c_j$。综上，有$x\leqslant_{lex} y$。</p>
+<p>其余部分略。</p>
+</blockquote>
+<h4 id="立即前元"><a href="#立即前元" class="headerlink" title="立即前元"></a>立即前元</h4><p><strong>定义</strong>：对于偏序集$(S,\preccurlyeq)$，元素$x,y$，若$x\prec y \wedge \urcorner(\exists z\in s)(x\prec z\prec y)$，那么称$x$是$y$的立即前元，记为$x\lhd y$。</p>
+<p><strong>性质</strong>：1、$\lhd$不具有传递性。2、多个元素可能有同一立即前元。3、一个元素可能有多个立即前元。</p>
+<p>例：$(N,|)$。</p>
+<p><strong>哈斯图（Hasse diagram）</strong></p>
+<p>给定偏序集$(S,\preccurlyeq)$，$S$为有限集。只保留立即前元关系对应边。若$x\lhd y$，则代表$y$的点在代表$x$的点上方。可以通过传递闭包恢复原图。</p>
+<h4 id="偏序集上的极大元、极小元、最大元、最小元"><a href="#偏序集上的极大元、极小元、最大元、最小元" class="headerlink" title="偏序集上的极大元、极小元、最大元、最小元"></a>偏序集上的极大元、极小元、最大元、最小元</h4><blockquote>
+<ul>
+<li>极大元(Maximal element) $\urcorner(\exists x\in S)x \succ a$。</li>
+<li>极小元(Minimal element) $\urcorner(\exists x\in S) x \prec a$。</li>
+<li>最大元(Largest element) $\forall x \in S, x \preccurlyeq a$。</li>
+<li>最小元(Smallest element) $\forall x \in S,a\preccurlyeq x$。</li>
+</ul>
+</blockquote>
+<p><strong>一些性质</strong></p>
+<blockquote>
+<ul>
+<li>极大元、极小元可能不止一个，一个元素可能既是极大元，又是极小元。</li>
+<li>可能不存在最大元、最小元。</li>
+<li>最大元一定是极大元，最小元一定是极小元。而极小元不一定是最小元，极大元不一定是最大元。</li>
+<li>如果$S$是无限集，那么极大元、极小元、最大元、最小元不一定存在。</li>
+<li>如果$S$是有限集，那么最大元、最小元不一定存在，极大元、极小元一定存在。</li>
+</ul>
+</blockquote>
+<p>$S$为有限集时，极小元存在性证明</p>
+<blockquote>
+<p>取$\forall x_0 \in S$。如果$x_0$是极小元，那么证毕。如果$x_0$不是极小元，找到$x_1\prec x_0$，对$x_1$重复以上讨论。而由于$S$是有限集，那么情况$2$在有限步后不成立，情况$1$成立。</p>
+</blockquote>
+<h4 id="线性扩充定理"><a href="#线性扩充定理" class="headerlink" title="线性扩充定理"></a>线性扩充定理</h4><p><strong>线性扩充</strong>：对于有限集$(S,\preccurlyeq)$，存在一个线性序集$(S,\preccurlyeq ‘)$，满足$x\prec y \rightarrow x\preccurlyeq’ y$。</p>
+<p><strong>证明</strong>：</p>
+<blockquote>
+<p>当$|S|=1$时，$(S,\preccurlyeq’)=(S,\preccurlyeq)$即可。当$|S|&gt;1$时，取$(S,\preccurlyeq)$中的一个极小元$x_0$，$S’=S\backslash \{x\}$。易证得$(S’,\preccurlyeq)$是一个偏序集，且$|S’|&lt;|S|$。根据归纳假设，存在$(S’,\preccurlyeq)$的线性扩充$(S’,\preccurlyeq ‘’)$。构造$(S,\preccurlyeq ‘)$为$\preccurlyeq ‘=\preccurlyeq ‘’ \bigcup \{(x_0,y):y\in S\}$。易证$(S,\preccurlyeq’)$是线性序列。</p>
+</blockquote>
+<p>一般线性扩充并不唯一。</p>
+<h4 id="练习题1-2"><a href="#练习题1-2" class="headerlink" title="练习题1.2"></a><strong>练习题1.2</strong></h4><h4 id="链与反链"><a href="#链与反链" class="headerlink" title="链与反链"></a>链与反链</h4><p>对于有限偏序集$(S,\preccurlyeq)$，$A\subseteq S$，$A$被称为 </p>
+<blockquote>
+<ul>
+<li>链（Chain）: 如果对于任意$x,y\in A$, $x \preccurlyeq y $或$y\preccurlyeq x $。</li>
+<li>反链（Antichain）: 如果对任意$x,y\in A$, $x \not \preccurlyeq y$。反链也称为独立集（Independent set）。</li>
+</ul>
+</blockquote>
+<p>还可以这么定义：</p>
+<blockquote>
+<ul>
+<li>可比较（Comparable）: 若$x\preccurlyeq y$或$y \preccurlyeq x$。</li>
+<li>不可比较（Incomparable）: 若$x \not \preccurlyeq y$且$ y \not \preccurlyeq x $。</li>
+<li>链：可比较元素的集合。</li>
+<li>反链：不可比较元素的集合。</li>
+</ul>
+</blockquote>
+<h4 id="最大独立集和最长链"><a href="#最大独立集和最长链" class="headerlink" title="最大独立集和最长链"></a>最大独立集和最长链</h4><p>给定有限偏序集$P=(S,\preccurlyeq) $。</p>
+<blockquote>
+<ul>
+<li>$\alpha (P) = \max \{ |A| : A $是$P$上的反链（独立集）$\}$。</li>
+<li>$\omega(P)=\max\{|A|:A$是$P$上的链$\}$。</li>
+</ul>
+</blockquote>
+<p><strong>Mirsky定理</strong>：给定有限偏序集$P=(S,\preccurlyeq)$，将$S$划分成若干个不相交的反链集，取最小划分数$t$，即<br>$$<br>\begin{aligned}<br>t=\min \left \{ k \left | \begin{matrix} s=A_1\cup A_2 \cup \dots \cup A_k \ 1 \leqslant i \leqslant k,A_i是反链 \\任意1 \leqslant i \neq j \leqslant k, A_i \cap A_j = \emptyset \end{matrix} \right . \right \}<br>\end{aligned}<br>$$<br>则$t=\omega(P)$。</p>
+<blockquote>
+<p>先证明$\omega(P)\leqslant t$。</p>
+<p>$S=A_1\cup A_2\cup \dots \cup A_t$，其中$A_1,A_2,\dots,A_t$为不相交的反链划分。</p>
+<p>$C\subseteq S $是$P$中任意一条链，有$|C\cap A_i|\leqslant 1$。</p>
+<p>$|C|=|C\cap S|=|C\cap(A_1\cup A_2\cup \dots \cup A_t)| = |(C\cap A_1)\cup(C\cap A_2)\cup \dots \cup (C \cap A_t)|\leqslant t$。</p>
+<p>$\therefore \omega(P)\leqslant t$。</p>
+<p>然后证明$t \leqslant \omega( P )$。</p>
+<p>令$A_1$是$S$的极小元集合，$A_{i+1}=S\backslash (A_1\cup A_2\cup \dots\cup A_i)$的极小元集合。</p>
+<p>每一个$A_i$都是一个反链（独立集）。有限步后$A_1\cup A_2\cup \dots \cup A_m$，由$t$的最小性，$t \leqslant m$。只需证明$m\leqslant \omega(P)$。</p>
+<p>任取$x_m\in A_m$，由构造，得$\exists x_{m-1}\in A_{m-1}$，使得$x_{m-1}\prec x_m$。以此类推，存在序列$x_1\prec x_2 \prec \dots \prec x_m$。$\therefore m \leqslant \omega(P)$。</p>
+<p>$\therefore t \leqslant \omega( P )$。</p>
+<p>证毕</p>
+</blockquote>
+<p><strong>推论1</strong>：$\alpha(P) \times \omega(P) \geqslant |S|$。</p>
+<blockquote>
+<p>$P=A_1\cup A_2\cup \dots \cup A_t$，$t=\omega(P)$，$|A_i|\leqslant \alpha(P)$。</p>
+<p>$|S|=|A_1|+|A_2|+\dots+|A_t|\leqslant \alpha(P) \times \omega(P) $。</p>
+</blockquote>
+<p><strong>推论2</strong>：对于任意有限偏序集$P=(S,\preccurlyeq)$，$\alpha(P)$或$\omega(P)$之一至少为$\sqrt{|S|}$。形象的，我们可以定义“宽”：$\alpha(P)$，”高“：$\omega(P)$。</p>
+<p><strong>Erdos-Szekeres引理</strong>：任意一个含有$n^2+1$个元素的实数序列$(x_1,x_2,\dots,x_{n^2+1})$中都含有一个长度为$n+1$的单调子序列。</p>
+<blockquote>
+<p>对$(x_1,\dots,x_{n^2+1})$，设$I={1,2,\dots,n^2+1}$。</p>
+<p>在集合$I$上定义关系$\preccurlyeq$：$i\preccurlyeq j\Longleftrightarrow (i\leqslant j)\wedge (x_i \leqslant x_j) $。</p>
+<p>可以证明$(I,\preccurlyeq)$是偏序集。</p>
+<p>由于推论2，若$\omega(I,\preccurlyeq ) &gt; n $：非递减子序列$x_{i_1}\leqslant x_{i_2}\leqslant \dots\leqslant x_{i_m}$。若$\alpha(I,\preccurlyeq)&gt;n$，有独立集$\{i_1,i_2,\dots,i_m\}$。设$i_1 &lt; i_2 &lt; \dots &lt; i_m$，则$x_{i_1} &gt; x_{i_2} &gt; \dots x_{i_m}$为非递增子序列。</p>
+<p>证毕。</p>
+</blockquote>
+<h4 id="练习题1-3"><a href="#练习题1-3" class="headerlink" title="练习题1.3"></a><strong>练习题1.3</strong></h4><h3 id="组合数计数"><a href="#组合数计数" class="headerlink" title="组合数计数"></a>组合数计数</h3><h4 id="导引：函数的计数"><a href="#导引：函数的计数" class="headerlink" title="导引：函数的计数"></a>导引：函数的计数</h4><p><strong>命题1</strong>：集合$N$的大小为$n$，集合$M$的大小为$m$，且$n\geqslant 0,m\geqslant 1$。从集合$N$到集合$M$所有可能的函数$f:N\rightarrow M$共有$m^n$个。</p>
+<blockquote>
+<p>对$n$做数学归纳。当$n=0$时，$f=\emptyset$。$f$唯一。此时$m^n=1$成立。假设$n=k$时结论成立。当$n=k+1$时，取$\forall a \in N$，则$f:N\rightarrow M$可以看做如下两个部分的组合：</p>
+<p>1、确定$f(a)\in M$即$f$函数在$a$上的值$f(a)$。$f(a)$的取值共有$m$中可能。</p>
+<p>2、确定$f’:M\backslash \{a\} \rightarrow M$。根据归纳假设，$f’$有$m^{n-1}$种可能。</p>
+<p>故$f:N\rightarrow M$共有$m\times m^{n-1}=m^n$种可能。</p>
+</blockquote>
+<p><strong>命题2</strong>：集合$N$的大小为$n$，集合$M$的大小为$m$，且$n\geqslant 0$，$m\geqslant 0$。从集合$N$到集合$M$所有可能的单射函数$f:N\rightarrow M$的个数为$m\times (m-1)\times \dots\times (m -  n + 1 )=\prod\limits_{i=0}^{n-1} (m-i)$。</p>
+<blockquote>
+<p>对$n$做数学归纳。当$n=0$时，$f=\emptyset$。$f$单射且唯一。此时公式成立。假设$n=k$时结论成立。当$n=k+1$时，取$\forall a \in N$，则$f:N\rightarrow M$可以看做如下两个部分的组合：</p>
+<p>1、确定$f(a)\in M$即$f$函数在$a$上的值$f(a)$。$f(a)$的取值共有$m$中可能。</p>
+<p>2、确定$f’:M\backslash \{a\} \rightarrow M\backslash\{f(a)\}$。根据归纳假设，$f’$有$(m-1)\dots(m-n+1)$种可能。</p>
+<p>故$f:N\rightarrow M$共有$m\times (m-1)\times \dots\times (m -  n + 1 )=\prod\limits_{i=0}^{n-1} (m-i)$种可能。</p>
+</blockquote>
+<h4 id="练习题2-1"><a href="#练习题2-1" class="headerlink" title="练习题2.1"></a><strong>练习题2.1</strong></h4><h4 id="简单应用：子集计数，置换计数"><a href="#简单应用：子集计数，置换计数" class="headerlink" title="简单应用：子集计数，置换计数"></a>简单应用：子集计数，置换计数</h4><p><strong>命题3</strong>：集合$X$含有$n$个元素$n\geqslant 0$。则$X$一共有$2^n$个子集。</p>
+<blockquote>
+<p>方法一：数学归纳法（略）</p>
+<p>方法二：</p>
+<p>考虑$X$的任意子集$A$，定义函数$f_A:X\rightarrow \{0,1\}$为$\begin{aligned} f_A(X)= \left \{ \begin{matrix} 1 &amp; if\,\,x\in A \ 0 &amp; if\,\,x\not \in A \end{matrix}\right . \end{aligned}$。$f_A$叫集合$A$的特征函数。如果可以验证（图示后显然成立）$X$的子集与函数$f_A$一一对应，那么就可以得到$X$的子集个数与从$x$到$\{0,1\}$的函数个数相等，为$2^n$个。（命题1）</p>
+</blockquote>
+<p><strong>置换</strong>：集合$X$到其自身的双射函数被称为一个置换。</p>
+<p>置换的表示：</p>
+<blockquote>
+<ul>
+<li>$p:X\rightarrow X$是一个双射函数。</li>
+<li>矩阵表示：如果集合$X$是有限集，它包含的元素$\{x_1,x_2,\dots,x_n\}$，则函数$p$可以表示为$\begin{aligned}\left ( \begin{matrix}x_1 &amp;x_2&amp;\dots&amp;x_n\\p(x_1)&amp;p(x_2)&amp;\dots&amp;p(x_n)\end{matrix} \right ) \end{aligned}$。如果$x_1,x_2,\dots,x_n$固定，那么可以用一行表示为$\begin{aligned}\left(\begin{matrix}p(x_1) &amp;p(x_2)&amp;\dots&amp;p(x_n)\end{matrix}\right )\end{aligned}$。例如$\begin{aligned}p=\left (\begin{matrix}1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7\\4&amp;5&amp;3&amp;2&amp;6&amp;7&amp;1 \end{matrix}\right )\end{aligned}$可以表示为$\begin{aligned}p=\left(\begin{matrix}4&amp;5&amp;3&amp;2&amp;6&amp;7&amp;1\end{matrix}\right)\end{aligned}$。</li>
+<li>图示法：<img src="/2019/07/12/TTT/1.png" alt="1"></li>
+<li>环（cycles）表示：$p=((1,4,2,5,6,7)(3))$。</li>
+</ul>
+</blockquote>
+<p>可以证明对于有限集合上的任一置换：1、图示法下表达成互不相交的环（独立子环）；2、除独立子环内点的顺序不一样外，环表示唯一。</p>
+<p>置换的计数：阶乘</p>
+<p>集合$X$的大小为$n$（即$|X|=n$），则$X$上的置换一共有$n\times (n-1)\times \dots \times 2 \times 1 $个。证明：类似于命题2，略。</p>
+<p>$n$的阶乘（n factorial）：$n!=n\times(n-1)\times \dots\times 2 \times 1 =\prod\limits_{i=1}^n i$。</p>
+<h4 id="练习题2-2"><a href="#练习题2-2" class="headerlink" title="练习题2.2"></a><strong>练习题2.2</strong></h4><h4 id="二项式定理、多项式定理"><a href="#二项式定理、多项式定理" class="headerlink" title="二项式定理、多项式定理"></a>二项式定理、多项式定理</h4><p>问题引入：已知集合$X$的大小为$n$（即$|X|=n$），$n\geqslant k\geqslant 0$。$X$的所有子集中正好含有$k$个元素的子集一共有多少个？例：$X=\{a,b,c\},k=2$。</p>
+<p>常用符号：$X \choose k $和$| {X \choose k} |$。例中${X\choose k}=\{\{a,b\},\{a,c\},\{b,c\}\}$，$|{X\choose k }|=3$。</p>
+<p><strong>命题4</strong> ：从含$n$个元素的集合$X$中抽取含$k$个元素$(n\geqslant k\geqslant 0)$的子集。所有$k$元子集的个数为<br>$$<br>\left |{X\choose k}\right |=\frac{n(n-1)(n-2)\dots(n-k+1)}{k!}<br>$$</p>
+<blockquote>
+<p>算两次：</p>
+<p>从$X$中抽取$k$元不重复有序组，一共有$n(n-1)\dots(n-k+1)$种方法。</p>
+<p>另一方面从任意1个$X$的$k$元子集出发，可以得到$k!$个不同的$k$元有序组。</p>
+<p>二者相等，故$n(n-1)\dots(n-k+1)=k!\left | { X \choose k } \right | $。<br>$$<br>\therefore \left | {X \choose k } \right |=\frac{n(n-1)\dots(n-k+1)}{k!}<br>$$</p>
+</blockquote>
+<p><strong>二项式系数</strong>：$|X|=n\geqslant k$均为非负整系数，定义二项式系数为<br>$$<br>{n\choose k}=\left | {X\choose k } \right | =\frac{n(n-1)\dots(n-k+1)}{k!}=\frac{n!}{k!(n-k)!}<br>$$<br><strong>命题5</strong>：$m\geqslant r\geqslant 0$是满足等式$x_1+x_2+\dots+x_r=m$的非负$r$元整数解$(x_1,x_2,\dots,x_r)$的个数为$m+r-1 \choose r-1$个。</p>
+<blockquote>
+<p>$m$个球用$r-1$个隔板隔开，方法与解$(x_1,x_2,\dots,x_r)$一一对应。就相当于在$m+r-1$个对象中，选取$r-1$个作为挡板，剩下$m$个为球。</p>
+</blockquote>
+<p><strong>性质</strong>：</p>
+<blockquote>
+<ul>
+<li>${n\choose k}={n\choose n-k}$</li>
+<li>${n-1 \choose k-1}+{n-1\choose k}={n \choose k}$</li>
+<li>$\sum\limits_{i=0}^n{n \choose i}^2={2n \choose n }$</li>
+</ul>
+</blockquote>
+<p>对于第三点的证明：注意到$\sum\limits_{i=0}^n{n\choose i}^2=\sum\limits_{i=0}^n{n\choose i}{n\choose n - i}$。而$2n \choose n$可理解为1、直接从$2n$个元素选$n$个；2、前$n$个元素里选$i$个，后$n$个元素里选$n-i$个。</p>
+<p><strong>二项式定理（Binomial Theorem）</strong>：对任意非负整数$n$如下等式成立<br>$$<br>(1+x)^n=\sum\limits_{k=0}^n{n\choose k}x^k<br>$$</p>
+<blockquote>
+<p>略</p>
+</blockquote>
+<p>当$x=1$时，得到<br>$$<br>{n \choose 0}+{n \choose 1 }+\dots + {n \choose n }=2^n<br>$$<br>当$x=-1$时，得到<br>$$<br>{n\choose 0}-{n\choose 1 } + {n \choose 2}-{n \choose 3} + \dots = \sum\limits_{k=0}^n{n\choose k}(-1)^k=0<br>$$<br>将上面两式相加，得到<br>$$<br>{n\choose 0}+{n\choose 2}+{n\choose 4}+\dots =2^{n-1}<br>$$<br><strong>带重复元素的排列</strong>：有来自$m$类的物品共$n$个，其中第$i$类物品有$k_i$个。即$k_1+k_2+\dots+k_m=n$。同一类物品不可区分。那么这$n$个物品所组成的不同排列一共有$\frac{n!}{k_1!k_2!\dots k_m!}$种，记作$n \choose k_1,k_2,\dots,k_m$，被称为<strong>多项式系数</strong>。</p>
+<blockquote>
+<p>证明思路同命题4，略。</p>
+</blockquote>
+<p><strong>多项式定理（Multinomial Theorem）</strong>：对任意实数$x_1,x_2,\dots,x_m$，以及任意自然数$n\geqslant 1$，如下等式成立：<br>$$<br>(x_1+x_2+\dots+x_m)^n=\sum\limits_{\substack {k_1+k_2+\dots+k_m=n \ k1,k2,\dots,k_m\geqslant 0}}{n\choose k_1,k_2,\dots,k_m}x_1^{k_1}x_2^{k_2}\dots x_m^{k_m}<br>$$</p>
+<blockquote>
+<p>略（归纳法）</p>
+</blockquote>
+<h4 id="练习题2-3"><a href="#练习题2-3" class="headerlink" title="练习题2.3"></a><strong>练习题2.3</strong></h4><h4 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h4><p>例：$|F\cup P|=|F|+|P|-|F\cap P|$，$|S\cup F\cup P|=|S|+|F|+|P|-|S\cap F|-|S\cap P|-|F\cap P|+|S\cap F\cap P|$。</p>
+<p><strong>容斥定理（Inclusion-exclusion principle）</strong>：对于任意有限集合$A_1,A_2,\dots,A_n$，有<br>$$<br>\begin{aligned}<br>\left | \bigcup\limits_{i=1}^nA_i\right | &amp;=\sum\limits_{k=1}^n(-1)^{k-1}\sum\limits_{\substack I\in{\{1,2,\dots,n\}\choose k} }\left|\bigcap\limits_{i\in I}A_i\right | \\<br>&amp;=\sum\limits_{\substack \emptyset\neq I \subseteq\{1,2,\dots,n\}} (-1)^{|I|-1}\left|\bigcap\limits_{i\in I}A_i\right|<br>\end{aligned}<br>$$</p>
+<blockquote>
+<p>数学归纳法：</p>
+<p>$n=2$时成立。假设对$n-1$成立，则<br>$$<br>\begin{aligned}<br>\left | \bigcup_{i=1}^n A_i \right | &amp;=<br>\left | \left ( \bigcup\limits_{i=1}^{n-1}A_i\right )\bigcup A_n\right |\\<br>&amp;=\left | \bigcup\limits_{i=1}^{n-1}A_i \right |+ \left | A_n\right |  -<br>\left | \left ( \bigcup\limits_{i=1}^{n-1} A_i\right )\bigcap A_n \right | \\<br>&amp; = \left | \bigcup\limits_{i=1}^{n-1}A_i\right |+\left | A_n\right |-<br>\left | \bigcup\limits_{i=1}^{n-1}\left(A_i\cap A_n\right)\right |<br>\end{aligned}<br>$$<br>其中$ \left | \bigcup\limits_{i=1}^{n-1}A_i\right |$和$\left | \bigcup\limits_{i=1}^{n-1}\left(A_i\cap A_n\right)\right |$可由归纳假设推出。</p>
+</blockquote>
+<h4 id="应用1：错排"><a href="#应用1：错排" class="headerlink" title="应用1：错排"></a>应用1：错排</h4><p>任给一个$n$，求出$1,2,\dots,n$的错排个数$D(n)$共有多少个？</p>
+<blockquote>
+<p>解：用$S_n$表示所有$\{1,2,\dots,n\}$上的排列，则$|S_n|=n!$。令$A_i=\{\pi\in S_n:\pi(i)=i\}$，那么就有$D(n)=n!-|A_1\cup A_2\cup \dots \cup A_n |$。</p>
+<p>可以发现$|A_i|=(n-1)!$，如果$i&lt;j$，那么$|A_i\cap A_j |=(n-2)!$。如果$i_1&lt;i_2&lt;\dots&lt;i_k$，那么$|A_{i_1}\cap A_{i_2}\cap\dots\cap A_{i_k}|=(n-k)!$。</p>
+<p>根据容斥原理：<br>$$<br>|A_1\cup A_2\cup\dots\cup A_n |=\sum\limits_{k=1}^n(-1)^{k-1}{n \choose k}(n-k)!=\sum\limits_{k=1}^n(-1)^{k-1}\frac{n!}{k!}<br>$$<br>故$D(n)=n!(1-\frac{1}{1!}+\frac{1}{2!}-\dots+(-1)^n\frac{1}{n!})$。</p>
+</blockquote>
+<p>特别的，$\lim\limits_{n\rightarrow \infty}D_n=\frac{n!}{e}$。</p>
+<h4 id="应用2：欧拉函数"><a href="#应用2：欧拉函数" class="headerlink" title="应用2：欧拉函数"></a>应用2：欧拉函数</h4><p>欧拉函数$\phi$：给定自然数$n$，欧拉函数$\phi(n)$定义为不超过$n$且与$n$互质的自然数的个数。即<br>$$<br>\phi(n)=|\{m\in\{1,2,\dots,n\}:\gcd(n,m)=1\}|=?<br>$$</p>
+<blockquote>
+<p>解：根据整数分解定理，$n$可被唯一地分解成$n=p_1^{\alpha_1}p_2^{\alpha_2}\dots p_r^{\alpha^r}$，其中$\alpha_i \geqslant 1 $且$p_i$为素数，$p_1&lt;p_2&lt;\dots&lt;p_r$。</p>
+<p>如果$1\leqslant m &lt; n$，且$m$与$n$不互素，则必存在某个$1\leqslant i\leqslant r$有$p_i|m$。令$A_i=\{m\in \{1,2,\dots,n\}:p_i|m\}$，则$\phi(n)=n-|A_1\cup A_2\cup \dots \cup A_r|$。</p>
+<p>可以发现$|A_i|=\frac{n}{p_i}$。当$i&lt;j$时，$|A_i\cap A_j|=\frac{n}{p_ip_j}$。当$i_1&lt;i_2&lt;\dots&lt;i_k$时，$|A_{i_1}\cap A_{i-2}\cap \dots \cap A_{i_k}|=\frac{n}{p_{i_1}p_{i_2}\dots p_{i_k}}$。</p>
+<p>所以有$\phi(n)=n(1-\frac{1}{p_1})(1-frac{1}{p_2})\dots(1-\frac{1}{p_r})$。</p>
+</blockquote>
+<h4 id="练习题2-4"><a href="#练习题2-4" class="headerlink" title="练习题2.4"></a><strong>练习题2.4</strong></h4><h3 id="函数估计"><a href="#函数估计" class="headerlink" title="函数估计"></a>函数估计</h3><h4 id="大O符号"><a href="#大O符号" class="headerlink" title="大O符号"></a>大O符号</h4><p>应用范围：寻找精确值困难，转而寻找可接受的估值（estimate）。</p>
+<p><strong>函数的渐进比较（Asymptotic comparison）</strong></p>
+<p>定义：$f,g:N\rightarrow R$是两个从自然数到实数的单变量方程。$f(n)=O(g(n))$表示存在常数$n_0$和$c$，使得对所有$n\geqslant n_0$，不等式$|f(n)|\leqslant c\times g(n)$成立。</p>
+<p>直观地讲，$f$的增长不比$g$快很多。即$\lim\limits_{n\rightarrow} \frac{f(n)}{g(n)}\not \rightarrow \infty$。</p>
+<p>例子：$100000=O(1)$，$(7n^2+6n+1)(n^3+4)=O(n^5)$，${n\choose 2}=n(n-1)/2=\frac{1}{2}n^2+O(n)=O(n^2)$；</p>
+<p>$0&lt;\alpha\leqslant \beta \Rightarrow n^\alpha = O(n^\beta)$，$\forall C &gt; 0, a &gt;1, n^n=O(a^n)$，$\forall C&gt; 0, \alpha &gt; 0,  (\ln n)^C=O(n^\alpha)$。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">表示</th>
+<th style="text-align:center">条件</th>
+<th style="text-align:center">直观含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">大$O$符号</td>
+<td style="text-align:center">$f(n)=O(g(n))$</td>
+<td style="text-align:center">$\lim\limits_{n\rightarrow \infty}\frac{f(n)}{g(n)}\not\rightarrow \infty$</td>
+<td style="text-align:center">$f$的增长不比$g$快很多</td>
+</tr>
+<tr>
+<td style="text-align:center">小$o$符号</td>
+<td style="text-align:center">$f(n)=o(g(n))$</td>
+<td style="text-align:center">$\lim\limits_{n\rightarrow\infty}\frac{f(n)}{g(n)}=0$</td>
+<td style="text-align:center">$f$的增长远远慢于$g$</td>
+</tr>
+<tr>
+<td style="text-align:center">大$\Omega$符号</td>
+<td style="text-align:center">$f(n)=\Omega(g(n))$</td>
+<td style="text-align:center">$g(n)=O(f(n))$</td>
+<td style="text-align:center">$f$的增长至少和$g$一样快</td>
+</tr>
+<tr>
+<td style="text-align:center">大$\Theta$符号</td>
+<td style="text-align:center">$f(n)=\Theta(g(n))$</td>
+<td style="text-align:center">$f(n)=O(g(n))$且$f(n)=\Omega(g(n))$</td>
+<td style="text-align:center">$f$和$g$几乎是同一数量级</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$f(n)\thicksim g(n)$</td>
+<td style="text-align:center">$\lim\limits_{n\rightarrow\infty}\frac{f(n)}{g(n)}=1$</td>
+<td style="text-align:center">$f(n)$和$g(n)$几乎是一样的</td>
+</tr>
+</tbody>
+</table>
+<h4 id="调和级数（Harmonic-number）"><a href="#调和级数（Harmonic-number）" class="headerlink" title="调和级数（Harmonic number）"></a>调和级数（Harmonic number）</h4><p>定义调和级数$H_n=1+\frac{1}{2}+\frac{1}{2}+\dots+\frac{1}{n}=\sum\limits_{i=1}^n\frac{1}{n}$。</p>
+<p><strong>调和级数估值</strong></p>
+<p>用数列对调和级数的项做分类。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$\frac{1}{2},\frac{1}{3}$</th>
+<th style="text-align:center">$\frac{1}{4},\dots,\frac{1}{7}$</th>
+<th style="text-align:center">$\frac{1}{8},\dots,\frac{1}{15}$</th>
+<th style="text-align:center">$\frac{1}{16},\dots$</th>
+<th style="text-align:center">$\dots$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$(\frac{1}{2^1},\frac{1}{2^0}]$</td>
+<td style="text-align:center">$(\frac{1}{2^2},\frac{1}{2^1}]$</td>
+<td style="text-align:center">$(\frac{1}{2^3},\frac{1}{2^2}]$</td>
+<td style="text-align:center">$(\frac{1}{2^4},\frac{1}{2^3}]$</td>
+<td style="text-align:center">$(\frac{1}{2^5},\frac{1}{2^4}]$</td>
+<td style="text-align:center">$\dots$</td>
+</tr>
+<tr>
+<td style="text-align:center">$G_0$</td>
+<td style="text-align:center">$G_1$</td>
+<td style="text-align:center">$G_2$</td>
+<td style="text-align:center">$G_3$</td>
+<td style="text-align:center">$G_4$</td>
+<td style="text-align:center">$\dots,G_t$</td>
+</tr>
+</tbody>
+</table>
+<p>其中$G_k=\{\frac{1}{i}|\frac{1}{2^k}&lt;\frac{1}{i}\leqslant \frac{1}{2^{k-1}}\}$。不难发现$|G_k|=2^{k-1}$。</p>
+<p>同时有：<br>$$<br>\begin{aligned}<br>&amp;\sum\limits_{x\in G_k}x\leqslant | G_k|\max G_k=2^{k-1}\times\frac{1}{2^{k-1}}=1\\<br>&amp;\sum\limits_{x\in G_k}x\geqslant |G_k|\min G_k&gt;2^{k-1}\times \frac{1}{2^k}=\frac{1}{2}<br>\end{aligned}<br>$$</p>
+<p>而$G$的最后一项$G_t$下表$t=\lfloor \log_2 n\rfloor+1$。<br>$$<br>\begin{aligned}<br>\left . \begin{matrix}<br>H_n\leqslant t\times 1\leqslant \lfloor \log_2 n\rfloor +1 \\<br>H_n&gt;(t-1)\times\frac{1}{2}\geqslant \frac{1}{2}\lfloor \log_2 n\rfloor<br>\end{matrix}\right \} \Rightarrow H(n)=\Theta(\log_2 n)=\Theta(\ln n )<br>\end{aligned}<br>$$</p>
+<h4 id="练习题3-1"><a href="#练习题3-1" class="headerlink" title="练习题3.1"></a><strong>练习题3.1</strong></h4><h4 id="估值初步：阶乘估值"><a href="#估值初步：阶乘估值" class="headerlink" title="估值初步：阶乘估值"></a>估值初步：阶乘估值</h4><p><strong>极点估值（$n\geqslant 2$）</strong>：<br>$$<br>\begin{aligned}<br>\left \{\begin{matrix}<br>n!=\prod\limits_{i=1}^n i \leqslant \prod\limits_{i=1}^n n = n ^ n \\<br>n!=\prod\limits_{i=2}^n i \geqslant \prod\limits_{i=2}^n 2 = 2 ^ {n - 1 }<br>\end{matrix} \right .<br>\end{aligned}<br>$$<br>进一步优化：<br>$$<br>\begin{aligned}<br>\left \{ \begin{matrix}<br>n!=\prod\limits_{i=1}^ni\leqslant \left(\prod\limits_{i=1}^{\frac{n}{2}}\frac{n}{2}\right)\left(\prod\limits_{i=\frac{n}{2}+1}^n n\right)=\left(\frac{n}{\sqrt{2}}\right)^n\\<br>n!=\prod\limits_{i=1}^n i \geqslant \prod\limits_{i=\frac{n}{2}}^ni&gt;\prod\limits_{i=\frac{n}{2}+1}^n\frac{n}{2}=(\frac{n}{2})^{\frac{n}{2}}=(\sqrt{\frac{n}{2}})^n<br>\end{matrix} \right .<br>\end{aligned}<br>$$<br><strong>高斯估值</strong>：</p>
+<p>算数-几何均值不等式（Arithmetic-geometric mean inequality）：<br>$$<br>\sqrt{xy}\leqslant \frac{x+y}{2} (x,y\in R_+)<br>$$<br>那么上界：<br>$$<br>n!=\sqrt{n!n!}=\sqrt{\prod\limits_{i=1}^n i(n+1-i)}=\prod\limits_{i=1}^n\sqrt{i(n+1-i)}\leqslant \prod_{i=1}^n\frac{n+1}{2}=(\frac{n+1}{2})^n<br>$$<br>同时，我们容易验证有<br>$$<br>i(n+1-i)\geqslant n<br>$$<br>那么下界：<br>$$<br>n!=\sqrt{n!n!}=\sqrt{\prod\limits_{i=1}^n i(n+1-i)}=\prod\limits_{i=1}^n\sqrt{i(n+1-i)}\geqslant\prod\limits_{i=1}^n\sqrt n = n ^{\frac{n}{2}}<br>$$<br><strong>欧拉数（Euler number）</strong>：$e=2.718281828\dots$</p>
+<p>对于$x\in R$，有$1+x\leqslant e ^ x$。最终我们会得到$e(\frac{n}{e})^n\leqslant n! \leqslant en(\frac{n}{e})^n$。</p>
+<blockquote>
+<p>证明：上界（归纳法）</p>
+<p>当$n=1$时，$1\geqslant 1!$，结论平凡。设$n=k$时结论成立，那么当$n=k+1$时，</p>
+<p>$n!=n(n-1)!\leqslant n e(n-1)(\frac{n-1}{e})^{n-1}=en(\frac{n}{e})^n\times e(\frac{n-1}{n})^n$。</p>
+<p>而$e(\frac{n-1}{n})^n=e(1-\frac{1}{n})^n\leqslant e(e^{-\frac{1}{n}})^n=1$。所以结论成立。</p>
+<p>证明：下界（归纳法）</p>
+<p>当$n=1$时，$1\leqslant 1!$，结论平凡。设$n=k$时结论成立，那么当$n=k+1$时，</p>
+<p>$n!=n(n-1)!\leqslant n e(n-1)(\frac{n-1}{e})^{n-1}=en(\frac{n}{e})^n\times e(\frac{n-1}{n})^{n-1}$。</p>
+<p>而$e(\frac{n-1}{n})^{n-1}=e(\frac{n}{n-1})^{1-n}=e(1+\frac{1}{n-1})^{1-n}=e\left((1+\frac{1}{n-1})^{n-1}\right)^{-1}\geqslant e\left((e\frac{1}{n-1})^{n-1}\right)^{-1}=e\times e ^{-1} = 1$。</p>
+<p>结论成立。</p>
+</blockquote>
+<p><strong>Stirling公式</strong>：$n!\thicksim \sqrt{2\pi n}(\frac{n}{e})^n$，即$\lim\limits_{n\rightarrow \infty }\frac{\sqrt{2\pi n}(\frac{n}{e})^n}{n!}=1$。</p>
+<h4 id="估值初步：二项式系数估值"><a href="#估值初步：二项式系数估值" class="headerlink" title="估值初步：二项式系数估值"></a>估值初步：二项式系数估值</h4><p>显然，有${n \choose k}\leqslant n ^ k$。当$n\geqslant k &gt; i \geqslant 0$时$\frac{n-i}{k-i}\geqslant \frac{n}{k}$，故${n\choose k}=\prod\limits_{i=0}^{k-1}\frac{n-i}{k-i}\geqslant (\frac{n}{k})^k$。</p>
+<p><strong>二项式定理</strong>：对$n\geqslant 1,1\leqslant k \leqslant n$，取$0&lt;x&lt;1$，有${n\choose 0}+{n \choose 1}x+\dots+{n\choose n}x^n=(1+x)^n$。</p>
+<p>显然，${n\choose 0}+{n\choose 1}x+\dots+{n \choose k}x^k \leqslant (1 + x)^n$，故$\frac{1}{x^k}{n\choose 0}+\frac{1}{x^{k-1}}{n\choose 1}+\dots+{n\choose k}\leqslant \frac{(1+x)^n}{x^k}$。</p>
+<p>故${n\choose 0}+{n\choose 1}+\dots+{n \choose k}\leqslant \frac{(1+x)^n}{x^k}$。取$x=\frac{k}{n}$，因为$1+x\leqslant e ^x$，</p>
+<p>有${n\choose 0}+{n \choose 1}+\dots+{n\choose k}\leqslant (1+\frac{k}{n})^n(\frac{n}{k})^k\leqslant (e^{\frac{k}{n}})^n(\frac{n}{k})^k=(\frac{en}{k})^k$。</p>
+<p>所以${n\choose k}\leqslant{n\choose 0}+{n\choose 1}+\dots+{n\choose k}\leqslant (\frac{en}{k})^k$。</p>
+<p>直接带入Stirling公式可以得到更好的结果。</p>
+<h3 id="图论导引"><a href="#图论导引" class="headerlink" title="图论导引"></a>图论导引</h3><h4 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h4><p><strong>图</strong>：图$G$是一个有序对$(V,E)$，其中$V$是一个集合，被称为顶点集，$E$是一组由二元$V$元素组成的集合，称为边集，即$E\subseteq {V \choose 2}$。为方便常用$V(G),E(G)$来分别表示“$G$的顶点集”和“$G$的边集”。</p>
+<p><strong>画图（drawing）</strong>： <img src="/2019/07/12/TTT/2.png" alt="2"></p>
+<p><strong>阶（Order）</strong>：图顶点的个数，即$|V|$，亦常用$|G|$表示。若$e=\{u,v\}\in E$，则称点$u$和$v$在图$G$中是<strong>相邻的（adjacent）</strong>，或称$u$是$v$的<strong>邻居（neighbor）</strong>。此时亦称$e$和$u,v$<strong>相关联（incident）</strong>。</p>
+<p>显然的，一条边与且仅与两个顶点相关联。</p>
+<p>常用$N(u)$表示与顶点$u$相邻的点集。下图的$|G|=4,N(v_1)=\{v_1,v_2,v_3,v_4\}$。</p>
+<p><img src="/2019/07/12/TTT/3.png" alt="3"></p>
+<p><strong>顶点的度</strong>：给定图$G=(V,E),v\in V$，定义该顶点在图$G$中的度（degree）为$\deg_G v=|u:\{u,v\}\in G|=|N(v)| $。一般地，$\delta(G)$表示图$G$的最小度，$\Delta(G)$表示图$G$中的最大度。显然$\deg_G(v)\leqslant |E|$。</p>
+<blockquote>
+<p>chy-2003注：这里的度似乎没有考虑重边，而下面提到的欧拉图考虑了重边。</p>
+</blockquote>
+<p>上图中$\delta(G)=1$，$\Delta(G)=4$。</p>
+<p><strong>无向图（undirected graph）</strong>：上面讨论的都是无向图。无向图的边由集合表示$e=\{u,v\}$。</p>
+<p><strong>有向图（directed graph）</strong>：有向图的边由点对表示$e=(u,v)$，$u$称为边$e$的起点或<strong>尾（tail）</strong>，$v$称为边$e$的终点或<strong>头（head）</strong>。</p>
+<p><img src="/2019/07/12/TTT/4.png" alt="4"></p>
+<p>除显式声明外，一般图为无向图。</p>
+<p><strong>子图</strong>：定义已有图$G$和$G’$，若$V(G)\subseteq V(G’)$且$E(G)\subseteq E(G’)$，那么称$G$是$G’$的子图（subgraph）。</p>
+<p>若在子图基础上还有$E(G)=E(G’)\cap {V(G) \choose 2}$，则$G$是$G’$的<strong>导出子图（induced subgraph）</strong>。</p>
+<p>若在子图基础上还有$V(G)=V(G’)$，则$G$是$G’$的<strong>生成子图（spanning subgraph）</strong>。</p>
+<p><strong>图上基本操作</strong>：</p>
+<blockquote>
+<ul>
+<li>$G\cup \{e_{ij}\},G+e_{ij}$：在图$G$中增加边$e_{ij}=\{v_i,v_j\}$。</li>
+<li>$G\backslash \{e_{ij}\},G-e_{ij}$：在图$G$中删除边$e_{ij}=\{v_i,v_j\}$。不断进行这个操作可以得到任意生成子图。</li>
+<li>$G\backslash \overline E,G-\overline E$，其中$\overline E \subseteq E(G)$：从图$G$中删去$\overline E$中所有的边。</li>
+<li>$G\backslash \{v\},G-v$：从图$G$中删去顶点$v$及其关联的边。不断进行这个操作可以得到任意导出子图。</li>
+<li>$G\backslash \overline V,G-\overline V$，其中$\overline V \subseteq V(G)$：从$G$中删去$\overline V$中的所有顶点及与这些点相关联的边。</li>
+</ul>
+</blockquote>
+<h4 id="特殊图"><a href="#特殊图" class="headerlink" title="特殊图"></a>特殊图</h4><p><strong>路径图（path $P_n$）</strong>：$V=\{0,1,\dots,n\},E=\left\{\{i-1,i\}:i=1,2,\dots,n\right\}$。</p>
+<p><strong>环（cycle $C_n$）</strong>：$V=\{1,2,\dots,n\},E=\left\{\{i,i+1\}:i=1,2,\dots,n-1\right\} \cup \left\{\{1,n\}\right\}$。</p>
+<p><strong>二分图（Bipartite graph $B_{n,m}$）</strong>：$V=\{u_1,\dots,u_n\}\cup\{v_1,\dots,v_m\},E\subseteq \left\{\{u_i,v_j\}:i=1,\dots,n,j=1,\dots,m\right\}$。</p>
+<p><strong>完全图（Complete graph $K_n$）</strong>：$V=\{1,2,\dots,n\},E={V\choose 2 }$。</p>
+<p><strong>完全二分图（Complete bipartite graph $K_{n,m}$）</strong>：</p>
+<p>$V=\{u_1,\dots,u_n\}\cup\{v_1,\dots,v_n\},E=\{\{u_i,v_j\}:i=1,\dots,n,j=1,\dots,m\}$</p>
+<p><strong>正则图</strong>：如果图中所有顶点的度数都是一个常值$r$，则称该图为$r-$正则图（r-regular graph）。</p>
+<p>0-正则图：空图；</p>
+<p>1-正则图：不相邻的边（集）；</p>
+<p>2-正则图：不相交的环（集）；</p>
+<p>3-正则图：又称为立方图（cubic graph）。</p>
+<p><strong>简单图</strong>：</p>
+<p>对于无向图$G=(V,E)$，<strong>自环（loop）</strong>：$e\in E$，如果$e=\{v,v\}$，其中$v\in V$则称$e$是一个自环。<strong>重边（Multiedge）</strong>：$e_1,e_2\in E$且$e_1=e_2=\{u,v\}$，其中$u,v\in V$，则称$e_1,e_2$是重边。<strong>简单图（simple graph）</strong>：没有重边和自环的无向图。</p>
+<p><strong>路径（Path）</strong>：不允许环，各个顶点和边至多出现一次。</p>
+<p><strong>游走（Walk）</strong>：允许环，顶点和边可重复。</p>
+<p><strong>连通图（connected graph）</strong>：如果图$G$上任意两点$u,v$之间都有至少一条路径，则称$G$是一个连通图。否则称为<strong>非连通图（disconnected graph）</strong>。</p>
+<p><strong>极大连通子图</strong>：给定图$G$，定义$G$的极大联通子图：</p>
+<blockquote>
+<ul>
+<li>是原图的子图；</li>
+<li>是连通图；</li>
+<li>已经等于原图或再扩大（增加顶点或边）则成为非连通图。</li>
+</ul>
+</blockquote>
+<p><strong>连通分支（component）</strong>：图$G=(V,E)$的极大连通子图也被称为图$G$的连通分支。连通分支可能不唯一，图$G$的极大连通分支的个数用$Con(G)$表示。</p>
+<p><strong>树（tree）</strong>：无环联通图被称为树。</p>
+<h4 id="练习题4-1"><a href="#练习题4-1" class="headerlink" title="练习题4.1"></a><strong>练习题4.1</strong></h4><h4 id="握手定理"><a href="#握手定理" class="headerlink" title="握手定理"></a>握手定理</h4><p>问题引入1：在宴会上一共有$n$个人，他们中一些人互相握手，已知每人握手$a$次，问握手总次数$S$为多少？ $S=\frac{n\times a}{2}$</p>
+<p>问题引入2：在宴会上一共有$n$个人，他们中一些人互相握手。已知握手的次数依次为$\{h_1,h_2,\dots,h_n\}$次。问握手总次数$S$为多少？$S=\frac{\sum\limits_{i=1}^n h_i}{2}$。</p>
+<p><strong>顶点的度</strong>：前面已经提到过顶点的度的概念，那么有如下几个显然的结论：</p>
+<blockquote>
+<ul>
+<li>$\deg _G(v)\leqslant |E|$。</li>
+<li>$G=P_n$，则$1\leqslant \deg_G(v)\leqslant 2$。</li>
+<li>$G=C_n$，则$\deg_G(v) = 2$。</li>
+<li>$G=K_n$，则$\deg_G(v)=n-1$。</li>
+</ul>
+</blockquote>
+<p><strong>握手定理（Handshaking theorem, Leonhard Euler 1736）</strong>：给定无向图$G=(V,E)$，以下等式成立<br>$$<br>\sum\limits_{v\in V} \deg_G(v)=2|E|<br>$$</p>
+<blockquote>
+<p>一条边与两个顶点相关联，在对$\deg_G(v)$做累加时，每条边被使用到两次。对其他边计数有类似推理。故等式成立。</p>
+</blockquote>
+<p><strong>推论</strong>：无向图中，度数为奇数的点一定有偶数个。</p>
+<h4 id="图同构（graph-isomorphism）"><a href="#图同构（graph-isomorphism）" class="headerlink" title="图同构（graph isomorphism）"></a>图同构（graph isomorphism）</h4><p>若对图$G=(V,E)$及图$G’=(V’,E’)$，存在双射函数$f:V\rightarrow V’$，满足对任意$x,y\in V$，都有$\{x,y\}\in E$当且仅当$\{f(x),f(y)\}\in E’$。那么我们称图$G$和图$G’$是同构的。用符号$G\cong G’$表示图同构。</p>
+<p>直观地讲，同构图之间，仅仅是顶点的名字不同。</p>
+<p><strong>图的计数</strong>：</p>
+<p>问题：以集合$V=\{1,2,\dots,n\}$中的元素为顶点构造图$G=(V,E)$，其中$E\subseteq {V \choose 2}$。求问能构成多少个图？</p>
+<p>解： $|{V \choose 2}|={n\choose 2}$为$K_n$的边数。每条边可能在图中，也可能不在图中，故以$V$为顶点的图共有$2^{n\choose 2}$种。</p>
+<p>问题：以集合$V=\{1,2,\dots,n\}$中的元素为顶点构造图$G=(V,E)$，其中$E\subseteq {V \choose 2}$。求问能构成多少个不同构的图？</p>
+<p>例：三个顶点所组成互不同构的图共有$4$种。</p>
+<p>解：显然，答案不会超过$2^{n \choose 2}$。而一个$n$个点的图至多与$n!$个不同的图同构。于是如果记答案为$X$，那么有<br>$$<br>\frac{2^{n\choose 2}}{n!}\leqslant X \leqslant 2^{n \choose 2}<br>$$<br>然后对上下界进行估值：<br>$$<br>\begin{aligned}<br>\log_2 2 ^{n\choose 2}&amp;={n\choose 2}=\frac{n^2}{2}(1-\frac{1}{n})\\<br>\log_2 \frac{2^{n \choose 2 } }{ n !} &amp;= {n \choose 2} - \log_2  n \geqslant {n\choose 2} - \log_2 n ^ n = \frac{n^2}{ 2 }(1-\frac{1}{n}-\frac{2\log_2 n}{n})<br>\end{aligned}<br>$$<br>于是就有<br>$$<br>X=\Theta(2^{\frac{n^2}{2}})<br>$$</p>
+<h4 id="练习题4-2"><a href="#练习题4-2" class="headerlink" title="练习题4.2"></a><strong>练习题4.2</strong></h4><h4 id="欧拉图"><a href="#欧拉图" class="headerlink" title="欧拉图"></a>欧拉图</h4><p><strong>欧拉图（Eulerian graph）</strong>：如果从图$G=(V,E)$上的某一点$v$出发，存在沿图$E$中边的一个连续游走（walk），该游走覆盖所有的顶点，且用到$E$中每条边一次且仅一次，最后回到点$v$，则称$G$是欧拉图。其中闭合的游走被称为一条<strong>欧拉回路（Euler tour）</strong>。</p>
+<p><strong>欧拉图的判定</strong>：<strong>欧拉图定理</strong>：图$G=(V,E)$是欧拉图当且仅当图$G$是连通图，且每个顶点的度数都是偶数。</p>
+<blockquote>
+<p>必要性证明：</p>
+<p>欧拉图必然是连通的。</p>
+<p>而每个点的度数都是偶数：由于要求是回路，那么对于一个点，进入一次必然会离开一次。</p>
+<p>充分性证明：</p>
+<p>考虑图$G$中最长的边不重复的游走方案$T=(v_0,e_1,v_1,\dots,e_m,v_m)$。由于$T$已经最大，所以所有与$v_m$相关联的边都已含在$T$中。且已知$v_m$的度数为偶数，如果$v_m$出现在游走方案中间$T=(v_0,e_1,v_1,\dots,e_i,v_m,e_{i+1},\dots,v_m)$，那么中间的每个$v_m$对$v_m$的度数贡献是$2$。出现在末端的$v_m$对$v_m$的度数贡献为$1$。而又由于$v_m$的度数为偶数，则$v_0=v_m$。也就是说$T=(v_m,e_1,v_1,\dots,e_m, v_m)$。所以$T$是回路。</p>
+<p>若$T$不是欧拉回路，由于$G$是连通图，所以必然存在$e=\{u,v\}$，$e$不包含在$T$中，但又与$T$中的某个点$v=v_i$相关联。这样的话$|u,e,v_i,e_{i+1}\dots,e_i,v_i|=|T|+1$与$T$的最长性矛盾。所以$T$是欧拉回路。</p>
+</blockquote>
+<p>进一步的问题：对图$G=(V,E)$，是否存在一个连续的游走方案，使$E$中的每条边$e$在方案中恰好出现一次。对于非欧拉图，若存在则必然不是欧拉回路，这样的游走方案被称为<strong>欧拉道路</strong>。</p>
+<p><strong>定理</strong>：图$G=(V,E)$中存在欧拉道路当且仅当图$G$是连通的且或者1、所有顶点度数都为偶数，或者2、除$2$个顶点度数为奇数外，其余顶点的度数都是偶数。且度数为奇数的两个点必为欧拉道路的起点和终点。</p>
+<blockquote>
+<p>情况2的充分性证明：</p>
+<p>设度数为奇数的两个点为$u,v$，在$u,v$之间增加边$e=\{u,v\}$，那么$G+e$就是欧拉图。这个图的欧拉路径必然会用到边$e$。去掉$e$后就得到了以$u,v$为起点和终点的欧拉道路。</p>
+</blockquote>
+<h4 id="有向欧拉图"><a href="#有向欧拉图" class="headerlink" title="有向欧拉图"></a>有向欧拉图</h4><p><strong>有向图的入度（indegree）</strong>：$\deg_G^+(v)=|u:(u,v)\in E|$；</p>
+<p><strong>有向图的出度（outdegree）</strong>：$\deg_G^-(v)=|u:(v,u)\in E| $；</p>
+<blockquote>
+<p>chy-2003注：这里的定义似乎同样不能有效地表示重边。</p>
+</blockquote>
+<p><strong>有向图的对称化（symmetrization）</strong>：给定有向图$G=(V,E)$，定义$sym(G)=(V,\overline E)$，其中$\overline E = \{\{x,y\}:(x,y)\in E \vee (y,x)\in E\}$。</p>
+<p><strong>性质</strong>：有向图$G=(V,E)$含欧拉环（即依边集$E$的方向的一个连续游走方案，用到所有的边正好一次）的充分必要条件是$sym(G)$是连通图且对$V$中所有点$v$都有$\deg_G^+(v)=\deg_G^-(v)$。</p>
+<blockquote>
+<p>证明：同无向图欧拉定理。</p>
+</blockquote>
+<h4 id="编码盘"><a href="#编码盘" class="headerlink" title="编码盘"></a>编码盘</h4><p><strong>问题</strong>：一个编码盘的底盘可转动且分成$16$个相等的扇面。每个扇面上写入$0$或者$1$，顶部四个位置的扇面可见。顺时针读取当前可见扇面的值，为一个$4$位二进制输出。试问底盘上的$16$个二进制数的序列应如何设置，使得转动编码盘底盘正好能输出所有的$4$为二进制编码？</p>
+<blockquote>
+<p>分析：</p>
+<p>如果当前的状态为$a_1a_2a_3a_4$，逆时针方向旋转一个扇面，那么新的输出是$a_2a_3a_4a_5$。定义如下点集和有向边：点$(a_{i-1}a_ia_{i+1}),(a_i,a_{i+1},a_{i+2})$，有向边$a_{i-1}a_ia_{i+1}a_{i+2}=((a_{i-1}a_ia_{i+1}),(a_ia_{i+1}a_{i+2}))$。</p>
+<p>不难发现$|V|=2^3=8$，$\deg_G^+(v)=\deg_G^-(v)=2$。</p>
+<p><img src="/2019/07/12/TTT/5.png" alt="5"></p>
+<p>我们可以画出整个图</p>
+<p><img src="/2019/07/12/TTT/6.png" alt="6"></p>
+<p>于是存在有向欧拉回路，如<br>$$<br>0000,0001,0010,0101,\\1010,0100,1001,0011,\\0110,1101,1011,0111,\\1111,1110,1100,1000\\<br>$$<br>于是我们就能得到一种答案：</p>
+<p>$0000101001101111$</p>
+</blockquote>
+<h4 id="练习题5-1"><a href="#练习题5-1" class="headerlink" title="练习题5.1"></a><strong>练习题5.1</strong></h4><h4 id="哈密顿图与Ore定理"><a href="#哈密顿图与Ore定理" class="headerlink" title="哈密顿图与Ore定理"></a>哈密顿图与Ore定理</h4><p>背景：$19$世纪英国数学家哈密顿（Sir William Hamilton）提出问题：正凸$12$面体，把$20$个顶点比作世界上$20$个城市，$30$条棱表示这些城市间的交通路线。问，能否周游整个世界，即从某个城市出发，经过每城市一次且只一次，最后返回出发地。</p>
+<p><img src="/2019/07/12/TTT/7.png" alt="7"></p>
+<p><strong>哈密顿回路（Hamiltonian cycle）</strong>：如果一个<strong>环</strong>经过图上所有点正好一次，则此环被称为哈密顿环。</p>
+<p><strong>哈密顿图（Hamiltonian graph）</strong>：含有哈密顿环的图被称为哈密顿图。</p>
+<p><strong>哈密顿道路（Hamiltonian path）</strong>：如果一条<strong>路径</strong>经过图上所有点正好一次，则此路径被称为哈密顿道路。</p>
+<p>注意：讨论哈密顿图相关的时候一般指简单图。因为重边和自环显然没有用。</p>
+<p><strong>判断哈密顿图的充分（不必要）条件</strong>：</p>
+<p><strong>定理[Dirac 1952]</strong>：$|G|=n\geqslant 3$，且$\delta(G)\geqslant \frac{n}{2}$，则图$G$一定是哈密顿图。</p>
+<blockquote>
+<p>因为$\delta(G)\geqslant \frac{n}{2}$，图$G$必为连通图。（若不是连通图，则取顶点个数最少的连通分支$G’$，必有$\delta(G’)&lt;|G’|\leqslant \frac{n}{2}$。）</p>
+<p>取$G$中最长路径$P=x_1\dots x_k$。显然有$N(x_1)\subseteq P,N(x_k)\subseteq P$。</p>
+<p>取$i\in [1,\dots,k-1]$，$k\leqslant n$，其中<br>$$<br>\begin{aligned}<br>\left \{ \begin{matrix}<br>\left | i:\{x_i,x_k\}\in E(G)\right | \geqslant \frac{n}{2}\\<br>\left | i:\{x_1,x_{i+1}\}\in E(G)\right | \geqslant \frac{n}{2}<br>\end{matrix}\right.<br>\end{aligned}<br>$$<br>如果记第一个集合为$A$，第二个集合为$B$，那么显然有$|A|+|B|&gt;n$。也就是说存在一个$i$，使$x_i$与$x_k$相邻且$x_{i+1}$与$x_1$相邻。那么我们构造$x_1x_{i+1}Px_kx_iPx_1$是一个环。而由于$P$的最大性，$P$经过了图$G$中所有顶点，所以图$G$是哈密顿图。（这一部分证明与欧拉图中类似，不再重复。）</p>
+</blockquote>
+<p><strong>注意</strong>：这个定理不是必要条件。</p>
+<p><strong>判断哈密顿图的充分（不必要）条件</strong>：</p>
+<p><strong>定理[Ore 1960]</strong>：图$G=(V,E)$，$|G|=n\geqslant 3$。对任意不同$u,v\in V$，若$u,v$不相邻，则$\deg_G(u)+\deg_G(v)\geqslant n$。满足以上条件的图$G$是哈密顿图。</p>
+<blockquote>
+<p>证明：与上一个证明类似，略。</p>
+</blockquote>
+<p>显然，Dirac定理是Ore定理的特例。</p>
+<p><strong>注意</strong>：这个定理不是必要条件。</p>
+<p> <strong>引理</strong>：图$G=(V,E)$，$|G|=n\geqslant 3$。若存在不相邻的点$u,v\in V$且$\deg_G(u)+\deg_G(v)\geqslant n$，则$G=(V,E)$是哈密顿图当且仅当$G’=(V,E\cup\{\{u,v\}\})$是哈密顿图。</p>
+<blockquote>
+<p>必要性显然。</p>
+<p>充分性：（反证法）</p>
+<p>若$G’$中有哈密顿回路而$G$中没有，则$G’$中的哈密顿回路$P$必经过边$e=\{u,v\}$。</p>
+<p>$P-e$是以$u,v$为始点和终点的哈密顿道路。接下来证明$\deg_G(u)+\deg_G(v)&lt;n(*)$。</p>
+<p>若$\deg_G(u)+\deg_G(v)\geqslant n$，则同Dirac定理的证明，从$P-e$可构造不含$e$的哈密顿回路，与假设矛盾。</p>
+<p>$(*)$与命题前提矛盾，故假设错误。即$G$为哈密顿图。</p>
+</blockquote>
+<p><strong>判断哈密顿图的必要（不充分）条件</strong>：</p>
+<p><strong>定理</strong>：如果图$G=(V,E)$是哈密顿图，则对所有非空子集$S\subseteq V$，必然有$Con(G-S)\leqslant|S|$。</p>
+<blockquote>
+<p>设$C$是图$G$中的一条哈密顿回路，易验证对于$v$的每个非空子集$Con(C-S)\leqslant |S|$。</p>
+<p>而$C-S$是$G-S$的生成子图，故$Con(G-S)\leqslant Con(C-S) \leqslant |S|$。 </p>
+</blockquote>
+<h4 id="练习题5-2"><a href="#练习题5-2" class="headerlink" title="练习题5.2"></a><strong>练习题5.2</strong></h4><h4 id="握手定理的应用（一）：-Smith定理"><a href="#握手定理的应用（一）：-Smith定理" class="headerlink" title="握手定理的应用（一）： Smith定理"></a>握手定理的应用（一）： Smith定理</h4><p><strong>定理（Smith）</strong>：对$3$正则图，包含图上任意边的哈密顿回路必有偶数条。</p>
+<blockquote>
+<p>证明：（Thomason 1978）</p>
+<p>思路：选取图$G$中任意一条边$e$，构造图$G’$，使图$G’$中的顶点的度数为$1$或$2$。当顶点度数为$1$时，能证明原图$G$中必有一条含$e$的哈密顿回路。由于$G’$受到握手定理限制，所以$G’$中必然存在第$2$个点度数为$1$。而因为对应关系，原始图$G$中必存在另一条哈密顿回路。</p>
+<p>过程：图$G$是$3$正则图，$e=\{v_1,v_2\}$是一条固定的边。为了不失一般性，假设原图中存在含有$e$的哈密顿回路。</p>
+<p>构造图$G’=(V’,E’)$。</p>
+<p>$V’$中的每一个点，代表一条从$v_1$开始，以$e$为第一条边的哈密顿路径。（由前提假设，知$V’$非空。）</p>
+<p>接下来构造$E’$。$v_P\in V’$代表哈密顿路径$P=v_1,v_2,\dots,v_n$。由于$v_n$在$G$中度数为$3$，故必存在$1&lt;k&lt;n-1$满足$\{v_k,v_n\}\in E(G)$。于是可构造另一条路径$P’=v_1v_2\dots v_kv_nv_{n-1}\dots n_{k+1}$是哈密顿路径。令$\{v_P,v_{P’}\}\in E’$。</p>
+<p>$G’$中任意$v_P$的度数至多为$2$：$\deg(v_P)=1$当且仅当原始用到的哈密顿路径实际上是图$G$中的一个哈密顿回路。（因为$v_n$和$v_1$相邻，就只能构造出一个$1&lt;k&lt;n-1$满足$\{v_k,v_n\}\in E(G)$。反之$\deg(v_P)=2$。</p>
+<p>根据握手定理，度数为奇数的点必有偶数个。故必存在另一点$\deg(v_Q)=1$。</p>
+<p>例子：</p>
+<p><img src="/2019/07/12/TTT/8.png" alt="8"></p>
+<p>如图，假设我们固定$e=\{1,2\}$。一开始获得路径$12348765(1)$。$8$与$5$相邻，我们可以得到$12348567$。$7$和$3,8$响铃，能得到$12348765$和$12376584(1)$。前者重复，不再考虑，而后者是另一条哈密顿回路。</p>
+</blockquote>
+<h4 id="握手定理的应用（二）：Sperner引理"><a href="#握手定理的应用（二）：Sperner引理" class="headerlink" title="握手定理的应用（二）：Sperner引理"></a>握手定理的应用（二）：Sperner引理</h4><p><strong>Sperner引理（平面）</strong>：已知平面上的一个三角形$ABC$，任意划分成若干小的不重叠三角形，用红黄蓝三色依次对$A$、$B$、$C$三个顶点着色。然后这样对剩余顶点着色：</p>
+<blockquote>
+<ul>
+<li>$BC$边上的点用黄色或者蓝色；</li>
+<li>$AB$边上的点用红色或者黄色；</li>
+<li>$AC$边上的点用红色或者蓝色；</li>
+<li>对余下的内部顶点任意着色。</li>
+</ul>
+</blockquote>
+<p>这样必然存在一个三个顶点不同色的小三角形。</p>
+<blockquote>
+<p>Sperner’s lemma 的证明：</p>
+<p>构造图$G=(V,E)$：</p>
+<p>$V$：每个闭合的连续平面（小三角形）抽象为一个点，外面的开放平面也抽象为一个点，记为$v$。</p>
+<p>$E$：两个点之间有一条边，当且仅当原对应平面相邻且相邻边顶点着色为红和蓝。</p>
+<p>接下开考虑$G$中顶点的度数：</p>
+<p>$V$在$ABC$内（非点$v$）度数非$0$的情况：</p>
+<p>1、三个顶点分别为红黄蓝；2、三个顶点两红一蓝；3、三个顶点两蓝一红。</p>
+<p>其余情况度数均为$0$。</p>
+<p>$V$在$ABC$外的点（点$v$）的度数就是$AC$边上的颜色改变次数。易证其必为奇数。</p>
+<p>根据握手定理，$G$中必还有度数为奇数的点，即情况1必然发生。</p>
+</blockquote>
+<p><strong>Sperner’s lemma的完整形式（sperner 1928）</strong>：对任意$n$维单形体（n-simplex）进行分割并用$n+1$中颜色去着色，则任何合适的单形分割着色方案下，都必有一个包含所有不同颜色的单元。$n=1$时，是两端颜色不同的线段，$n=2$就是上面所述的情况，$n=3$时是四面体……</p>
+<h4 id="练习题5-3"><a href="#练习题5-3" class="headerlink" title="练习题5.3"></a><strong>练习题5.3</strong></h4><h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><h4 id="树的刻画"><a href="#树的刻画" class="headerlink" title="树的刻画"></a>树的刻画</h4><p><strong>叶子（leaf）</strong>：图$G$中度数为$1$的顶点被称为叶子或者<strong>终点（end-vertex）</strong>。</p>
+<p><strong>引理</strong>：对任意树$T$，如果$|T| \geqslant 2$，则$T$必含至少两个终点。</p>
+<blockquote>
+<p>取$T$中的一条极长路径$P$，则因为$T$中没有环，且$P$极长，所以$P$的两端即为终点。</p>
+</blockquote>
+<p><strong>树的生长引理（Tree-growing lemma）</strong>：对图$G$及图$G$上的叶子节点$v$而言，图$G$是树当且仅当图$G-v$是树。</p>
+<blockquote>
+<p>充分性证明：</p>
+<p>由于$G$无环，那么$G-v$显然也无环。而对图$G$中任意不为$v$的点对$x,y$，$x$到$y$的路径不经过点$v$，所以$G-v$连通。</p>
+<p>必要性证明：</p>
+<p>由于$\deg(v)=1$，且$G-v$无环，那么图$G$也无环。</p>
+<p>假设加入的边为$\{u,v\}$，那么对于$G-v$任何点$x$，都有路径$v$到$u$到$x$可达。所以图$G$连通。</p>
+</blockquote>
+<p><strong>树的等价刻画</strong>：对于图$G=(V,E)$而言，以下称述等价：</p>
+<blockquote>
+<ul>
+<li>图$G$是树。</li>
+<li>路径唯一：对任意两点$u,v\in V$，存在从$u$到$v$的唯一路径。</li>
+<li>最小连通图：$G$是连通图，且去掉任意一条边后都成为非连通图。</li>
+<li>最大无环图：$G$不含环，但增加任何一条边所得到的图$G+e$（其中$e\in {V \choose 2}\backslash E$）中含有一个环。</li>
+<li>Euler方程：$G$是连通图，且$|V|=|E|+1$。</li>
+</ul>
+</blockquote>
+<p>下面证明第1条和第5条等价。</p>
+<blockquote>
+<p>1蕴含5：（归纳法）</p>
+<p>连通性显然。当$|V|=1$时，结论成立。假设当$|V|=n$时成立，当$|V|=n+1$时，根据树的生长引理，去掉一个叶子后仍是一棵树。根据归纳假设，这时结论成立。而加回这个点会使点数和边数同时增加$1$，所以结论假设成立。</p>
+<p>5蕴含1：（归纳法）</p>
+<p>当$|V|=1$时，结论平凡。设$|V|=n$时结论平凡。当$|V|=n+1=|E|+1\geqslant 2$时，根据握手定理，图$G$中顶点度数之和为$2|V|-2$。故图$G$中必然存在度数小于$2$的顶点。且图$G$是连通图，任何顶点的度数非$0$，所以存在度数为$1$的点，记为$v$。</p>
+<p>考虑$G’=G-v$，易验证归纳假设条件成立。根据归纳假设，$G’$是树。根据树的生长定理，$G$也是树。</p>
+</blockquote>
+<h4 id="练习题6-1"><a href="#练习题6-1" class="headerlink" title="练习题6.1"></a><strong>练习题6.1</strong></h4><h4 id="有根树同构"><a href="#有根树同构" class="headerlink" title="有根树同构"></a>有根树同构</h4><p><strong>有根树（Rooted tree）</strong>：二元组$(T,r)$中$T$表示一棵树，$r\in V(T)$表示树上的一个特别顶点称为根（Root）。约定在节点上画向下箭头标明。</p>
+<p>对树上的一条边$\{x,y\}\in E(T)$。如果$x$是出现在从根$r$到$y$的唯一路径上，则称$x$是$y$的<strong>父亲（Father）</strong>，相应地称$y$是$x$的<strong>儿子（son）</strong>。</p>
+<p>一般的图之间，图的同构问题尚无有效的算法；而有根树之间的同构有快速算法。</p>
+<p><strong>定义</strong>：$(T,r)\cong’ (T’,r’)$当且仅当$f:V(T)\rightarrow V(T’)$是$T\cong T’$且$f(r)=r’$。</p>
+<p>显然，$\cong’$关系严格强于$\cong$。</p>
+<p><strong>思路</strong>：将树的比较转化为字符串比较。</p>
+<p>字符串比较：<strong>字典序（Lexicographic order）</strong>：对不同的序列$s=s_1s_2\dots s_n$和$t=t_1t_2\dots t_m$。如果$s$是$t$的初始序列（即$t=st_{n+1}\dots t_m$），则$s&lt;t$；如果$t$是$s$的初始序列（即$s=ts_{m+1}\dots s_n$），则$t &lt; s$。否则令$i$是$s_i\neq t_i$的最小下标，若$s_i&lt;t_i$，则$s&lt;t$；若$s_i&gt;t_i$，则$s&gt;t$。</p>
+<p><strong>过程</strong>：对有根树$(T,r)$如下编码：</p>
+<blockquote>
+<p>R1：所有非根叶节点都赋值为$01$。</p>
+<p>R2：假设点$v$的儿子节点为$w_1,w_2,\dots, w_k$都已各完成赋值，为$A(w_i)$，且$A(w_1)\leqslant A(w_2)\leqslant \dots \leqslant A(w_k)$。则对$v$节点赋值为$0A(w_1)A(w_2)\dots A(w_k)1$。</p>
+<p>根节点$r$的编码就是$(T,r)$的编码，用$#(T,r)$表示。</p>
+</blockquote>
+<p><strong>性质</strong>：$(T,r)\cong’(T’,r’)$当且仅当它们具有相同的编码。</p>
+<blockquote>
+<p>充分性：从有根树同构的定义和编码可证。</p>
+<p>必要性：解码。从编码恢复原始的树结构。任意有根树的编码必然有$0S1$的一般形式，其中$S=S_1S_2\dots S_t$。$S_1$是$S$中$0,1$个数相等的最小前缀，$S_2$是第二个$0,1$平衡的最小前缀……可以根据此恢复出有根树，且显然这样的有根树必然是同构的。</p>
+</blockquote>
+<h4 id="树同构的判定"><a href="#树同构的判定" class="headerlink" title="树同构的判定"></a>树同构的判定</h4><p>一般的树之间的同构也有快速的算法。</p>
+<p>对一般树（无根树），找到其中可以用作根的节点，且该节点在任何同构函数下都被保持。</p>
+<p><strong>距离（Distance）</strong>：图$G$中的两个顶点$u,v$，$dis_G(u,v)$表示$u,v$之间的最短路径的长度。若$u,v$不在一个连通分支里，定义$dis_G(u,v)=\infty$。</p>
+<p><strong>偏心率（Excentricity）</strong>：图$G$及图中的顶点$v$，偏心率定义为：$ex_G(v)=\max\limits_{u\in G} dis_G(u,v)$。</p>
+<p><strong>中心（center）</strong>：图$G$中偏心率最小的顶点集合叫做中心，用符号$C(G)$表示。中心可能任意大，例如环和完全图的$C(G)=V(G)$。</p>
+<p><strong>性质</strong>：对树$T=(V,E)$，$C(T)$含至多两个顶点，且若$C(T)=\{x,y\}$，则$\{x,y\} \in E$。</p>
+<blockquote>
+<p>若$|T|\leqslant 2$，结论显然，否则利用树的特殊性：与树上任意一点$v$距离最远的点必然是叶子节点，</p>
+<p>从$T$构造$T’$：$T’$是从$T$中删去所有叶子节点。显然对$T’$上的点$v$有$ex_T(v)=ex_{T’}(v)+1$。进而$C(T’)=C(T)$；</p>
+<p>反复以上过程，直至最后剩下一个顶点（$C(T)$是一个顶点）或一条边（$C(T)$是两个顶点）。</p>
+</blockquote>
+<p>用树的中心来完成树到有根树的转化：</p>
+<blockquote>
+<p>$|C(T)|=1$，则中心$v$就是根，输出$#(T,v)$。</p>
+<p>$|C(T)|=2$，$C(T)=\{x_1,x_2\},e=\{x_1,x_2\}$，$T-e$必然含有正好两个连通分支$T1,T2$。不失一般性，设$x_1\in V(T_1),x_2\in V(T_2)$。计算$#(T_1,x_1),#(T_2,x_2)$，若$#(T_1,x_1)\leqslant #(T_2,x_2)$，输出$#(T,x_1)$，否则输出$#(T,x_2)$。</p>
+<p>$#T$为以上过程的输出。</p>
+</blockquote>
+<p><strong>性质</strong>：$T\cong T’$当且仅当$#T\cong’ #T’$。</p>
+<blockquote>
+<p>证明：与有根树类似。</p>
+</blockquote>
+<h4 id="练习题6-2"><a href="#练习题6-2" class="headerlink" title="练习题6.2"></a><strong>练习题6.2</strong></h4><h4 id="生成树计数"><a href="#生成树计数" class="headerlink" title="生成树计数"></a>生成树计数</h4><p><strong>生成树（Spanning tree）</strong>：对连通图$G=(V,E)$，生成树是包含$G$中所有顶点且为树的子图。</p>
+<p><strong>问题</strong>：$K_n$的生成树共有多少种？（$K_n$为有$n$个顶点的完全图。）</p>
+<p><strong>特殊情况</strong>：$n=2$时，有$1$种生成树；$n=3$时，有$3$种生成树；$n=4$时，有$4+12=16$种；$n=5$时，有$5+60+60=125$种；$n=6$时，有$6+360+120+90+360+360=1296$种。</p>
+<p><strong>Caley定理（Caley’s formula）</strong>：$K_n$的生成图个数是$n^{n-2}$个。</p>
+<blockquote>
+<ul>
+<li>定义1：<strong>函数图（function graph）</strong>：$f:V\rightarrow V$。如下面的函数：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$v$</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$f(v)$</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2019/07/12/TTT/PIC1.png" alt="PIC1"></p>
+<p>不难发现函数与函数图一一对应。当$|V|=n$时共有$n^n$种不同的函数图。</p>
+<ul>
+<li><p>定义2：<strong>脊椎动物（Vertebrate）骨骼标本</strong>：三元组$(T,h,b)$被称为骨骼标本若其中$T$是一棵树且$h,b\in V$。$h$被称为颈椎骨，$v$被称为尾椎骨。注意：$h,b$除了必须是树上节点外没有任何要求（可重合）。</p>
+</li>
+<li><p>定义3：<strong>脊椎（Spine）</strong>：出现在从颈椎骨到尾椎骨的路径上的点被称为脊椎。</p>
+</li>
+<li><p>证明过程：</p>
+<p>用$T_n$表示$K_n=(V,E)$的生成树个数。每一棵树对应$n^2$种骨骼标本。我们希望证明骨骼标本与$V$上的函数图一一对应，有$n^n$种。如果如此，那么$T_n=\frac{n^n}{n^2}=n^{n-2}$。接下来证明骨骼标本与$V$上的函数图一一对应。</p>
+<p>从骨骼标本对应到函数图：</p>
+<p>让脊椎上的点被从小到大排序后对应位置的点指向。也就是说，如果依次有点$8,3,2,19,4,6$，那么就有如下对应关系：</p>
+<p>|  $v$   |  2   |  3   |  4   |  6   |  8   |  19  |<br>| :—-: | :–: | :–: | :–: | :–: | :–: | :–: |<br>| $f(v)$ |  8   |  3   |  2   |  19  |  4   |  6   |</p>
+<p>（也就是说上面一行是下面一行排序后的结果。）这样得到了若干个环。然后再将剩余的点向环连边。如果上面的例子中还有$e_1=\{1,2\}$和$e_2=\{5,1\}$，那么$f(5)=1$，$f(1)=2$。</p>
+<p>这样，骨骼标本就与函数图一一对应了。</p>
+<p>接下来证明函数图与骨骼标本一一对应：</p>
+<p>显然函数图中必然有环。我们找出所有的环，然后将环上的点如上表这般从小到大写在第一行，然后根据函数图中的对应关系写出第二行。那么第二行从左至右就是骨骼标本的颈椎骨到尾椎骨了。最后加入剩下的点，就可以得到与之对应的骨骼标本。</p>
+<p>这样一来，我们证明了骨骼标本与函数图一一对应。所以$T_n=n^{n-2}$成立。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h4><p><strong>带权图（weighted graph）</strong>：$G=(V,E,w)$是带权图，其中$(V,E)$是无向图，$w$是对边的赋值的集合，即边的权重。</p>
+<p>有时使用$w(G)$表示$\sum\limits_{e\in E} w(e)$。</p>
+<p><strong>最小生成树（Minimum spanning tree）</strong>：给定带权图$G$，最小生成树是$(V,E)$的生成树中代价最小的树。最小生成树不一定唯一。</p>
+<p><strong>Caley定理（Caley’s formula）</strong>：$n$个顶点能构成的不同生成树共有$n^{n-2}$种。</p>
+<p><strong>Kruskal算法</strong>：</p>
+<blockquote>
+<ul>
+<li>输入：连通带权图$G_w=(V,E,\alpha)$。</li>
+<li>输出：最小生成树$T$。</li>
+<li>算法流程：</li>
+</ul>
+<p><img src="/2019/07/12/TTT/flow1.png" alt="flow1"></p>
+<ul>
+<li>正确性证明：</li>
+</ul>
+<p>每次加边减少一个连通分支，而原图是连通图，所以$n-1​$次之后就变成了一个连通分支，算法结束。而对于任何生成树$T_0^<em>​$，用$e=\{u,v\}​$表示被算法加入的第一条不在$T_i^</em>​$中的边。把$e​$加入$T_i^<em>​$必然产生环。$T_i^</em>​$中$u​$到$v​$的路径上必然存在一条不在$T​$中的边$e’​$，且$w(e’)\geqslant w(e)​$。更新$T_{i+1}^<em>=(T_i^</em>\{e’\})\cup \{e\}​$。那么显然$w(T_{i+1}^<em>)\leqslant w(T_i^</em>)​$，最终能得到$T\lhd T_{i+1}^*​$。正确性得证。</p>
+</blockquote>
+<p><strong>Prim算法</strong>：</p>
+<blockquote>
+<ul>
+<li>算法流程：</li>
+</ul>
+<p><img src="/2019/07/12/TTT/flow2.png" alt="flow2"></p>
+<ul>
+<li>正确性证明：</li>
+</ul>
+<p>显然算法会在有限步后结束，因为每一步我们都减少了一个连通分支。而由于每次加入的边跨两个集合，所以一定不会有环。算法的过程是在不断地生长一棵树，所以输出一定是一棵树。那么我们只需要证明这棵树是最小生成树就好了。</p>
+<p>任何一棵原图的生成树$T_0^<em>$。用$e=\{u,v\}$表示被算法加入的第一条不在$T_i^</em>$中的边。把$e$加入$T_i^<em>$必然有环，$T_i^</em>$中$u$到$v$的路径上必然存在一条不在$T$中的边$e’$，且$w(e’)\geqslant w(e)$。更新$T_{i+1}^<em>=(T_i^</em>\{e’\})\cup \{e\}$。那么显然$w(T_{i+1}^<em>)\leqslant w(T_i^</em>)$，最终能得到$T\lhd T_{i+1}^*$。正确性得证。</p>
+</blockquote>
+<h4 id="练习题6-3"><a href="#练习题6-3" class="headerlink" title="练习题6.3"></a><strong>练习题6.3</strong></h4>
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone, qq, weibo, douban"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;Reprint please specify:
+                    </span>
+                    <a href="http://chy-2003.github.io" class="b-link-green">chy's blog</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/07/12/TTT/" class="b-link-green">Coursera离散数学学习笔记</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2019/07/12/TTT/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Coursera离散数学学习笔记">
+                        
+                        <span class="card-title">Coursera离散数学学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">前言本笔记由chy-2003整理于上海交通大学发布于coursera的离散数学课程。讲师龙环。
+不保证内容十分全面，但至少与课程内容保持一致，同时添加或删减了某些样例和引入。个人博客上如此长的文章会带来较大的内存压力，同时由于Markdow</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/学习笔记/" class="post-category" target="_blank">
+                                    学习笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/数学学习/" target="_blank">
+                        <span class="chip bg-color">数学学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/07/12/19/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="CF1188B Count Pairs">
+                        
+                        <span class="card-title">CF1188B Count Pairs</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">题目链接
+问题分析题目大意应该比较明了，就是求无序数对$(i,j)$满足$(a_i+a_j)(a_i^2+a_j^2)\equiv k\,\,(\mod p)$的数量。$$(a_i+a_j)(a_i^2+a_j^2)\equiv k\,\,</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ACM训练/" class="post-category" target="_blank">
+                                    ACM训练
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/数论/" target="_blank">
+                        <span class="chip bg-color">数论</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://chy-2003.github.io/" target="_blank">chy-2003</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+
+            
+			
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/chy-2003" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:chy-2003@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=528574785" class="tooltipped" data-tooltip="QQ联系我: 528574785" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+
+</body>
+</html>
